@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/prometheus-io/main/json-schema/prometheus-query-result-schema.json",
+  "title": "Prometheus Query Result",
+  "description": "Envelope and result shape returned by the Prometheus HTTP API endpoints /api/v1/query and /api/v1/query_range.",
+  "type": "object",
+  "required": ["status", "data"],
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "error"],
+      "description": "Top-level response status."
+    },
+    "errorType": {
+      "type": "string",
+      "description": "Type of error (only set when status == error).",
+      "examples": ["bad_data", "execution", "timeout", "canceled", "unavailable"]
+    },
+    "error": {
+      "type": "string",
+      "description": "Human-readable error message (only set when status == error)."
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Non-fatal warnings emitted during query execution."
+    },
+    "infos": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Informational annotations emitted during query execution."
+    },
+    "data": {
+      "type": "object",
+      "required": ["resultType", "result"],
+      "additionalProperties": false,
+      "properties": {
+        "resultType": {
+          "type": "string",
+          "enum": ["matrix", "vector", "scalar", "string"],
+          "description": "Shape of the result payload."
+        },
+        "result": {
+          "oneOf": [
+            { "$ref": "#/$defs/InstantVector" },
+            { "$ref": "#/$defs/RangeMatrix" },
+            { "$ref": "#/$defs/Scalar" },
+            { "$ref": "#/$defs/StringResult" }
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Labels": {
+      "type": "object",
+      "description": "Label set identifying a time series. The __name__ label carries the metric name.",
+      "additionalProperties": { "type": "string" }
+    },
+    "Sample": {
+      "type": "array",
+      "description": "A single [timestamp, value] sample. Timestamp is Unix seconds (float). Value is a string-encoded float (Prometheus serializes floats as strings to preserve precision).",
+      "prefixItems": [
+        { "type": "number", "description": "Unix timestamp in seconds." },
+        { "type": "string", "description": "Sample value (stringified float, may be \"NaN\", \"+Inf\", \"-Inf\")." }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "InstantVector": {
+      "type": "array",
+      "description": "One entry per series, each carrying the current sample.",
+      "items": {
+        "type": "object",
+        "required": ["metric", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "metric": { "$ref": "#/$defs/Labels" },
+          "value":  { "$ref": "#/$defs/Sample" }
+        }
+      }
+    },
+    "RangeMatrix": {
+      "type": "array",
+      "description": "One entry per series, each carrying a range of samples.",
+      "items": {
+        "type": "object",
+        "required": ["metric", "values"],
+        "additionalProperties": false,
+        "properties": {
+          "metric": { "$ref": "#/$defs/Labels" },
+          "values": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/Sample" }
+          }
+        }
+      }
+    },
+    "Scalar": { "$ref": "#/$defs/Sample" },
+    "StringResult": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "number" },
+        { "type": "string" }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    }
+  }
+}

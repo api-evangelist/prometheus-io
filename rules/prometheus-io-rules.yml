@@ -1,0 +1,125 @@
+extends:
+- ["spectral:oas", all]
+
+documentationUrl: https://prometheus.io/docs/prometheus/latest/querying/api/
+
+aliases:
+  PrometheusResponseEnvelope:
+    description: Paths under /api/v1 whose responses are wrapped in the Prometheus JSON envelope.
+    targets:
+    - formats:
+      - oas3
+      given:
+      - $.paths.[?(@property.startsWith("/api/v1/"))]
+
+rules:
+  # Naming & layout — match what the Prometheus server actually does.
+
+  prometheus-base-path-v1:
+    description: Operational endpoints MUST be served under the /api/v1 base path.
+    message: '"{{path}}" is not under /api/v1; Prometheus exposes its HTTP API at /api/v1.'
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/api/v1(/|$)"
+
+  prometheus-operation-id-kebab-case:
+    description: operationId MUST be kebab-case (e.g. query-range, get-status-config).
+    message: '"{{value}}" is not kebab-case.'
+    severity: warn
+    given: $.paths.*.*.operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
+
+  prometheus-summary-required:
+    description: Every operation MUST carry a summary.
+    severity: error
+    given: $.paths.*.*
+    then:
+      field: summary
+      function: truthy
+
+  prometheus-summary-sentence-case:
+    description: Operation summary should start with a capitalised verb (sentence case), not Title Case.
+    message: 'Summary "{{value}}" looks Title Case; Prometheus uses sentence case (e.g. "Evaluate an instant query").'
+    severity: warn
+    given: $.paths.*.*.summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-z]+ "
+
+  prometheus-tags-required:
+    description: Every operation MUST be tagged. Prometheus groups operations by tag (query, metadata, targets, rules, status, admin, remote, otlp, notifications, features).
+    severity: error
+    given: $.paths.*.*
+    then:
+      field: tags
+      function: truthy
+
+  prometheus-tag-vocabulary:
+    description: Operation tags should come from the Prometheus tag vocabulary.
+    message: 'Tag "{{value}}" is outside the Prometheus tag vocabulary.'
+    severity: warn
+    given: $.paths.*.*.tags[*]
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+        - query
+        - metadata
+        - targets
+        - rules
+        - status
+        - admin
+        - remote
+        - otlp
+        - notifications
+        - features
+        - general
+        - alert
+        - silence
+        - receiver
+        - alertgroup
+
+  # Response envelope — every successful Prometheus API response is shaped
+  # { status: "success", data: ... } with optional warnings/infos.
+
+  prometheus-200-required:
+    description: Every operation MUST document a 200 response.
+    severity: error
+    given: $.paths.*.*.responses
+    then:
+      field: "200"
+      function: truthy
+
+  prometheus-json-only:
+    description: Prometheus only emits application/json. Responses MUST advertise the JSON media type.
+    severity: error
+    given: $.paths.*.*.responses.200.content
+    then:
+      field: application/json
+      function: truthy
+
+  # Parameter conventions.
+
+  prometheus-time-params-numeric-or-rfc3339:
+    description: time / start / end parameters accept either Unix seconds (number) or RFC3339 (string), so they MUST be typed string (Prometheus serialises both as strings on the query string).
+    severity: warn
+    given: $.paths.*.*.parameters[?(@.name == 'time' || @.name == 'start' || @.name == 'end')].schema.type
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(string|number)$"
+
+  prometheus-match-array-param:
+    description: 'match[] selector parameters MUST accept multiple values (style: form, explode: true).'
+    severity: warn
+    given: $.paths.*.*.parameters[?(@.name == 'match[]')]
+    then:
+      field: explode
+      function: truthy

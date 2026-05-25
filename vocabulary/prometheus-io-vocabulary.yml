@@ -1,0 +1,136 @@
+aid: prometheus-io
+name: Prometheus Vocabulary
+description: Operational and conceptual vocabulary for the Prometheus open source metrics
+  and alerting toolkit. Covers core data-model concepts, the components that ship in a
+  Prometheus deployment, the protocols on the wire, and the operations exposed by the
+  HTTP API.
+version: '0.1'
+concepts:
+- term: Metric
+  definition: A named, dimensional time series identified by a metric name plus a set of
+    label key/value pairs.
+- term: Sample
+  definition: A single (timestamp, value) data point belonging to a series. Timestamps are
+    Unix seconds, values are float64.
+- term: Series
+  definition: An ordered sequence of samples sharing the same metric name and label set.
+- term: Labels
+  definition: Key/value pairs attached to every series. The reserved __name__ label carries
+    the metric name.
+- term: Counter
+  definition: A monotonically increasing metric that only goes up (or resets to zero on
+    process restart). Used with rate() / increase().
+- term: Gauge
+  definition: A metric that can go up and down. Used for values like temperature, queue
+    depth, in-flight requests.
+- term: Histogram
+  definition: Samples bucketed by value, exposing cumulative buckets, _sum, and _count.
+    Backed by classical (text) or native (sparse) histograms.
+- term: Summary
+  definition: Client-side computed quantiles plus _sum and _count.
+- term: NativeHistogram
+  definition: Sparse, high-resolution histogram representation introduced experimentally
+    in Prometheus 2.40+ and stabilized incrementally.
+- term: Exemplar
+  definition: A trace-id-bearing sample attached to histogram buckets that links metrics to
+    distributed traces. Defined by OpenMetrics, supported via /api/v1/query_exemplars.
+- term: PromQL
+  definition: Prometheus' functional query language for selecting, joining, and aggregating
+    time series.
+- term: InstantQuery
+  definition: A PromQL evaluation at a single point in time. Endpoint /api/v1/query.
+- term: RangeQuery
+  definition: A PromQL evaluation across a start/end window at a fixed step. Endpoint
+    /api/v1/query_range.
+- term: ScrapePool
+  definition: A named pool of scrape targets sharing a scrape configuration.
+- term: ScrapeTarget
+  definition: An HTTP endpoint that the Prometheus server scrapes on its scrape_interval to
+    collect metrics.
+- term: Job
+  definition: The logical name applied to every scrape target in a pool via the job label.
+- term: Instance
+  definition: The host:port identifier of a single scrape target, surfaced as the instance
+    label.
+- term: Exporter
+  definition: A sidecar process that translates third-party metrics (OS, database, queue,
+    cloud provider) into the Prometheus exposition format.
+- term: RecordingRule
+  definition: A pre-computed PromQL expression evaluated on a fixed interval and stored
+    back into the TSDB.
+- term: AlertingRule
+  definition: 'A PromQL expression that, when truthy for at least the configured for: window,
+    fires an alert sent to Alertmanager.'
+- term: Alert
+  definition: A pending or firing condition produced by an alerting rule.
+- term: Alertmanager
+  definition: The sibling service that receives alerts from Prometheus, deduplicates,
+    groups, inhibits, silences, and routes them to receivers.
+- term: Silence
+  definition: A matcher-based mute applied to alerts in Alertmanager for a fixed time
+    window.
+- term: Receiver
+  definition: A configured downstream notification integration (Slack, PagerDuty, email,
+    OpsGenie, webhook, etc.) in Alertmanager.
+- term: RemoteWrite
+  definition: Push protocol for shipping samples from Prometheus to external long-term
+    storage (Cortex, Thanos, Mimir, VictoriaMetrics, Datadog, etc.).
+- term: RemoteRead
+  definition: Pull protocol that lets Prometheus query samples back from a remote storage
+    backend during query evaluation.
+- term: OTLPReceiver
+  definition: Optional /api/v1/otlp/v1/metrics endpoint that accepts OpenTelemetry protocol
+    metrics, gated by --web.enable-otlp-receiver.
+- term: TSDB
+  definition: Prometheus' embedded time series database. Two-hour blocks compacted into
+    larger blocks, write-ahead log for crash safety.
+- term: Federation
+  definition: Pattern in which one Prometheus server scrapes /federate on another to
+    aggregate or hierarchically forward metrics.
+- term: PushGateway
+  definition: An ecosystem component that accepts pushed metrics from short-lived batch
+    jobs so they can be scraped by Prometheus.
+- term: OpenMetrics
+  definition: CNCF specification that standardizes the Prometheus exposition format and
+    is scrape-compatible with Prometheus servers.
+services:
+- name: Prometheus Server
+  description: Scrapes, stores, queries, and alerts on metrics. Exposes /api/v1.
+- name: Alertmanager
+  description: Receives alerts from one or more Prometheus servers and routes them to
+    receivers. Exposes /api/v2.
+- name: Pushgateway
+  description: Accepts metrics pushed by short-lived jobs so they can be scraped.
+- name: Exporters
+  description: A family of pull-based agents (node, blackbox, snmp, statsd, jmx, mysqld,
+    cloudwatch, consul, graphite, memcached) that expose third-party telemetry in
+    Prometheus format.
+- name: Client Libraries
+  description: Official instrumentation libraries for Go, Java, Python, Ruby, and Rust,
+    plus community libraries for Node, C++, PHP, .NET, Elixir, and more.
+protocols:
+- name: Prometheus Exposition Format
+  description: Text-based metric exposition consumed via HTTP scrape; OpenMetrics is its
+    standardized successor.
+- name: Remote Write 1.0
+  description: Stable push protocol over snappy-compressed protobuf for long-term storage
+    integration.
+- name: Remote Write 2.0
+  description: Experimental specification adding native histograms, metadata per series,
+    and created timestamps.
+- name: Remote Read
+  description: Pull protocol that lets Prometheus query a remote storage backend during
+    query evaluation.
+- name: OTLP/HTTP Metrics
+  description: OpenTelemetry Protocol metrics ingestion via /api/v1/otlp/v1/metrics.
+tags:
+- Monitoring
+- Observability
+- Metrics
+- Time Series
+- Alerting
+- PromQL
+- CNCF
+- Open Source
+- Telemetry
+- Cloud Native

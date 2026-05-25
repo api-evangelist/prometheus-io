@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:9090/api/v1/query_range?query=rate(http_requests_total%5B5m%5D)&start=2026-05-25T17:00:00Z&end=2026-05-25T18:00:00Z&step=300"
+  },
+  "response": {
+    "status": "success",
+    "data": {
+      "resultType": "matrix",
+      "result": [
+        {
+          "metric": {
+            "__name__": "http_requests_total",
+            "job": "api",
+            "instance": "api-01.svc:8080",
+            "method": "GET",
+            "status_code": "200"
+          },
+          "values": [
+            [1748192400, "42.6"],
+            [1748192700, "44.1"],
+            [1748193000, "43.8"],
+            [1748193300, "45.0"],
+            [1748193600, "46.3"],
+            [1748193900, "47.2"],
+            [1748194200, "44.9"],
+            [1748194500, "43.5"],
+            [1748194800, "42.0"],
+            [1748195100, "41.7"],
+            [1748195400, "43.0"],
+            [1748195700, "44.4"],
+            [1748196000, "45.6"]
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prometheus Server — Admin TSDB
+  description: 'Prometheus Server HTTP API — administrative TSDB operations. Snapshots,
+    series deletion within a time window, and tombstone clean-up. Requires the server to
+    have been started with --web.enable-admin-api.'
+  tags:
+  - Prometheus
+  - Admin
+  - TSDB
+  - Backup
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    PROMETHEUS_BASE_URL: PROMETHEUS_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: prometheus-admin-tsdb
+    baseUri: '{{env.PROMETHEUS_BASE_URL}}'
+    description: TSDB administrative operations.
+    resources:
+    - name: snapshot
+      path: /api/v1/admin/tsdb/snapshot
+      operations:
+      - name: create-snapshot
+        method: POST
+        description: Create a TSDB snapshot under the data directory. skip_head optional.
+        outputRawFormat: json
+    - name: delete-series
+      path: /api/v1/admin/tsdb/delete_series
+      operations:
+      - name: delete-series
+        method: POST
+        description: Mark matching series for deletion within an optional [start, end] window.
+        outputRawFormat: json
+    - name: clean-tombstones
+      path: /api/v1/admin/tsdb/clean_tombstones
+      operations:
+      - name: clean-tombstones
+        method: POST
+        description: Physically delete data behind existing tombstones from disk.
+        outputRawFormat: json
+    authentication:
+      type: none

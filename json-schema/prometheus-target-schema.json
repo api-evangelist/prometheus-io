@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/prometheus-io/main/json-schema/prometheus-target-schema.json",
+  "title": "Prometheus Scrape Target",
+  "description": "Response shape of the Prometheus HTTP API endpoint GET /api/v1/targets, which lists active and dropped scrape targets known to the server.",
+  "type": "object",
+  "required": ["status", "data"],
+  "additionalProperties": true,
+  "properties": {
+    "status": { "type": "string", "enum": ["success", "error"] },
+    "data": {
+      "type": "object",
+      "required": ["activeTargets", "droppedTargets"],
+      "additionalProperties": true,
+      "properties": {
+        "activeTargets": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ActiveTarget" }
+        },
+        "droppedTargets": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/DroppedTarget" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Labels": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "ActiveTarget": {
+      "type": "object",
+      "required": [
+        "discoveredLabels",
+        "labels",
+        "scrapePool",
+        "scrapeUrl",
+        "globalUrl",
+        "lastError",
+        "lastScrape",
+        "lastScrapeDuration",
+        "health"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "discoveredLabels": { "$ref": "#/$defs/Labels" },
+        "labels":           { "$ref": "#/$defs/Labels" },
+        "scrapePool":       { "type": "string" },
+        "scrapeUrl":        { "type": "string", "format": "uri" },
+        "globalUrl":        { "type": "string", "format": "uri" },
+        "lastError":        { "type": "string" },
+        "lastScrape":       { "type": "string", "format": "date-time" },
+        "lastScrapeDuration": { "type": "number" },
+        "health":           { "type": "string", "enum": ["up", "down", "unknown"] },
+        "scrapeInterval":   { "type": "string" },
+        "scrapeTimeout":    { "type": "string" }
+      }
+    },
+    "DroppedTarget": {
+      "type": "object",
+      "required": ["discoveredLabels"],
+      "additionalProperties": true,
+      "properties": {
+        "discoveredLabels": { "$ref": "#/$defs/Labels" }
+      }
+    }
+  }
+}

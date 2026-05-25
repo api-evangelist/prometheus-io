@@ -1,0 +1,69 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prometheus Server — Query
+  description: 'Prometheus Server HTTP API — query surface. Instant and range PromQL evaluation,
+    query formatting, parsing, and exemplar retrieval. Self-contained Naftiko capability
+    covering the PromQL business surface of a Prometheus server.'
+  tags:
+  - Prometheus
+  - PromQL
+  - Query
+  - Metrics
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    PROMETHEUS_BASE_URL: PROMETHEUS_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: prometheus-query
+    baseUri: '{{env.PROMETHEUS_BASE_URL}}'
+    description: PromQL query operations exposed on /api/v1 by every Prometheus server.
+    resources:
+    - name: query
+      path: /api/v1/query
+      operations:
+      - name: instant-query
+        method: GET
+        description: Evaluate an instant PromQL query at a single point in time.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: query-range
+      path: /api/v1/query_range
+      operations:
+      - name: range-query
+        method: GET
+        description: Evaluate a PromQL query across a start/end window at a fixed step.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: format-query
+      path: /api/v1/format_query
+      operations:
+      - name: format-query
+        method: GET
+        description: Format / pretty-print a PromQL expression.
+        outputRawFormat: json
+    - name: parse-query
+      path: /api/v1/parse_query
+      operations:
+      - name: parse-query
+        method: GET
+        description: Parse a PromQL expression to its AST. Experimental.
+        outputRawFormat: json
+    - name: query-exemplars
+      path: /api/v1/query_exemplars
+      operations:
+      - name: query-exemplars
+        method: GET
+        description: Retrieve exemplars attached to histograms for a PromQL expression. Experimental.
+        outputRawFormat: json
+    authentication:
+      type: none

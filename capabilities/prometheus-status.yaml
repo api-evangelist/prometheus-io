@@ -1,0 +1,89 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prometheus Server — Status
+  description: 'Prometheus Server HTTP API — status surface: loaded config, runtime info,
+    build info, runtime flags, TSDB stats and blocks, WAL replay progress, server
+    notifications, and the live feature set.'
+  tags:
+  - Prometheus
+  - Status
+  - Observability
+  - TSDB
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    PROMETHEUS_BASE_URL: PROMETHEUS_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: prometheus-status
+    baseUri: '{{env.PROMETHEUS_BASE_URL}}'
+    description: Server status and self-introspection.
+    resources:
+    - name: status-config
+      path: /api/v1/status/config
+      operations:
+      - name: get-config
+        method: GET
+        description: Return the currently loaded prometheus.yml as YAML text.
+        outputRawFormat: json
+    - name: status-runtimeinfo
+      path: /api/v1/status/runtimeinfo
+      operations:
+      - name: get-runtimeinfo
+        method: GET
+        description: Return runtime properties such as start time, number of goroutines, and last config reload outcome.
+        outputRawFormat: json
+    - name: status-buildinfo
+      path: /api/v1/status/buildinfo
+      operations:
+      - name: get-buildinfo
+        method: GET
+        description: Return Prometheus build information (version, revision, branch, build user, Go version).
+        outputRawFormat: json
+    - name: status-flags
+      path: /api/v1/status/flags
+      operations:
+      - name: get-flags
+        method: GET
+        description: Return the runtime flag values the server was started with.
+        outputRawFormat: json
+    - name: status-tsdb
+      path: /api/v1/status/tsdb
+      operations:
+      - name: get-tsdb-stats
+        method: GET
+        description: Return TSDB cardinality and head-block statistics.
+        outputRawFormat: json
+    - name: status-tsdb-blocks
+      path: /api/v1/status/tsdb/blocks
+      operations:
+      - name: get-tsdb-blocks
+        method: GET
+        description: Return metadata for loaded TSDB blocks. Experimental.
+        outputRawFormat: json
+    - name: status-walreplay
+      path: /api/v1/status/walreplay
+      operations:
+      - name: get-walreplay
+        method: GET
+        description: Return WAL replay progress.
+        outputRawFormat: json
+    - name: features
+      path: /api/v1/features
+      operations:
+      - name: get-features
+        method: GET
+        description: Return the enabled and disabled feature flags by category.
+        outputRawFormat: json
+    - name: notifications
+      path: /api/v1/notifications
+      operations:
+      - name: get-notifications
+        method: GET
+        description: Return active server-level notifications. Experimental.
+        outputRawFormat: json
+    authentication:
+      type: none

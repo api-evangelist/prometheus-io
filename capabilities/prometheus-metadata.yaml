@@ -1,0 +1,53 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prometheus Server — Metadata
+  description: 'Prometheus Server HTTP API — series, labels, and metric metadata surface.
+    Lets clients discover the shape of the data in the TSDB.'
+  tags:
+  - Prometheus
+  - Metadata
+  - Labels
+  - Series
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    PROMETHEUS_BASE_URL: PROMETHEUS_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: prometheus-metadata
+    baseUri: '{{env.PROMETHEUS_BASE_URL}}'
+    description: Metric, series, and label discovery operations.
+    resources:
+    - name: series
+      path: /api/v1/series
+      operations:
+      - name: find-series
+        method: GET
+        description: Find series matching one or more label matchers (match[]).
+        outputRawFormat: json
+    - name: labels
+      path: /api/v1/labels
+      operations:
+      - name: list-labels
+        method: GET
+        description: List all label names present in the TSDB.
+        outputRawFormat: json
+    - name: label-values
+      path: /api/v1/label/{name}/values
+      operations:
+      - name: list-label-values
+        method: GET
+        description: List all values for a given label name.
+        outputRawFormat: json
+    - name: metadata
+      path: /api/v1/metadata
+      operations:
+      - name: list-metadata
+        method: GET
+        description: List metric-level metadata (HELP, TYPE, UNIT) across configured targets.
+        outputRawFormat: json
+    authentication:
+      type: none

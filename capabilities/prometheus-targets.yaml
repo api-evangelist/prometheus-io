@@ -1,0 +1,53 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prometheus Server — Targets and Scrape Pools
+  description: 'Prometheus Server HTTP API — scrape pool, target, and target-metadata
+    introspection. Useful for service-discovery debugging and inventory.'
+  tags:
+  - Prometheus
+  - Targets
+  - Scrape Pools
+  - Service Discovery
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    PROMETHEUS_BASE_URL: PROMETHEUS_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: prometheus-targets
+    baseUri: '{{env.PROMETHEUS_BASE_URL}}'
+    description: Target / scrape-pool inventory.
+    resources:
+    - name: targets
+      path: /api/v1/targets
+      operations:
+      - name: list-targets
+        method: GET
+        description: List active and dropped scrape targets known to the server.
+        outputRawFormat: json
+    - name: scrape-pools
+      path: /api/v1/scrape_pools
+      operations:
+      - name: list-scrape-pools
+        method: GET
+        description: List configured scrape pools.
+        outputRawFormat: json
+    - name: targets-metadata
+      path: /api/v1/targets/metadata
+      operations:
+      - name: get-targets-metadata
+        method: GET
+        description: Per-target metric metadata (HELP, TYPE, UNIT).
+        outputRawFormat: json
+    - name: targets-relabel-steps
+      path: /api/v1/targets/relabel_steps
+      operations:
+      - name: targets-relabel-steps
+        method: GET
+        description: Step-by-step relabeling trace for a target. Experimental.
+        outputRawFormat: json
+    authentication:
+      type: none

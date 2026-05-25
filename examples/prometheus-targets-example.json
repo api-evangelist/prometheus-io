@@ -1,0 +1,56 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:9090/api/v1/targets?state=active"
+  },
+  "response": {
+    "status": "success",
+    "data": {
+      "activeTargets": [
+        {
+          "discoveredLabels": {
+            "__address__": "localhost:9090",
+            "__metrics_path__": "/metrics",
+            "__scheme__": "http",
+            "job": "prometheus"
+          },
+          "labels": {
+            "instance": "localhost:9090",
+            "job": "prometheus"
+          },
+          "scrapePool": "prometheus",
+          "scrapeUrl": "http://localhost:9090/metrics",
+          "globalUrl": "http://prometheus.example.com:9090/metrics",
+          "lastError": "",
+          "lastScrape": "2026-05-25T18:00:01.123456789Z",
+          "lastScrapeDuration": 0.0043,
+          "health": "up",
+          "scrapeInterval": "15s",
+          "scrapeTimeout": "10s"
+        },
+        {
+          "discoveredLabels": {
+            "__address__": "node-exporter.svc:9100",
+            "__metrics_path__": "/metrics",
+            "__scheme__": "http",
+            "job": "node"
+          },
+          "labels": {
+            "instance": "node-exporter.svc:9100",
+            "job": "node"
+          },
+          "scrapePool": "node",
+          "scrapeUrl": "http://node-exporter.svc:9100/metrics",
+          "globalUrl": "http://node-exporter.svc.example.com:9100/metrics",
+          "lastError": "",
+          "lastScrape": "2026-05-25T18:00:01.987654321Z",
+          "lastScrapeDuration": 0.0312,
+          "health": "up",
+          "scrapeInterval": "30s",
+          "scrapeTimeout": "10s"
+        }
+      ],
+      "droppedTargets": []
+    }
+  }
+}
