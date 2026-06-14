@@ -1,0 +1,684 @@
+"""
+Prometheus GraphQL Schema
+Conceptual GraphQL representation of the Prometheus HTTP API (REST).
+Source: https://prometheus.io/docs/prometheus/latest/querying/api/
+GitHub: https://github.com/prometheus/prometheus
+"""
+
+scalar Float
+scalar JSON
+
+# ──────────────────────────────────────────
+# Core metric primitives
+# ──────────────────────────────────────────
+
+"""A named metric, identified by its __name__ label."""
+type Metric {
+  name: MetricName!
+  labels: [LabelPair!]!
+  type: MetricType
+  help: String
+  unit: String
+}
+
+"""The string identifier of a metric (maps to __name__ label)."""
+scalar MetricName
+
+"""A single label key=value pair attached to a metric or sample."""
+type LabelPair {
+  name: String!
+  value: String!
+}
+
+"""An unordered set of unique label pairs that uniquely identifies a time series."""
+type LabelSet {
+  labels: [LabelPair!]!
+}
+
+"""A floating-point measurement value."""
+scalar MetricValue
+
+"""Prometheus metric type classification."""
+enum MetricType {
+  COUNTER
+  GAUGE
+  HISTOGRAM
+  SUMMARY
+  UNTYPED
+}
+
+# ──────────────────────────────────────────
+# Metric type objects
+# ──────────────────────────────────────────
+
+"""A monotonically increasing counter metric."""
+type Counter {
+  metric: Metric!
+  value: MetricValue!
+  timestamp: Timestamp
+}
+
+"""A metric that can go up and down."""
+type Gauge {
+  metric: Metric!
+  value: MetricValue!
+  timestamp: Timestamp
+}
+
+"""A sampled distribution of observations with configurable buckets."""
+type Histogram {
+  metric: Metric!
+  sampleCount: Float!
+  sampleSum: Float!
+  buckets: [HistogramBucket!]!
+  timestamp: Timestamp
+}
+
+"""A single bucket boundary and cumulative count in a histogram."""
+type HistogramBucket {
+  upperBound: Float!
+  cumulativeCount: Float!
+}
+
+"""A streaming summary of observations with quantiles computed over a sliding time window."""
+type Summary {
+  metric: Metric!
+  sampleCount: Float!
+  sampleSum: Float!
+  quantiles: [Quantile!]!
+  timestamp: Timestamp
+}
+
+"""A quantile/value pair from a summary metric."""
+type Quantile {
+  quantile: Float!
+  value: Float!
+}
+
+# ──────────────────────────────────────────
+# Timestamps and samples
+# ──────────────────────────────────────────
+
+"""A Unix timestamp with millisecond precision."""
+scalar Timestamp
+
+"""A single time-series data point: timestamp + float value."""
+type Sample {
+  timestamp: Timestamp!
+  value: MetricValue!
+}
+
+"""A (timestamp, value) pair used in range query results."""
+type SamplePair {
+  timestamp: Timestamp!
+  value: String!
+}
+
+# ──────────────────────────────────────────
+# Vectors and matrices
+# ──────────────────────────────────────────
+
+"""The result of an instant PromQL query — one sample per matching time series."""
+type InstantVector {
+  metric: LabelSet!
+  value: SamplePair!
+}
+
+"""The result of a range PromQL query — multiple samples per matching time series."""
+type RangeVector {
+  metric: LabelSet!
+  values: [SamplePair!]!
+}
+
+"""A generic vector (used as alias for InstantVector in API responses)."""
+type Vector {
+  metric: LabelSet!
+  value: SamplePair!
+}
+
+"""A matrix result from a range query."""
+type Matrix {
+  metric: LabelSet!
+  values: [SamplePair!]!
+}
+
+"""An identified time series with optional value samples."""
+type Series {
+  metric: LabelSet!
+  samples: [SamplePair!]
+}
+
+"""A time range over which series data is queried."""
+type SeriesRange {
+  start: Timestamp!
+  end: Timestamp!
+  step: Float
+}
+
+# ──────────────────────────────────────────
+# Query results
+# ──────────────────────────────────────────
+
+"""Top-level wrapper around any /api/v1 response."""
+type Result {
+  status: ResultStatus!
+  data: QueryResult
+  error: String
+  errorType: String
+  warnings: [String!]
+}
+
+"""Status indicator for an API response."""
+enum ResultStatus {
+  SUCCESS
+  ERROR
+}
+
+"""The data payload of a /query or /query_range response."""
+type QueryResult {
+  resultType: ResultType!
+  result: [VectorOrMatrix!]!
+}
+
+"""The type of result returned by a PromQL evaluation."""
+enum ResultType {
+  MATRIX
+  VECTOR
+  SCALAR
+  STRING
+}
+
+"""Union-like type covering both instant and range vector result items."""
+type VectorOrMatrix {
+  metric: LabelSet!
+  value: SamplePair
+  values: [SamplePair!]
+}
+
+"""The data payload for a /query_range response."""
+type QueryRange {
+  resultType: ResultType!
+  result: [RangeVector!]!
+}
+
+"""Result wrapper for /api/v1/metadata."""
+type MetadataResult {
+  status: ResultStatus!
+  data: JSON
+}
+
+# ──────────────────────────────────────────
+# Targets
+# ──────────────────────────────────────────
+
+"""Wrapper returned by /api/v1/targets."""
+type TargetResult {
+  activeTargets: [Target!]!
+  droppedTargets: [DroppedTarget!]!
+}
+
+"""A scrape target actively tracked by Prometheus."""
+type Target {
+  discoveredLabels: LabelSet!
+  labels: LabelSet!
+  scrapePool: String!
+  scrapeUrl: String!
+  globalUrl: String!
+  lastError: String
+  lastScrape: Timestamp!
+  lastScrapeDuration: Float!
+  health: TargetHealth!
+  scrapeInterval: String!
+  scrapeTimeout: String!
+}
+
+"""Detailed view of a target including additional metadata."""
+type TargetDetails {
+  discoveredLabels: LabelSet!
+  labels: LabelSet!
+  scrapePool: String!
+  scrapeUrl: String!
+  globalUrl: String!
+  lastError: String
+  lastScrape: Timestamp!
+  lastScrapeDuration: Float!
+  health: TargetHealth!
+}
+
+"""Health state of a scrape target."""
+enum TargetHealth {
+  UP
+  DOWN
+  UNKNOWN
+}
+
+"""A target that was dropped during relabeling."""
+type DroppedTarget {
+  discoveredLabels: LabelSet!
+}
+
+"""A named group of scrape targets sharing the same scrape config."""
+type ScrapePool {
+  name: String!
+  targets: [Target!]!
+}
+
+# ──────────────────────────────────────────
+# Alerts and rules
+# ──────────────────────────────────────────
+
+"""An active alert firing in Prometheus."""
+type Alert {
+  labels: LabelSet!
+  annotations: LabelSet!
+  state: AlertState!
+  activeAt: Timestamp
+  value: String!
+  keepFiringUntil: Timestamp
+}
+
+"""Detailed alert with name and rule context."""
+type AlertDetails {
+  name: AlertName!
+  labels: LabelSet!
+  annotations: LabelSet!
+  state: AlertState!
+  activeAt: Timestamp
+  value: String!
+}
+
+"""Lifecycle state of an alert."""
+enum AlertState {
+  INACTIVE
+  PENDING
+  FIRING
+}
+
+"""The string name of an alert rule."""
+scalar AlertName
+
+"""A named alert rule defined in a rule group."""
+type AlertRule {
+  name: AlertName!
+  query: String!
+  duration: Float
+  keepFiringFor: Float
+  labels: LabelSet!
+  annotations: LabelSet!
+  alerts: [Alert!]!
+  health: String!
+  lastError: String
+  evaluationTime: Float!
+  lastEvaluation: Timestamp!
+  type: String!
+}
+
+"""A named recording rule that pre-computes expressions."""
+type RecordingRule {
+  name: String!
+  query: String!
+  labels: LabelSet!
+  health: String!
+  lastError: String
+  evaluationTime: Float!
+  lastEvaluation: Timestamp!
+  type: String!
+}
+
+"""A union-like type for either an alerting or recording rule."""
+type Rule {
+  name: String!
+  query: String!
+  labels: LabelSet
+  annotations: LabelSet
+  alerts: [Alert!]
+  health: String!
+  lastError: String
+  evaluationTime: Float!
+  lastEvaluation: Timestamp!
+  type: RuleType!
+}
+
+"""Discriminator for rule type."""
+enum RuleType {
+  ALERTING
+  RECORDING
+}
+
+"""A named group of rules evaluated together."""
+type RuleGroup {
+  name: String!
+  file: String!
+  rules: [Rule!]!
+  interval: Float!
+  limit: Int
+  evaluationTime: Float!
+  lastEvaluation: Timestamp!
+}
+
+"""Alerting rule with full alert state."""
+type AlertingRule {
+  name: AlertName!
+  query: String!
+  duration: Float
+  labels: LabelSet!
+  annotations: LabelSet!
+  alerts: [Alert!]!
+  health: String!
+  lastError: String
+  evaluationTime: Float!
+  lastEvaluation: Timestamp!
+}
+
+# ──────────────────────────────────────────
+# Configuration and scraping
+# ──────────────────────────────────────────
+
+"""The full Prometheus server configuration as returned by /api/v1/status/config."""
+type Config {
+  yaml: String!
+}
+
+"""A scrape operation result."""
+type Scrape {
+  target: Target!
+  timestamp: Timestamp!
+  duration: Float!
+  samples: Int!
+  error: String
+}
+
+"""A scrape configuration block defining how targets are scraped."""
+type ScrapeConfig {
+  jobName: String!
+  scrapeInterval: String!
+  scrapeTimeout: String!
+  metricsPath: String!
+  scheme: String!
+  honorLabels: Boolean!
+  honorTimestamps: Boolean!
+  staticConfigs: [JSON!]
+  relabelConfigs: [RelabelConfig!]
+}
+
+# ──────────────────────────────────────────
+# Storage and TSDB
+# ──────────────────────────────────────────
+
+"""High-level storage information."""
+type StorageInfo {
+  tsdbPath: String!
+  retentionDuration: String!
+  retentionSize: String!
+}
+
+"""The embedded time-series database statistics."""
+type TSDB {
+  headStats: TSDBHeadStats!
+  seriesCountByMetricName: [MetricCount!]!
+  labelValueCountByLabelName: [LabelCount!]!
+  memoryInBytesByLabelName: [LabelMemory!]!
+  seriesCountByLabelValuePair: [LabelValueCount!]!
+}
+
+"""In-memory HEAD block statistics."""
+type TSDBHeadStats {
+  numSeries: Float!
+  numLabelPairs: Float!
+  chunkCount: Float!
+  minTime: Timestamp!
+  maxTime: Timestamp!
+}
+
+"""Metric name with series count."""
+type MetricCount {
+  name: MetricName!
+  value: Float!
+}
+
+"""Label name with distinct value count."""
+type LabelCount {
+  name: String!
+  value: Float!
+}
+
+"""Label name with memory usage in bytes."""
+type LabelMemory {
+  name: String!
+  value: Float!
+}
+
+"""Label name=value pair with series count."""
+type LabelValueCount {
+  name: String!
+  value: Float!
+}
+
+# ──────────────────────────────────────────
+# Build / runtime / flags
+# ──────────────────────────────────────────
+
+"""Result of /api/v1/status/flags."""
+type FlagsResult {
+  flags: JSON!
+}
+
+"""Result of /api/v1/status/buildinfo."""
+type BuildInfo {
+  version: String!
+  revision: String!
+  branch: String!
+  buildUser: String!
+  buildDate: String!
+  goVersion: String!
+}
+
+"""Result of /api/v1/status/runtimeinfo."""
+type RuntimeInfo {
+  startTime: Timestamp!
+  CWD: String!
+  reloadConfigSuccess: Boolean!
+  lastConfigTime: Timestamp!
+  corruptionCount: Float!
+  goroutineCount: Int!
+  GOMAXPROCS: Int!
+  GOMEMLIMIT: Float!
+  GOGC: String!
+  GODEBUG: String!
+  storageRetention: String!
+}
+
+# ──────────────────────────────────────────
+# Service discovery
+# ──────────────────────────────────────────
+
+"""A discovered target from service discovery."""
+type DiscoveryTarget {
+  targets: [String!]!
+  labels: LabelSet!
+}
+
+"""A configured service discovery block."""
+type ServiceDiscovery {
+  type: String!
+  configs: [JSON!]!
+}
+
+# ──────────────────────────────────────────
+# Relabeling
+# ──────────────────────────────────────────
+
+"""A relabel configuration step."""
+type RelabelConfig {
+  sourceLabels: [String!]
+  separator: String
+  regex: String
+  modulus: Float
+  targetLabel: String
+  replacement: String
+  action: RelabelAction!
+}
+
+"""Action applied by a relabel rule."""
+enum RelabelAction {
+  REPLACE
+  KEEP
+  DROP
+  LABELMAP
+  LABELDROP
+  LABELKEEP
+  LOWERCASE
+  UPPERCASE
+  HASHMOD
+  KEEPEQUAL
+  DROPEQUAL
+}
+
+# ──────────────────────────────────────────
+# Remote read / write
+# ──────────────────────────────────────────
+
+"""Configuration for a remote read endpoint."""
+type RemoteRead {
+  url: String!
+  name: String
+  requiredMatchers: LabelSet
+  remoteTimeout: String
+  headers: JSON
+  readRecent: Boolean!
+  tlsConfig: JSON
+  proxyUrl: String
+  filterExternalLabels: Boolean!
+}
+
+"""Configuration for a remote write endpoint."""
+type RemoteWrite {
+  url: String!
+  name: String
+  remoteTimeout: String
+  headers: JSON
+  writeRelabelConfigs: [RelabelConfig!]
+  tlsConfig: JSON
+  proxyUrl: String
+  queueConfig: JSON
+  metadataConfig: JSON
+}
+
+"""A protobuf-encoded batch of time series sent via Remote Write."""
+type WriteRequest {
+  timeseries: [TimeSeries!]!
+  metadata: [JSON!]
+}
+
+"""A batch of time series requested via Remote Read."""
+type ReadRequest {
+  queries: [QueryHints!]!
+}
+
+"""A fully-labelled time series with samples for remote protocols."""
+type TimeSeries {
+  labels: [LabelPair!]!
+  samples: [Sample!]!
+  exemplars: [Exemplar!]
+}
+
+"""Query hints passed in a remote read request."""
+type QueryHints {
+  startMs: Float!
+  endMs: Float!
+  stepMs: Float
+  matchers: [JSON!]
+}
+
+# ──────────────────────────────────────────
+# WAL
+# ──────────────────────────────────────────
+
+"""Write-Ahead Log replay status."""
+type WAL {
+  minTime: Timestamp!
+  maxTime: Timestamp!
+  currentSegment: Int!
+  totalSegments: Int!
+}
+
+# ──────────────────────────────────────────
+# Exemplars
+# ──────────────────────────────────────────
+
+"""An OpenMetrics exemplar attached to a histogram or counter observation."""
+type Exemplar {
+  labels: ExemplarLabels!
+  value: Float!
+  timestamp: Timestamp
+}
+
+"""Key-value labels carried by an exemplar (e.g., trace_id)."""
+type ExemplarLabels {
+  labels: [LabelPair!]!
+}
+
+# ──────────────────────────────────────────
+# Feature flags
+# ──────────────────────────────────────────
+
+"""A Prometheus feature flag and its enabled state."""
+type FeatureFlags {
+  name: String!
+  description: String!
+  enabled: Boolean!
+}
+
+# ──────────────────────────────────────────
+# Root query type
+# ──────────────────────────────────────────
+
+type Query {
+  """Evaluate an instant PromQL query at a single point in time."""
+  query(expr: String!, time: Timestamp, timeout: String): QueryResult
+
+  """Evaluate a PromQL expression over a time range."""
+  queryRange(expr: String!, start: Timestamp!, end: Timestamp!, step: String!, timeout: String): QueryRange
+
+  """Find series matching a set of label matchers."""
+  series(match: [String!]!, start: Timestamp, end: Timestamp): [LabelSet!]!
+
+  """Return all label names matching optional matchers."""
+  labels(match: [String!], start: Timestamp, end: Timestamp): [String!]!
+
+  """Return all label values for a given label name."""
+  labelValues(labelName: String!, match: [String!], start: Timestamp, end: Timestamp): [String!]!
+
+  """Return currently active and dropped scrape targets."""
+  targets(state: String): TargetResult!
+
+  """Return all rule groups (alerting and recording rules)."""
+  rules(type: RuleType): [RuleGroup!]!
+
+  """Return all currently firing alerts."""
+  alerts: [Alert!]!
+
+  """Return current Prometheus server configuration."""
+  config: Config!
+
+  """Return current command-line flags."""
+  flags: FlagsResult!
+
+  """Return build information."""
+  buildInfo: BuildInfo!
+
+  """Return runtime information."""
+  runtimeInfo: RuntimeInfo!
+
+  """Return TSDB head statistics."""
+  tsdb(limit: Int): TSDB!
+
+  """Return WAL replay status."""
+  walReplayStatus: WAL!
+
+  """Return metric metadata."""
+  metadata(metric: String, limit: Int): JSON
+
+  """Return exemplars for a given PromQL query range."""
+  queryExemplars(query: String!, start: Timestamp!, end: Timestamp!): [Exemplar!]!
+}

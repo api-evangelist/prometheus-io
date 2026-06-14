@@ -12,21 +12,22 @@ tags:
 - Open Source
 - PromQL
 - Telemetry
-description: Prometheus is a Cloud Native Computing Foundation graduated open source systems
-  monitoring and alerting toolkit. A Prometheus server scrapes metrics over HTTP from instrumented
-  targets, stores them in an embedded time series database, and lets operators query, alert,
-  and aggregate them with the PromQL query language. The project pairs the Prometheus server
-  with Alertmanager for alert routing and silencing, official client libraries for Go, Java,
-  Python, Ruby, and Rust, and a large ecosystem of exporters (node, blackbox, snmp, statsd,
-  jmx, mysqld, cloudwatch, consul, graphite, memcached, pushgateway, etc.) for pulling metrics
-  out of existing systems. Prometheus also drives the OpenMetrics exposition format and an
-  experimental Remote Write 2.0 protocol for shipping samples to long-term storage backends.
+description: Prometheus is a Cloud Native Computing Foundation graduated open source
+  systems monitoring and alerting toolkit. A Prometheus server scrapes metrics over
+  HTTP from instrumented targets, stores them in an embedded time series database,
+  and lets operators query, alert, and aggregate them with the PromQL query language.
+  The project pairs the Prometheus server with Alertmanager for alert routing and
+  silencing, official client libraries for Go, Java, Python, Ruby, and Rust, and a
+  large ecosystem of exporters (node, blackbox, snmp, statsd, jmx, mysqld, cloudwatch,
+  consul, graphite, memcached, pushgateway, etc.) for pulling metrics out of existing
+  systems. Prometheus also drives the OpenMetrics exposition format and an experimental
+  Remote Write 2.0 protocol for shipping samples to long-term storage backends.
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 kind: contract
 access: Self-Hosted
 x-type: opensource
-created: 2026-05-25
-modified: 2026-05-25
+created: 2026-05-25 00:00:00+00:00
+modified: 2026-05-25 00:00:00+00:00
 specificationVersion: '0.20'
 apis:
 - aid: prometheus-io:prometheus-server-api
@@ -38,15 +39,15 @@ apis:
   - Monitoring
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
-  description: The HTTP API exposed by every Prometheus server under /api/v1. Lets clients
-    evaluate instant and range PromQL queries, list and search series, labels and metric
-    metadata, inspect targets, scrape pools, rules, active alerts, alertmanagers, status,
-    TSDB stats, WAL replay, build/runtime info, server-side notifications, and the live
-    feature set. Also includes admin endpoints behind --web.enable-admin-api for snapshots,
-    series deletion, and tombstone clean-up, plus optional remote read/write and OTLP
-    metrics receivers. Stable v1 with non-breaking additions; experimental endpoints
-    (parse_query, query_exemplars, targets/relabel_steps, status/tsdb/blocks, notifications)
-    are clearly marked.
+  description: The HTTP API exposed by every Prometheus server under /api/v1. Lets
+    clients evaluate instant and range PromQL queries, list and search series, labels
+    and metric metadata, inspect targets, scrape pools, rules, active alerts, alertmanagers,
+    status, TSDB stats, WAL replay, build/runtime info, server-side notifications,
+    and the live feature set. Also includes admin endpoints behind --web.enable-admin-api
+    for snapshots, series deletion, and tombstone clean-up, plus optional remote read/write
+    and OTLP metrics receivers. Stable v1 with non-breaking additions; experimental
+    endpoints (parse_query, query_exemplars, targets/relabel_steps, status/tsdb/blocks,
+    notifications) are clearly marked.
   properties:
   - url: https://prometheus.io/docs/prometheus/latest/querying/api/
     type: Documentation
@@ -73,18 +74,8 @@ apis:
     type: Example
   - url: examples/prometheus-targets-example.json
     type: Example
-  - type: NaftikoCapability
-    url: capabilities/prometheus-query.yaml
-  - type: NaftikoCapability
-    url: capabilities/prometheus-metadata.yaml
-  - type: NaftikoCapability
-    url: capabilities/prometheus-targets.yaml
-  - type: NaftikoCapability
-    url: capabilities/prometheus-rules-alerts.yaml
-  - type: NaftikoCapability
-    url: capabilities/prometheus-status.yaml
-  - type: NaftikoCapability
-    url: capabilities/prometheus-admin-tsdb.yaml
+  - url: graphql/prometheus-io-graphql.md
+    type: GraphQL
 - aid: prometheus-io:prometheus-alertmanager-api
   name: Prometheus Alertmanager API v2
   tags:
@@ -98,8 +89,8 @@ apis:
   description: Alertmanager's HTTP API v2 — the canonical interface for posting alerts,
     listing and grouping firing/inhibited/silenced alerts, managing silences, listing
     configured receivers, and inspecting cluster status. Spec is generated with go-swagger
-    from api/v2/openapi.yaml in the alertmanager repo and consumed by the Alertmanager UI
-    and external integrations.
+    from api/v2/openapi.yaml in the alertmanager repo and consumed by the Alertmanager
+    UI and external integrations.
   properties:
   - url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
     type: Documentation
@@ -108,8 +99,6 @@ apis:
     name: Alertmanager Overview
   - url: openapi/prometheus-alertmanager-api-openapi.yml
     type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/prometheus-alertmanager.yaml
 - aid: prometheus-io:prometheus-remote-write
   name: Prometheus Remote Write
   tags:
@@ -118,11 +107,12 @@ apis:
   - Protocol Buffers
   - Streaming
   humanURL: https://prometheus.io/docs/specs/prw/remote_write_spec_2_0/
-  description: Remote Write is Prometheus' push protocol for shipping scraped samples to
-    long-term storage and analysis backends (Cortex, Thanos, Mimir, VictoriaMetrics,
-    InfluxDB, Datadog, etc.). Snappy-compressed protocol-buffer payloads POSTed over HTTP.
-    Version 1.0 is stable and widely implemented; version 2.0 (experimental specification)
-    adds native histograms, metadata-per-series, created timestamps, and tighter validation.
+  description: Remote Write is Prometheus' push protocol for shipping scraped samples
+    to long-term storage and analysis backends (Cortex, Thanos, Mimir, VictoriaMetrics,
+    InfluxDB, Datadog, etc.). Snappy-compressed protocol-buffer payloads POSTed over
+    HTTP. Version 1.0 is stable and widely implemented; version 2.0 (experimental
+    specification) adds native histograms, metadata-per-series, created timestamps,
+    and tighter validation.
   properties:
   - url: https://prometheus.io/docs/specs/prw/remote_write_spec/
     type: Documentation
@@ -142,8 +132,8 @@ apis:
   - Metrics Format
   humanURL: https://prometheus.io/docs/instrumenting/exposition_formats/
   description: The text-based exposition format that every instrumented target exposes
-    (typically on /metrics) and that the Prometheus server scrapes over HTTP. The format
-    evolved into OpenMetrics, a CNCF Sandbox specification that is the standardized
+    (typically on /metrics) and that the Prometheus server scrapes over HTTP. The
+    format evolved into OpenMetrics, a CNCF Sandbox specification that is the standardized
     successor; both are scrape-compatible with Prometheus. Defines counters, gauges,
     histograms, summaries, and (in OpenMetrics) info, stateset, gaugehistogram, and
     exemplars.
@@ -165,9 +155,9 @@ apis:
   - Ingest
   humanURL: https://prometheus.io/docs/prometheus/latest/feature_flags/
   description: Optional OpenTelemetry Protocol metrics receiver exposed on /api/v1/otlp/v1/metrics
-    when the Prometheus server is started with --web.enable-otlp-receiver. Accepts OTLP/HTTP
-    protobuf payloads from OpenTelemetry Collectors and SDKs; delta-to-cumulative conversion
-    is available behind --enable-feature=otlp-deltatocumulative.
+    when the Prometheus server is started with --web.enable-otlp-receiver. Accepts
+    OTLP/HTTP protobuf payloads from OpenTelemetry Collectors and SDKs; delta-to-cumulative
+    conversion is available behind --enable-feature=otlp-deltatocumulative.
   properties:
   - url: https://prometheus.io/docs/guides/opentelemetry/
     type: Documentation
