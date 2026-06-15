@@ -1,0 +1,1314 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prometheus API",
+    "version": "0.0.1-undefined"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Evaluate an instant query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/query",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metrics to return."
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "The evaluation timestamp (optional, defaults to current time)."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The PromQL query to execute."
+              },
+              {
+                "name": "timeout",
+                "value": "",
+                "type": "query",
+                "description": "Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag."
+              },
+              {
+                "name": "lookback_delta",
+                "value": "",
+                "type": "query",
+                "description": "Override the lookback period for this query. Optional."
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "When provided, include query statistics in the response. The special value 'all' enables more comprehensive statistics."
+              }
+            ]
+          },
+          "docs": "Evaluate an instant query"
+        },
+        {
+          "info": {
+            "name": "Evaluate an instant query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/query",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Evaluate an instant query"
+        },
+        {
+          "info": {
+            "name": "Evaluate a range query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/query_range",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metrics to return."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The start time of the query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The end time of the query."
+              },
+              {
+                "name": "step",
+                "value": "",
+                "type": "query",
+                "description": "The step size of the query."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The query to execute."
+              },
+              {
+                "name": "timeout",
+                "value": "",
+                "type": "query",
+                "description": "Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag."
+              },
+              {
+                "name": "lookback_delta",
+                "value": "",
+                "type": "query",
+                "description": "Override the lookback period for this query. Optional."
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "When provided, include query statistics in the response. The special value 'all' enables more comprehensive statistics."
+              }
+            ]
+          },
+          "docs": "Evaluate a range query"
+        },
+        {
+          "info": {
+            "name": "Evaluate a range query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/query_range",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Evaluate a range query"
+        },
+        {
+          "info": {
+            "name": "Query exemplars",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/query_exemplars",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for exemplars query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for exemplars query."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "PromQL query to extract exemplars for."
+              }
+            ]
+          },
+          "docs": "Query exemplars"
+        },
+        {
+          "info": {
+            "name": "Query exemplars",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/query_exemplars",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Query exemplars"
+        },
+        {
+          "info": {
+            "name": "Format a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/format_query",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "PromQL expression to format."
+              }
+            ]
+          },
+          "docs": "Format a PromQL query"
+        },
+        {
+          "info": {
+            "name": "Format a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/format_query",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Format a PromQL query"
+        },
+        {
+          "info": {
+            "name": "Parse a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/parse_query",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "PromQL expression to parse."
+              }
+            ]
+          },
+          "docs": "Parse a PromQL query"
+        },
+        {
+          "info": {
+            "name": "Parse a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/parse_query",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Parse a PromQL query"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/labels",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label names query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label names query."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label names to return."
+              }
+            ]
+          },
+          "docs": "Get label names"
+        },
+        {
+          "info": {
+            "name": "Get label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/labels",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Get label names"
+        },
+        {
+          "info": {
+            "name": "Get label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/label/:name/values",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Label name."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label values query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label values query."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label values to return."
+              }
+            ]
+          },
+          "docs": "Get label values"
+        },
+        {
+          "info": {
+            "name": "Search label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/search/label_names",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument used to scope label discovery."
+              },
+              {
+                "name": "search[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms matched against label names (OR logic)."
+              },
+              {
+                "name": "fuzz_threshold",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+              },
+              {
+                "name": "fuzz_alg",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+              },
+              {
+                "name": "case_sensitive",
+                "value": "",
+                "type": "query",
+                "description": "Whether matching is case-sensitive."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort mode. Supported values are alpha and score."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+              },
+              {
+                "name": "include_score",
+                "value": "",
+                "type": "query",
+                "description": "Include the relevance score in each result."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label name search."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label name search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label names to return."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Preferred number of results per NDJSON batch."
+              }
+            ]
+          },
+          "docs": "Search label names"
+        },
+        {
+          "info": {
+            "name": "Search label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/search/label_names",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Search label names"
+        },
+        {
+          "info": {
+            "name": "Search label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/search/label_values",
+            "params": [
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Label name whose values should be searched."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument used to scope label value discovery."
+              },
+              {
+                "name": "search[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms matched against label values (OR logic)."
+              },
+              {
+                "name": "fuzz_threshold",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+              },
+              {
+                "name": "fuzz_alg",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+              },
+              {
+                "name": "case_sensitive",
+                "value": "",
+                "type": "query",
+                "description": "Whether matching is case-sensitive."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort mode. Supported values are alpha and score."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+              },
+              {
+                "name": "include_score",
+                "value": "",
+                "type": "query",
+                "description": "Include the relevance score in each result."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label value search."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label value search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label values to return."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Preferred number of results per NDJSON batch."
+              }
+            ]
+          },
+          "docs": "Search label values"
+        },
+        {
+          "info": {
+            "name": "Search label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/search/label_values",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Search label values"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search metric names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/search/metric_names",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument used to scope metric discovery."
+              },
+              {
+                "name": "search[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms matched against metric names (OR logic)."
+              },
+              {
+                "name": "fuzz_threshold",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+              },
+              {
+                "name": "fuzz_alg",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+              },
+              {
+                "name": "case_sensitive",
+                "value": "",
+                "type": "query",
+                "description": "Whether matching is case-sensitive."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort mode. Supported values are alpha and score."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+              },
+              {
+                "name": "include_score",
+                "value": "",
+                "type": "query",
+                "description": "Include the relevance score in each result."
+              },
+              {
+                "name": "include_metadata",
+                "value": "",
+                "type": "query",
+                "description": "Include metric metadata in each result."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for metric name search."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for metric name search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of metric names to return."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Preferred number of results per NDJSON batch."
+              }
+            ]
+          },
+          "docs": "Search metric names"
+        },
+        {
+          "info": {
+            "name": "Search metric names",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/search/metric_names",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Search metric names"
+        },
+        {
+          "info": {
+            "name": "Get metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/metadata",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metrics to return."
+              },
+              {
+                "name": "limit_per_metric",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metadata entries per metric."
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "query",
+                "description": "A metric name to filter metadata for."
+              }
+            ]
+          },
+          "docs": "Get metadata"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "series",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find series by label matchers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/series",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for series query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for series query."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of series to return."
+              }
+            ]
+          },
+          "docs": "Find series by label matchers"
+        },
+        {
+          "info": {
+            "name": "Find series by label matchers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/series",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Find series by label matchers"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "targets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get scrape pools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/scrape_pools"
+          },
+          "docs": "Get scrape pools"
+        },
+        {
+          "info": {
+            "name": "Get targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/targets",
+            "params": [
+              {
+                "name": "scrapePool",
+                "value": "",
+                "type": "query",
+                "description": "Filter targets by scrape pool name."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by state: active, dropped, or any."
+              }
+            ]
+          },
+          "docs": "Get targets"
+        },
+        {
+          "info": {
+            "name": "Get targets metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/targets/metadata",
+            "params": [
+              {
+                "name": "match_target",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter targets."
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "query",
+                "description": "Metric name to retrieve metadata for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of targets to match."
+              }
+            ]
+          },
+          "docs": "Get targets metadata"
+        },
+        {
+          "info": {
+            "name": "Get targets relabel steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/targets/relabel_steps",
+            "params": [
+              {
+                "name": "scrapePool",
+                "value": "",
+                "type": "query",
+                "description": "Name of the scrape pool."
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "JSON-encoded labels to apply relabel rules to."
+              }
+            ]
+          },
+          "docs": "Get targets relabel steps"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get alerting and recording rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/rules",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule type: alert or record."
+              },
+              {
+                "name": "rule_name[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule name."
+              },
+              {
+                "name": "rule_group[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule group name."
+              },
+              {
+                "name": "file[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by file path."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Label matchers to filter rules."
+              },
+              {
+                "name": "exclude_alerts",
+                "value": "",
+                "type": "query",
+                "description": "Exclude active alerts from response."
+              },
+              {
+                "name": "group_limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rule groups to return."
+              },
+              {
+                "name": "group_next_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for next page."
+              }
+            ]
+          },
+          "docs": "Get alerting and recording rules"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get active alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/alerts"
+          },
+          "docs": "Get active alerts"
+        },
+        {
+          "info": {
+            "name": "Get Alertmanager discovery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/alertmanagers"
+          },
+          "docs": "Get Alertmanager discovery"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/config"
+          },
+          "docs": "Get status config"
+        },
+        {
+          "info": {
+            "name": "Get status runtimeinfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/runtimeinfo"
+          },
+          "docs": "Get status runtimeinfo"
+        },
+        {
+          "info": {
+            "name": "Get status buildinfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/buildinfo"
+          },
+          "docs": "Get status buildinfo"
+        },
+        {
+          "info": {
+            "name": "Get status flags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/flags"
+          },
+          "docs": "Get status flags"
+        },
+        {
+          "info": {
+            "name": "Get TSDB status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/tsdb",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per category."
+              }
+            ]
+          },
+          "docs": "Get TSDB status"
+        },
+        {
+          "info": {
+            "name": "Get TSDB blocks information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/tsdb/blocks"
+          },
+          "docs": "Get TSDB blocks information"
+        },
+        {
+          "info": {
+            "name": "Get status walreplay",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/walreplay"
+          },
+          "docs": "Get status walreplay"
+        },
+        {
+          "info": {
+            "name": "Get Prometheus self-instrumentation metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/status/self_metrics",
+            "params": [
+              {
+                "name": "metric_name_pattern",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression filter for metric names (fully anchored, like PromQL label matchers). Only metric families whose names fully match the pattern are returned."
+              }
+            ]
+          },
+          "docs": "Returns Prometheus' own instrumentation metrics from its internal client registry, as structured JSON. Supports optional regex filtering via the metric_name_pattern parameter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete series matching selectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/admin/tsdb/delete_series",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selectors to identify series to delete."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for deletion."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for deletion."
+              }
+            ]
+          },
+          "docs": "Deletes data for a selection of series in a time range."
+        },
+        {
+          "info": {
+            "name": "Delete series matching selectors via PUT",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/admin/tsdb/delete_series",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selectors to identify series to delete."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for deletion."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for deletion."
+              }
+            ]
+          },
+          "docs": "Deletes data for a selection of series in a time range using PUT method."
+        },
+        {
+          "info": {
+            "name": "Clean tombstones in the TSDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/admin/tsdb/clean_tombstones"
+          },
+          "docs": "Removes deleted data from disk and cleans up existing tombstones."
+        },
+        {
+          "info": {
+            "name": "Clean tombstones in the TSDB via PUT",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/admin/tsdb/clean_tombstones"
+          },
+          "docs": "Removes deleted data from disk and cleans up existing tombstones using PUT method."
+        },
+        {
+          "info": {
+            "name": "Create a snapshot of the TSDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/admin/tsdb/snapshot",
+            "params": [
+              {
+                "name": "skip_head",
+                "value": "",
+                "type": "query",
+                "description": "If true, do not snapshot data in the head block."
+              }
+            ]
+          },
+          "docs": "Creates a snapshot of all current data."
+        },
+        {
+          "info": {
+            "name": "Create a snapshot of the TSDB via PUT",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/admin/tsdb/snapshot",
+            "params": [
+              {
+                "name": "skip_head",
+                "value": "",
+                "type": "query",
+                "description": "If true, do not snapshot data in the head block."
+              }
+            ]
+          },
+          "docs": "Creates a snapshot of all current data using PUT method."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "remote",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Remote read endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/read"
+          },
+          "docs": "Prometheus remote read endpoint for federated queries. Accepts and returns Protocol Buffer encoded data."
+        },
+        {
+          "info": {
+            "name": "Remote write endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/write"
+          },
+          "docs": "Prometheus remote write endpoint for sending metrics. Accepts Protocol Buffer encoded write requests."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "otlp",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "OTLP metrics write endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/otlp/v1/metrics"
+          },
+          "docs": "OpenTelemetry Protocol metrics ingestion endpoint. Accepts OTLP/HTTP metrics in Protocol Buffer format."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/notifications"
+          },
+          "docs": "Get notifications"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "features",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get features",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/features"
+          },
+          "docs": "Get features"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

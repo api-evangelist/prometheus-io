@@ -1,0 +1,1760 @@
+{
+  "item": [
+    {
+      "id": "d08803e0-5192-4d06-a4e5-32d8f04bd9b3",
+      "name": "general",
+      "description": {
+        "content": "General Alertmanager operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e49af65c-42c4-4691-bd28-89abca60dcdc",
+          "name": "get Status",
+          "request": {
+            "name": "get Status",
+            "description": {
+              "content": "Get current status of an Alertmanager instance and its cluster",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc1d4d04-f0bc-4573-a0c8-9ed7794fe5f7",
+              "name": "Get status response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cluster\": {\n    \"status\": \"ready\",\n    \"name\": \"string\",\n    \"peers\": [\n      {\n        \"name\": \"string\",\n        \"address\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"address\": \"string\"\n      }\n    ]\n  },\n  \"versionInfo\": {\n    \"version\": \"string\",\n    \"revision\": \"string\",\n    \"branch\": \"string\",\n    \"buildUser\": \"string\",\n    \"buildDate\": \"string\",\n    \"goVersion\": \"string\"\n  },\n  \"config\": {\n    \"original\": \"string\"\n  },\n  \"uptime\": \"2013-05-25T08:04:46.505Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "25ac5520-2878-4b28-8c02-4c5cab3aeb94",
+      "name": "receiver",
+      "description": {
+        "content": "Everything related to Alertmanager receivers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ac71672-66a2-4e96-8fee-7939da5276b3",
+          "name": "get Receivers",
+          "request": {
+            "name": "get Receivers",
+            "description": {
+              "content": "Get list of all receivers (name of notification integrations)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "receivers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6bf34780-2fca-421e-864d-5c69601747f3",
+              "name": "Get receivers response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "805e02b5-bfd8-4276-94fd-00b34aa049e3",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "78f311ff-99a8-495f-adaa-690ecbdabab2",
+      "name": "silence",
+      "description": {
+        "content": "Everything related to Alertmanager silences",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ad35680-0e2d-4881-8a5c-58eecc789570",
+          "name": "get Silences",
+          "request": {
+            "name": "get Silences",
+            "description": {
+              "content": "Get a list of silences",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter silences. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter silences. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d17569e0-40d0-458b-b468-03a760bbbdc0",
+              "name": "Get silences response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"comment\": \"string\",\n    \"createdBy\": \"string\",\n    \"endsAt\": \"1983-10-03T16:36:34.082Z\",\n    \"id\": \"string\",\n    \"matchers\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"isRegex\": true,\n        \"isEqual\": true\n      }\n    ],\n    \"startsAt\": \"2011-04-30T01:39:04.409Z\",\n    \"status\": {\n      \"state\": \"active\"\n    },\n    \"updatedAt\": \"1967-06-20T12:35:15.344Z\"\n  },\n  {\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"comment\": \"string\",\n    \"createdBy\": \"string\",\n    \"endsAt\": \"1976-02-15T05:28:11.900Z\",\n    \"id\": \"string\",\n    \"matchers\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"isRegex\": true,\n        \"isEqual\": true\n      }\n    ],\n    \"startsAt\": \"1968-10-09T15:13:29.388Z\",\n    \"status\": {\n      \"state\": \"active\"\n    },\n    \"updatedAt\": \"1947-09-14T16:17:50.784Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e158760-519e-4e80-aed5-ee755cbab55c",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c01a7b3b-f315-4f35-8f4b-12e6fb686487",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56b13a11-3bb2-4636-9790-c5f896642ca8",
+          "name": "post Silences",
+          "request": {
+            "name": "post Silences",
+            "description": {
+              "content": "Post a new silence or update an existing one",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0429f5a2-a673-4c01-9fe0-7c89ced48f35",
+              "name": "Create / update silence response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"silenceID\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b32657af-1bf5-4584-bee1-f1b9c4a7e7a4",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fd5d5da-5079-4bcb-a9c9-649db217765f",
+              "name": "A silence with the specified ID was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9facd19-a9e8-4e4f-840c-213759040107",
+          "name": "get Silence",
+          "request": {
+            "name": "get Silence",
+            "description": {
+              "content": "Get a silence by its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silence",
+                ":silenceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "silenceID",
+                  "description": "(Required) ID of the silence to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb164119-4f1d-4dd8-bc56-32bd29d1e58f",
+              "name": "Get silence response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"annotations\": {\n    \"key_0\": \"<string>\"\n  },\n  \"comment\": \"<string>\",\n  \"createdBy\": \"<string>\",\n  \"endsAt\": \"<dateTime>\",\n  \"id\": \"string\",\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"status\": {\n    \"state\": \"pending\"\n  },\n  \"updatedAt\": \"1993-11-05T08:12:24.922Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba06b3d8-a99e-4e89-a7f2-32279e89480f",
+              "name": "A silence with the specified ID was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8deb442-1389-4bd8-a3e4-73bf53eb4741",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "828a4e35-0c75-4a90-bc3f-663dbfe2dbd4",
+          "name": "delete Silence",
+          "request": {
+            "name": "delete Silence",
+            "description": {
+              "content": "Delete a silence by its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silence",
+                ":silenceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "silenceID",
+                  "description": "(Required) ID of the silence to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8955f32-901f-4c3b-92df-e4eebec01762",
+              "name": "Delete silence response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a4587db8-5799-4b4a-a2a6-c43a08505062",
+              "name": "A silence with the specified ID was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "20dc6fbf-9bbe-4baa-aaac-74553e7161b4",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "27383435-f963-491c-8fb0-1ac91803dcb7",
+      "name": "alert",
+      "description": {
+        "content": "Everything related to Alertmanager alerts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63772936-faf0-4081-8c24-a6e771e34742",
+          "name": "get Alerts",
+          "request": {
+            "name": "get Alerts",
+            "description": {
+              "content": "Get a list of alerts",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "true",
+                  "description": "Include active alerts in results. If false, excludes active alerts and returns only suppressed (silenced or inhibited) alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "silenced",
+                  "value": "true",
+                  "description": "Include silenced alerts in results. If false, excludes silenced alerts. Note that true (default) shows both silenced and non-silenced alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "inhibited",
+                  "value": "true",
+                  "description": "Include inhibited alerts in results. If false, excludes inhibited alerts. Note that true (default) shows both inhibited and non-inhibited alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "unprocessed",
+                  "value": "true",
+                  "description": "Include unprocessed alerts in results. If false, excludes unprocessed alerts. Note that true (default) shows both processed and unprocessed alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alerts. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alerts. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver",
+                  "value": "<string>",
+                  "description": "A regex matching receivers to filter alerts by"
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7adaa319-af3e-478c-811e-db5e593d3f95",
+              "name": "Get alerts response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "unprocessed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"endsAt\": \"1952-02-10T06:08:16.402Z\",\n    \"fingerprint\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"receivers\": [\n      {\n        \"name\": \"string\"\n      },\n      {\n        \"name\": \"string\"\n      }\n    ],\n    \"startsAt\": \"1977-06-30T04:08:37.424Z\",\n    \"status\": {\n      \"state\": \"unprocessed\",\n      \"silencedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"inhibitedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"mutedBy\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"updatedAt\": \"2016-01-17T01:39:43.052Z\",\n    \"generatorURL\": \"https://DZehPkczbiVXpytHVtixsRUOZ.tmryJhIsetL0L4j3g8qtF6mgFw4wIfs,7r\"\n  },\n  {\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"endsAt\": \"1968-04-18T03:02:22.421Z\",\n    \"fingerprint\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"receivers\": [\n      {\n        \"name\": \"string\"\n      },\n      {\n        \"name\": \"string\"\n      }\n    ],\n    \"startsAt\": \"2010-02-13T08:50:23.242Z\",\n    \"status\": {\n      \"state\": \"active\",\n      \"silencedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"inhibitedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"mutedBy\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"updatedAt\": \"1963-02-03T13:10:04.634Z\",\n    \"generatorURL\": \"http://fnXcTvc.bwnV70WDEU5wVdBbPUj8amaqT6eT\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b37f3455-2aea-4755-85f7-03825221920a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "unprocessed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2f66c79-ac85-4ef2-8117-d93dcc158372",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "unprocessed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78f394c0-0c22-439e-bbe6-7b9952f05118",
+          "name": "post Alerts",
+          "request": {
+            "name": "post Alerts",
+            "description": {
+              "content": "Create new Alerts",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2cb72a78-f494-469d-8019-f33c846133c8",
+              "name": "Create alerts response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0d8ce12-c7ac-4f6e-9423-976f6bb5d807",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc95583f-6d85-4443-a559-7444a087dd36",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "88583f18-8be0-40b0-8fec-64b2a66453bf",
+      "name": "alertgroup",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9bcd9d9a-d8ad-47c7-9709-5ea2177ae231",
+          "name": "get Alert Groups",
+          "request": {
+            "name": "get Alert Groups",
+            "description": {
+              "content": "Get a list of alert groups",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alerts",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "true",
+                  "description": "Include active alerts within the returned groups. If false, excludes active alerts from groups and only shows suppressed (silenced or inhibited) alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "silenced",
+                  "value": "true",
+                  "description": "Include silenced alerts within the returned groups. If false, excludes silenced alerts from groups. Note that true (default) shows both silenced and non-silenced alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "inhibited",
+                  "value": "true",
+                  "description": "Include inhibited alerts within the returned groups. If false, excludes inhibited alerts from groups. Note that true (default) shows both inhibited and non-inhibited alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "muted",
+                  "value": "true",
+                  "description": "Include muted (silenced or inhibited) alert groups in results. If false, excludes entire groups where all alerts are muted."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alert groups. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alert groups. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver",
+                  "value": "<string>",
+                  "description": "A regex matching receivers to filter alerts by"
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "465f0154-7b16-41bc-8fdf-3039f33a7c7a",
+              "name": "Get alert groups response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "muted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"receiver\": {\n      \"name\": \"string\"\n    },\n    \"alerts\": [\n      {\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"endsAt\": \"1981-07-04T04:12:32.588Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"1981-03-23T00:27:48.245Z\",\n        \"status\": {\n          \"state\": \"active\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"1950-01-04T01:04:38.530Z\",\n        \"generatorURL\": \"http://AeKRefSZoJNCnSEgWkhuPxrS.udfnbOXukTXwV3yFKqH1TXevmIO7IRnI+cNeQ-Y0cGImSNaxn-vODNudioLdTO\"\n      },\n      {\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"endsAt\": \"1975-06-04T18:00:33.922Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"1953-01-27T17:54:45.855Z\",\n        \"status\": {\n          \"state\": \"suppressed\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"1951-06-13T22:21:43.636Z\",\n        \"generatorURL\": \"https://OfFdIOWEeAdrrdVyOkMvPekJggmfNoVaN.klUUj9rmj\"\n      }\n    ]\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"receiver\": {\n      \"name\": \"string\"\n    },\n    \"alerts\": [\n      {\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"endsAt\": \"1983-08-16T11:51:35.118Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"1974-03-08T03:32:16.426Z\",\n        \"status\": {\n          \"state\": \"active\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"1948-03-21T07:27:20.428Z\",\n        \"generatorURL\": \"https://EJi.byttdupW6Ac\"\n      },\n      {\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"endsAt\": \"1952-02-27T10:24:27.101Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_2\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"1978-11-12T06:16:59.808Z\",\n        \"status\": {\n          \"state\": \"active\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"2021-01-23T10:18:18.045Z\",\n        \"generatorURL\": \"https://VTXvLxgukkyt.zasinFevLLgMtTgQhEUiGm8GwD4QBuJXCFVuAD+x6ow8z4xDwTb\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4210d71-7561-4109-80a9-c11e10601c41",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "muted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9272f8ce-5c4c-4099-8b13-33e7f56697d2",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "muted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "385d6f08-f2df-48ab-bfb4-6f7ae7889bd8",
+    "name": "Alertmanager API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}
