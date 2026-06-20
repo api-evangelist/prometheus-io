@@ -22,7 +22,7 @@ description: Prometheus is a Cloud Native Computing Foundation graduated open so
   consul, graphite, memcached, pushgateway, etc.) for pulling metrics out of existing
   systems. Prometheus also drives the OpenMetrics exposition format and an experimental
   Remote Write 2.0 protocol for shipping samples to long-term storage backends.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 kind: contract
 access: Self-Hosted
 x-type: opensource
