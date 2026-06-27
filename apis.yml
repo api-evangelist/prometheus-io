@@ -69,11 +69,11 @@ apis:
   - url: json-ld/prometheus-io-context.jsonld
     type: JSONLD
   - url: examples/prometheus-query-example.json
-    type: Example
+    type: Examples
   - url: examples/prometheus-query-range-example.json
-    type: Example
+    type: Examples
   - url: examples/prometheus-targets-example.json
-    type: Example
+    type: Examples
   - url: graphql/prometheus-io-graphql.md
     type: GraphQL
 - aid: prometheus-io:prometheus-alertmanager-api
@@ -189,7 +189,7 @@ common:
   type: Download
 - url: https://prometheus.io/community/
   name: Community
-  type: Forum
+  type: Forums
 - url: https://prometheus.io/docs/introduction/glossary/
   name: Glossary
   type: Documentation
@@ -216,25 +216,25 @@ common:
   type: ChangeLog
 - url: https://github.com/prometheus/client_golang
   name: Go Client Library
-  type: SDK
+  type: SDKs
 - url: https://github.com/prometheus/client_python
   name: Python Client Library
-  type: SDK
+  type: SDKs
 - url: https://github.com/prometheus/client_java
   name: Java Client Library
-  type: SDK
+  type: SDKs
 - url: https://github.com/prometheus/client_ruby
   name: Ruby Client Library
-  type: SDK
+  type: SDKs
 - url: https://github.com/prometheus/client_rust
   name: Rust Client Library
-  type: SDK
+  type: SDKs
 - url: https://github.com/siimon/prom-client
   name: Node.js Client Library (community)
-  type: SDK
+  type: SDKs
 - url: https://github.com/jupp0r/prometheus-cpp
   name: C++ Client Library (community)
-  type: SDK
+  type: SDKs
 - url: https://github.com/prometheus/alertmanager
   name: Alertmanager
   type: Tools
