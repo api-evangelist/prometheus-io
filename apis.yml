@@ -166,6 +166,8 @@ apis:
     type: SourceCode
     name: OTLP Protocol Buffers
 common:
+- type: AgenticAccess
+  url: agentic-access/prometheus-io-agentic-access.yml
 - type: DomainSecurity
   url: security/prometheus-io-domain-security.yml
 - url: https://prometheus.io/
