@@ -1,0 +1,127 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin notifications API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: notifications
+  description: Server notifications and events.
+paths:
+  /notifications:
+    get:
+      tags:
+      - notifications
+      summary: Get notifications
+      operationId: get-notifications
+      responses:
+        '200':
+          description: Notifications retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsOutputBody'
+              examples:
+                notifications:
+                  summary: Server notifications
+                  value:
+                    data:
+                    - active: true
+                      date: '2026-01-02T16:14:50.046Z'
+                      text: Configuration reload has failed.
+                    status: success
+        default:
+          description: Error retrieving notifications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    Notification:
+      type: object
+      properties:
+        text:
+          type: string
+        date:
+          type: string
+          format: date-time
+        active:
+          type: boolean
+      required:
+      - text
+      - date
+      - active
+      additionalProperties: false
+      description: Server notification.
+    NotificationsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+          example:
+          - active: true
+            date: '2023-07-21T20:00:00.000Z'
+            text: Server is running
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body with an array of notifications.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.

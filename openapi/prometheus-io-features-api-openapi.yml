@@ -1,0 +1,106 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin features API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: features
+  description: Query enabled features.
+paths:
+  /features:
+    get:
+      tags:
+      - features
+      summary: Get features
+      operationId: get-features
+      responses:
+        '200':
+          description: Feature flags retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeaturesOutputBody'
+              examples:
+                enabledFeatures:
+                  summary: Enabled feature flags
+                  value:
+                    data:
+                    - exemplar-storage
+                    - remote-write-receiver
+                    status: success
+        default:
+          description: Error retrieving features.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    FeaturesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          description: Response data (structure varies by endpoint).
+          example:
+            result: ok
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Generic response body.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.

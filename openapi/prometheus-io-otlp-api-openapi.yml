@@ -1,0 +1,59 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin otlp API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: otlp
+  description: OpenTelemetry Protocol metrics ingestion.
+paths:
+  /otlp/v1/metrics:
+    post:
+      tags:
+      - otlp
+      summary: OTLP metrics write endpoint
+      description: OpenTelemetry Protocol metrics ingestion endpoint. Accepts OTLP/HTTP metrics in Protocol Buffer format.
+      operationId: otlpWrite
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.

@@ -1,0 +1,290 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin series API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: series
+  description: Query and manage time series.
+paths:
+  /series:
+    get:
+      tags:
+      - series
+      summary: Find series by label matchers
+      operationId: series
+      parameters:
+      - name: start
+        in: query
+        description: Start timestamp for series query.
+        required: false
+        explode: false
+        schema:
+          oneOf:
+          - type: string
+            format: date-time
+            description: RFC3339 timestamp.
+          - type: number
+            format: unixtime
+            description: Unix timestamp in seconds.
+          description: Timestamp in RFC3339 format or Unix timestamp in seconds.
+        examples:
+          RFC3339:
+            value: '2026-01-02T12:37:00Z'
+          epoch:
+            value: 1767357420
+      - name: end
+        in: query
+        description: End timestamp for series query.
+        required: false
+        explode: false
+        schema:
+          oneOf:
+          - type: string
+            format: date-time
+            description: RFC3339 timestamp.
+          - type: number
+            format: unixtime
+            description: Unix timestamp in seconds.
+          description: Timestamp in RFC3339 format or Unix timestamp in seconds.
+        examples:
+          RFC3339:
+            value: '2026-01-02T13:37:00Z'
+          epoch:
+            value: 1767361020
+      - name: match[]
+        in: query
+        description: Series selector argument.
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        examples:
+          example:
+            value:
+            - '{job="prometheus"}'
+      - name: limit
+        in: query
+        description: Maximum number of series to return.
+        required: false
+        explode: false
+        schema:
+          type: integer
+          format: int64
+        examples:
+          example:
+            value: 100
+      responses:
+        '200':
+          description: Series returned matching the provided label matchers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeriesOutputBody'
+              examples:
+                seriesList:
+                  summary: List of series matching the selector
+                  value:
+                    data:
+                    - __name__: up
+                      env: demo
+                      instance: demo.prometheus.io:8080
+                      job: cadvisor
+                    - __name__: up
+                      env: demo
+                      instance: demo.prometheus.io:9093
+                      job: alertmanager
+                    - __name__: up
+                      env: demo
+                      instance: demo.prometheus.io:9100
+                      job: node
+                    - __name__: up
+                      instance: demo.prometheus.io:3000
+                      job: grafana
+                    - __name__: up
+                      instance: demo.prometheus.io:8996
+                      job: random
+                    status: success
+        default:
+          description: Error retrieving series.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+    post:
+      tags:
+      - series
+      summary: Find series by label matchers
+      operationId: series-post
+      requestBody:
+        description: Submit a series query. This endpoint accepts the same parameters as the GET version.
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SeriesPostInputBody'
+            examples:
+              seriesMatch:
+                summary: Find series by label matchers
+                value:
+                  match[]:
+                  - up
+              seriesWithTimeRange:
+                summary: Find series with time range
+                value:
+                  end: '2026-01-02T13:37:00.000Z'
+                  match[]:
+                  - up
+                  - process_cpu_seconds_total{job="prometheus"}
+                  start: '2026-01-02T12:37:00.000Z'
+        required: true
+      responses:
+        '200':
+          description: Series returned matching the provided label matchers via POST.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeriesOutputBody'
+              examples:
+                seriesList:
+                  summary: List of series matching the selector
+                  value:
+                    data:
+                    - __name__: up
+                      env: demo
+                      instance: demo.prometheus.io:8080
+                      job: cadvisor
+                    - __name__: up
+                      env: demo
+                      instance: demo.prometheus.io:9093
+                      job: alertmanager
+                    - __name__: up
+                      env: demo
+                      instance: demo.prometheus.io:9100
+                      job: node
+                    - __name__: up
+                      instance: demo.prometheus.io:3000
+                      job: grafana
+                    - __name__: up
+                      instance: demo.prometheus.io:8996
+                      job: random
+                    status: success
+        default:
+          description: Error retrieving series via POST.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.
+    SeriesPostInputBody:
+      type: object
+      properties:
+        start:
+          type: string
+          description: 'Form field: The start time of the query.'
+          example: '2023-07-21T20:00:00.000Z'
+        end:
+          type: string
+          description: 'Form field: The end time of the query.'
+          example: '2023-07-21T21:00:00.000Z'
+        match[]:
+          type: array
+          items:
+            type: string
+          description: 'Form field: Series selector argument that selects the series to return.'
+          example:
+          - '{job="prometheus"}'
+        limit:
+          type: integer
+          format: int64
+          description: 'Form field: The maximum number of series to return.'
+          example: 100
+      required:
+      - match[]
+      additionalProperties: false
+      description: POST request body for series query.
+    SeriesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Labels'
+          example:
+          - __name__: up
+            instance: localhost:9090
+            job: prometheus
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body with an array of label sets.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.

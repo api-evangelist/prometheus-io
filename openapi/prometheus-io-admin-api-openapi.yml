@@ -1,0 +1,446 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: admin
+  description: Administrative operations for TSDB management.
+paths:
+  /admin/tsdb/delete_series:
+    put:
+      tags:
+      - admin
+      summary: Delete series matching selectors via PUT
+      description: Deletes data for a selection of series in a time range using PUT method.
+      operationId: deleteSeriesPut
+      parameters:
+      - name: match[]
+        in: query
+        description: Series selectors to identify series to delete.
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        examples:
+          example:
+            value:
+            - '{__name__=~"test.*"}'
+      - name: start
+        in: query
+        description: Start timestamp for deletion.
+        required: false
+        explode: false
+        schema:
+          oneOf:
+          - type: string
+            format: date-time
+            description: RFC3339 timestamp.
+          - type: number
+            format: unixtime
+            description: Unix timestamp in seconds.
+          description: Timestamp in RFC3339 format or Unix timestamp in seconds.
+        examples:
+          RFC3339:
+            value: '2026-01-02T12:37:00Z'
+          epoch:
+            value: 1767357420
+      - name: end
+        in: query
+        description: End timestamp for deletion.
+        required: false
+        explode: false
+        schema:
+          oneOf:
+          - type: string
+            format: date-time
+            description: RFC3339 timestamp.
+          - type: number
+            format: unixtime
+            description: Unix timestamp in seconds.
+          description: Timestamp in RFC3339 format or Unix timestamp in seconds.
+        examples:
+          RFC3339:
+            value: '2026-01-02T13:37:00Z'
+          epoch:
+            value: 1767361020
+      responses:
+        '200':
+          description: Series deleted successfully via PUT.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSeriesOutputBody'
+              examples:
+                deletionSuccess:
+                  summary: Successful series deletion
+                  value:
+                    status: success
+        default:
+          description: Error deleting series via PUT.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+    post:
+      tags:
+      - admin
+      summary: Delete series matching selectors
+      description: Deletes data for a selection of series in a time range.
+      operationId: deleteSeriesPost
+      parameters:
+      - name: match[]
+        in: query
+        description: Series selectors to identify series to delete.
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        examples:
+          example:
+            value:
+            - '{__name__=~"test.*"}'
+      - name: start
+        in: query
+        description: Start timestamp for deletion.
+        required: false
+        explode: false
+        schema:
+          oneOf:
+          - type: string
+            format: date-time
+            description: RFC3339 timestamp.
+          - type: number
+            format: unixtime
+            description: Unix timestamp in seconds.
+          description: Timestamp in RFC3339 format or Unix timestamp in seconds.
+        examples:
+          RFC3339:
+            value: '2026-01-02T12:37:00Z'
+          epoch:
+            value: 1767357420
+      - name: end
+        in: query
+        description: End timestamp for deletion.
+        required: false
+        explode: false
+        schema:
+          oneOf:
+          - type: string
+            format: date-time
+            description: RFC3339 timestamp.
+          - type: number
+            format: unixtime
+            description: Unix timestamp in seconds.
+          description: Timestamp in RFC3339 format or Unix timestamp in seconds.
+        examples:
+          RFC3339:
+            value: '2026-01-02T13:37:00Z'
+          epoch:
+            value: 1767361020
+      responses:
+        '200':
+          description: Series deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSeriesOutputBody'
+              examples:
+                deletionSuccess:
+                  summary: Successful series deletion
+                  value:
+                    status: success
+        default:
+          description: Error deleting series.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /admin/tsdb/clean_tombstones:
+    put:
+      tags:
+      - admin
+      summary: Clean tombstones in the TSDB via PUT
+      description: Removes deleted data from disk and cleans up existing tombstones using PUT method.
+      operationId: cleanTombstonesPut
+      responses:
+        '200':
+          description: Tombstones cleaned successfully via PUT.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CleanTombstonesOutputBody'
+              examples:
+                tombstonesCleaned:
+                  summary: Tombstones cleaned successfully
+                  value:
+                    status: success
+        default:
+          description: Error cleaning tombstones via PUT.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+    post:
+      tags:
+      - admin
+      summary: Clean tombstones in the TSDB
+      description: Removes deleted data from disk and cleans up existing tombstones.
+      operationId: cleanTombstonesPost
+      responses:
+        '200':
+          description: Tombstones cleaned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CleanTombstonesOutputBody'
+              examples:
+                tombstonesCleaned:
+                  summary: Tombstones cleaned successfully
+                  value:
+                    status: success
+        default:
+          description: Error cleaning tombstones.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /admin/tsdb/snapshot:
+    put:
+      tags:
+      - admin
+      summary: Create a snapshot of the TSDB via PUT
+      description: Creates a snapshot of all current data using PUT method.
+      operationId: snapshotPut
+      parameters:
+      - name: skip_head
+        in: query
+        description: If true, do not snapshot data in the head block.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: 'false'
+      responses:
+        '200':
+          description: Snapshot created successfully via PUT.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotOutputBody'
+              examples:
+                snapshotCreated:
+                  summary: Snapshot created successfully
+                  value:
+                    data:
+                      name: 20260102T133700Z-a1b2c3d4e5f67890
+                    status: success
+        default:
+          description: Error creating snapshot via PUT.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+    post:
+      tags:
+      - admin
+      summary: Create a snapshot of the TSDB
+      description: Creates a snapshot of all current data.
+      operationId: snapshotPost
+      parameters:
+      - name: skip_head
+        in: query
+        description: If true, do not snapshot data in the head block.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: 'false'
+      responses:
+        '200':
+          description: Snapshot created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotOutputBody'
+              examples:
+                snapshotCreated:
+                  summary: Snapshot created successfully
+                  value:
+                    data:
+                      name: 20260102T133700Z-a1b2c3d4e5f67890
+                    status: success
+        default:
+          description: Error creating snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
+    DataStruct:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      additionalProperties: false
+      description: Generic data structure with a name field.
+    CleanTombstonesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      additionalProperties: false
+      description: Response body containing only status.
+    SnapshotOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/DataStruct'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for snapshot endpoint.
+    DeleteSeriesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      additionalProperties: false
+      description: Response body containing only status.

@@ -1,0 +1,63 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin receiver API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: receiver
+  description: Everything related to Alertmanager receivers
+paths:
+  /receivers:
+    get:
+      tags:
+      - receiver
+      operationId: getReceivers
+      description: Get list of all receivers (name of notification integrations)
+      parameters:
+      - $ref: '#/parameters/receiverMatchers'
+      responses:
+        '200':
+          description: Get receivers response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/receiver'
+        '400':
+          $ref: '#/responses/BadRequest'
+definitions:
+  labelSet:
+    type: object
+    additionalProperties:
+      type: string
+  receiver:
+    type: object
+    properties:
+      name:
+        type: string
+      labels:
+        $ref: '#/definitions/labelSet'
+    required:
+    - name
+parameters:
+  receiverMatchers:
+    name: receiver_matchers
+    in: query
+    description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
+    required: false
+    type: array
+    collectionFormat: multi
+    items:
+      type: string
+responses:
+  BadRequest:
+    description: Bad request
+    schema:
+      type: string

@@ -1,0 +1,184 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin alertgroup API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: alertgroup
+paths:
+  /alerts/groups:
+    get:
+      tags:
+      - alertgroup
+      operationId: getAlertGroups
+      description: Get a list of alert groups
+      parameters:
+      - in: query
+        name: active
+        type: boolean
+        description: Include active alerts within the returned groups. If false, excludes active alerts from groups and only shows suppressed (silenced or inhibited) alerts.
+        default: true
+      - in: query
+        name: silenced
+        type: boolean
+        description: Include silenced alerts within the returned groups. If false, excludes silenced alerts from groups. Note that true (default) shows both silenced and non-silenced alerts.
+        default: true
+      - in: query
+        name: inhibited
+        type: boolean
+        description: Include inhibited alerts within the returned groups. If false, excludes inhibited alerts from groups. Note that true (default) shows both inhibited and non-inhibited alerts.
+        default: true
+      - in: query
+        name: muted
+        type: boolean
+        description: Include muted (silenced or inhibited) alert groups in results. If false, excludes entire groups where all alerts are muted.
+        default: true
+      - name: filter
+        in: query
+        description: A matcher expression to filter alert groups. For example `alertname="MyAlert"`. It can be repeated to apply multiple matchers.
+        required: false
+        type: array
+        collectionFormat: multi
+        items:
+          type: string
+      - name: receiver
+        in: query
+        description: A regex matching receivers to filter alerts by
+        required: false
+        type: string
+      - $ref: '#/parameters/receiverMatchers'
+      responses:
+        '200':
+          description: Get alert groups response
+          schema:
+            $ref: '#/definitions/alertGroups'
+        '400':
+          $ref: '#/responses/BadRequest'
+        '500':
+          $ref: '#/responses/InternalServerError'
+definitions:
+  alert:
+    type: object
+    properties:
+      labels:
+        $ref: '#/definitions/labelSet'
+      generatorURL:
+        type: string
+        format: uri
+    required:
+    - labels
+  labelSet:
+    type: object
+    additionalProperties:
+      type: string
+  gettableAlert:
+    allOf:
+    - type: object
+      properties:
+        annotations:
+          $ref: '#/definitions/labelSet'
+        receivers:
+          type: array
+          items:
+            $ref: '#/definitions/receiverReference'
+        fingerprint:
+          type: string
+        startsAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/definitions/alertStatus'
+      required:
+      - receivers
+      - fingerprint
+      - startsAt
+      - updatedAt
+      - endsAt
+      - annotations
+      - status
+    - $ref: '#/definitions/alert'
+  receiverReference:
+    type: object
+    properties:
+      name:
+        type: string
+    required:
+    - name
+  alertGroup:
+    type: object
+    properties:
+      labels:
+        $ref: '#/definitions/labelSet'
+      receiver:
+        $ref: '#/definitions/receiverReference'
+      alerts:
+        type: array
+        items:
+          $ref: '#/definitions/gettableAlert'
+    required:
+    - labels
+    - receiver
+    - alerts
+  alertStatus:
+    type: object
+    properties:
+      state:
+        type: string
+        enum:
+        - unprocessed
+        - active
+        - suppressed
+      silencedBy:
+        type: array
+        items:
+          type: string
+      inhibitedBy:
+        type: array
+        items:
+          type: string
+      mutedBy:
+        type: array
+        items:
+          type: string
+    required:
+    - state
+    - silencedBy
+    - inhibitedBy
+    - mutedBy
+  alertGroups:
+    type: array
+    items:
+      $ref: '#/definitions/alertGroup'
+parameters:
+  receiverMatchers:
+    name: receiver_matchers
+    in: query
+    description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
+    required: false
+    type: array
+    collectionFormat: multi
+    items:
+      type: string
+responses:
+  InternalServerError:
+    description: Internal server error
+    schema:
+      type: string
+  BadRequest:
+    description: Bad request
+    schema:
+      type: string

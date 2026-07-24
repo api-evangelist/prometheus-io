@@ -1,0 +1,243 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin alerts API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: alerts
+  description: Query active alerts and alertmanager discovery.
+paths:
+  /alerts:
+    get:
+      tags:
+      - alerts
+      summary: Get active alerts
+      operationId: alerts
+      responses:
+        '200':
+          description: Active alerts retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertsOutputBody'
+              examples:
+                activeAlerts:
+                  summary: Currently active alerts
+                  value:
+                    data:
+                      alerts:
+                      - activeAt: '2026-01-02T13:30:00.000Z'
+                        annotations:
+                          description: This is an alert meant to ensure that the entire alerting pipeline is functional. This alert is always firing, therefore it should always be firing in Alertmanager and always fire against a receiver. There are integrations with various notification mechanisms that send a notification when this alert is not firing. For example the "DeadMansSnitch" integration in PagerDuty.
+                          summary: Ensure entire alerting pipeline is functional
+                        labels:
+                          alertname: Watchdog
+                          severity: warning
+                        state: firing
+                        value: 1e+00
+                    status: success
+        default:
+          description: Error retrieving alerts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /alertmanagers:
+    get:
+      tags:
+      - alerts
+      summary: Get Alertmanager discovery
+      operationId: alertmanagers
+      responses:
+        '200':
+          description: Alertmanager targets retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertmanagersOutputBody'
+              examples:
+                alertmanagerDiscovery:
+                  summary: Alertmanager discovery results
+                  value:
+                    data:
+                      activeAlertmanagers:
+                      - url: http://demo.prometheus.io:9093/api/v2/alerts
+                      droppedAlertmanagers: []
+                    status: success
+        default:
+          description: Error retrieving Alertmanager targets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    AlertmanagerTarget:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL of the Alertmanager instance.
+      required:
+      - url
+      additionalProperties: false
+      description: Alertmanager target information.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.
+    AlertsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/AlertDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for alerts endpoint.
+    AlertDiscovery:
+      type: object
+      properties:
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+      required:
+      - alerts
+      additionalProperties: false
+      description: Alert discovery information containing all active alerts.
+    Alert:
+      type: object
+      properties:
+        labels:
+          $ref: '#/components/schemas/Labels'
+        annotations:
+          $ref: '#/components/schemas/Labels'
+        state:
+          type: string
+          description: State of the alert (pending, firing, or inactive).
+        value:
+          type: string
+          description: Value of the alert expression.
+        activeAt:
+          type: string
+          format: date-time
+          description: Timestamp when the alert became active.
+        keepFiringSince:
+          type: string
+          format: date-time
+          description: Timestamp since the alert has been kept firing.
+      required:
+      - labels
+      - annotations
+      - state
+      - value
+      additionalProperties: false
+      description: Alert information.
+    AlertmanagersOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/AlertmanagerDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for alertmanagers endpoint.
+    AlertmanagerDiscovery:
+      type: object
+      properties:
+        activeAlertmanagers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertmanagerTarget'
+        droppedAlertmanagers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertmanagerTarget'
+      required:
+      - activeAlertmanagers
+      - droppedAlertmanagers
+      additionalProperties: false
+      description: Alertmanager discovery information including active and dropped instances.

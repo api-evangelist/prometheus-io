@@ -1,0 +1,923 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin status API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: status
+  description: Retrieve server status and configuration.
+paths:
+  /status/config:
+    get:
+      tags:
+      - status
+      summary: Get status config
+      operationId: get-status-config
+      responses:
+        '200':
+          description: Configuration retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConfigOutputBody'
+              examples:
+                configYAML:
+                  summary: Prometheus configuration
+                  value:
+                    data:
+                      yaml: "global:\n  scrape_interval: 15s\n  scrape_timeout: 10s\n  evaluation_interval: 15s\n  external_labels:\n    environment: demo-prometheus-io\nalerting:\n  alertmanagers:\n  - scheme: http\n    static_configs:\n    - targets:\n      - demo.prometheus.io:9093\nrule_files:\n- /etc/prometheus/rules/*.yml\n"
+                    status: success
+        default:
+          description: Error retrieving configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /status/runtimeinfo:
+    get:
+      tags:
+      - status
+      summary: Get status runtimeinfo
+      operationId: get-status-runtimeinfo
+      responses:
+        '200':
+          description: Runtime information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusRuntimeInfoOutputBody'
+              examples:
+                runtimeInfo:
+                  summary: Runtime information
+                  value:
+                    data:
+                      CWD: /
+                      GODEBUG: ''
+                      GOGC: '75'
+                      GOMAXPROCS: 2
+                      GOMEMLIMIT: 3703818240
+                      corruptionCount: 0
+                      goroutineCount: 88
+                      hostname: demo-prometheus-io
+                      lastConfigTime: '2026-01-01T13:37:00.000Z'
+                      reloadConfigSuccess: true
+                      serverTime: '2026-01-02T13:37:00.000Z'
+                      startTime: '2026-01-01T13:37:00.000Z'
+                      storageRetention: 31d
+                    status: success
+        default:
+          description: Error retrieving runtime information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /status/buildinfo:
+    get:
+      tags:
+      - status
+      summary: Get status buildinfo
+      operationId: get-status-buildinfo
+      responses:
+        '200':
+          description: Build information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusBuildInfoOutputBody'
+              examples:
+                buildInfo:
+                  summary: Build information
+                  value:
+                    data:
+                      branch: HEAD
+                      buildDate: 20251030-07:26:10
+                      buildUser: root@08c890a84441
+                      goVersion: go1.25.3
+                      revision: 0a41f0000705c69ab8e0f9a723fc73e39ed62b07
+                      version: 3.7.3
+                    status: success
+        default:
+          description: Error retrieving build information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /status/flags:
+    get:
+      tags:
+      - status
+      summary: Get status flags
+      operationId: get-status-flags
+      responses:
+        '200':
+          description: Command-line flags retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusFlagsOutputBody'
+              examples:
+                flags:
+                  summary: Command-line flags
+                  value:
+                    data:
+                      agent: 'false'
+                      alertmanager.notification-queue-capacity: '10000'
+                      config.file: /etc/prometheus/prometheus.yml
+                      enable-feature: exemplar-storage,native-histograms
+                      query.max-concurrency: '20'
+                      query.timeout: 2m
+                      storage.tsdb.path: /prometheus
+                      storage.tsdb.retention.time: 15d
+                      web.console.libraries: /usr/share/prometheus/console_libraries
+                      web.console.templates: /usr/share/prometheus/consoles
+                      web.enable-admin-api: 'true'
+                      web.enable-lifecycle: 'true'
+                      web.listen-address: 0.0.0.0:9090
+                      web.page-title: Prometheus Time Series Collection and Processing Server
+                    status: success
+        default:
+          description: Error retrieving flags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /status/tsdb:
+    get:
+      tags:
+      - status
+      summary: Get TSDB status
+      operationId: status-tsdb
+      parameters:
+      - name: limit
+        in: query
+        description: The maximum number of items to return per category.
+        required: false
+        explode: false
+        schema:
+          type: integer
+          format: int64
+        examples:
+          example:
+            value: 10
+      responses:
+        '200':
+          description: TSDB status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusTSDBOutputBody'
+              examples:
+                tsdbStats:
+                  summary: TSDB statistics
+                  value:
+                    data:
+                      headStats:
+                        chunkCount: 37525
+                        maxTime: 1767436620000
+                        minTime: 1767362400712
+                        numLabelPairs: 2512
+                        numSeries: 9925
+                      labelValueCountByLabelName:
+                      - name: __name__
+                        value: 5
+                      - name: job
+                        value: 3
+                      memoryInBytesByLabelName:
+                      - name: __name__
+                        value: 1024
+                      - name: job
+                        value: 512
+                      seriesCountByLabelValuePair:
+                      - name: job=prometheus
+                        value: 100
+                      - name: instance=localhost:9090
+                        value: 100
+                      seriesCountByMetricName:
+                      - name: up
+                        value: 100
+                      - name: http_requests_total
+                        value: 500
+                    status: success
+        default:
+          description: Error retrieving TSDB status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /status/tsdb/blocks:
+    get:
+      tags:
+      - status
+      summary: Get TSDB blocks information
+      operationId: status-tsdb-blocks
+      responses:
+        '200':
+          description: TSDB blocks information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusTSDBBlocksOutputBody'
+              examples:
+                tsdbBlocks:
+                  summary: TSDB block information
+                  value:
+                    data:
+                      blocks:
+                      - compaction:
+                          level: 4
+                          sources:
+                          - 01KBCJ7TR8A4QAJ3AA1J651P5S
+                          - 01KBCS3J0E34567YPB8Y5W0E24
+                          - 01KBCZZ9KRTYGG3E7HVQFGC3S3
+                        maxTime: 1764763200000
+                        minTime: 1764568801099
+                        stats:
+                          numChunks: 1073962
+                          numSamples: 129505582
+                          numSeries: 10661
+                        ulid: 01KC4D6GXQA4CRHYKV78NEBVAE
+                        version: 1
+                    status: success
+        default:
+          description: Error retrieving TSDB blocks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /status/walreplay:
+    get:
+      tags:
+      - status
+      summary: Get status walreplay
+      operationId: get-status-walreplay
+      responses:
+        '200':
+          description: WAL replay status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusWALReplayOutputBody'
+              examples:
+                walReplay:
+                  summary: WAL replay status
+                  value:
+                    data:
+                      current: 3214
+                      max: 3214
+                      min: 3209
+                    status: success
+        default:
+          description: Error retrieving WAL replay status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /status/self_metrics:
+    get:
+      tags:
+      - status
+      summary: Get Prometheus self-instrumentation metrics
+      description: Returns Prometheus' own instrumentation metrics from its internal client registry, as structured JSON. Supports optional regex filtering via the metric_name_pattern parameter.
+      operationId: get-status-self-metrics
+      parameters:
+      - name: metric_name_pattern
+        in: query
+        description: Regular expression filter for metric names (fully anchored, like PromQL label matchers). Only metric families whose names fully match the pattern are returned.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: prometheus_tsdb_.*
+      responses:
+        '200':
+          description: Self metrics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusSelfMetricsOutputBody'
+              examples:
+                selfMetrics:
+                  summary: Prometheus self-instrumentation metrics in ProtoJSON format
+                  value:
+                    data:
+                    - help: A metric with a constant '1' value labeled by version, revision, branch, goversion from which prometheus was built, and the goos and goarch for the build.
+                      metric:
+                      - gauge:
+                          value: 1
+                        label:
+                        - name: branch
+                          value: HEAD
+                        - name: goarch
+                          value: amd64
+                        - name: goos
+                          value: linux
+                        - name: goversion
+                          value: go1.23.0
+                        - name: revision
+                          value: abc1234
+                        - name: tags
+                          value: netgo,builtinassets,stringlabels
+                        - name: version
+                          value: 3.0.0
+                      name: prometheus_build_info
+                      type: GAUGE
+                    - help: Total number of chunks in the head block.
+                      metric:
+                      - gauge:
+                          value: 1024
+                      name: prometheus_tsdb_head_chunks
+                      type: GAUGE
+                    status: success
+        default:
+          description: Error retrieving self metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    HeadStats:
+      type: object
+      properties:
+        numSeries:
+          type: integer
+          format: int64
+        numLabelPairs:
+          type: integer
+          format: int64
+        chunkCount:
+          type: integer
+          format: int64
+        minTime:
+          type: integer
+          format: int64
+        maxTime:
+          type: integer
+          format: int64
+      required:
+      - numSeries
+      - numLabelPairs
+      - chunkCount
+      - minTime
+      - maxTime
+      additionalProperties: false
+      description: TSDB head statistics.
+    StatusWALReplayOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/StatusWALReplayData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status WAL replay endpoint.
+    StatusConfigData:
+      type: object
+      properties:
+        yaml:
+          type: string
+          description: Prometheus configuration in YAML format.
+      required:
+      - yaml
+      additionalProperties: false
+      description: Prometheus configuration.
+    StatusBuildInfoOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/PrometheusVersion'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status build info endpoint.
+    RuntimeInfo:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        CWD:
+          type: string
+        hostname:
+          type: string
+        serverTime:
+          type: string
+          format: date-time
+        reloadConfigSuccess:
+          type: boolean
+        lastConfigTime:
+          type: string
+          format: date-time
+        corruptionCount:
+          type: integer
+          format: int64
+        goroutineCount:
+          type: integer
+          format: int64
+        GOMAXPROCS:
+          type: integer
+          format: int64
+        GOMEMLIMIT:
+          type: integer
+          format: int64
+        GOGC:
+          type: string
+        GODEBUG:
+          type: string
+        storageRetention:
+          type: string
+      required:
+      - startTime
+      - CWD
+      - hostname
+      - serverTime
+      - reloadConfigSuccess
+      - lastConfigTime
+      - corruptionCount
+      - goroutineCount
+      - GOMAXPROCS
+      - GOMEMLIMIT
+      - GOGC
+      - GODEBUG
+      - storageRetention
+      additionalProperties: false
+      description: Prometheus runtime information.
+    TSDBStatus:
+      type: object
+      properties:
+        headStats:
+          $ref: '#/components/schemas/HeadStats'
+        seriesCountByMetricName:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+        labelValueCountByLabelName:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+        memoryInBytesByLabelName:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+        seriesCountByLabelValuePair:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+      required:
+      - headStats
+      - seriesCountByMetricName
+      - labelValueCountByLabelName
+      - memoryInBytesByLabelName
+      - seriesCountByLabelValuePair
+      additionalProperties: false
+      description: TSDB status information.
+    StatusTSDBBlocksOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/StatusTSDBBlocksData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status TSDB blocks endpoint.
+    TSDBStat:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: integer
+          format: int64
+      required:
+      - name
+      - value
+      additionalProperties: false
+      description: TSDB statistic.
+    BlockStats:
+      type: object
+      properties:
+        numSamples:
+          type: integer
+          format: int64
+        numSeries:
+          type: integer
+          format: int64
+        numChunks:
+          type: integer
+          format: int64
+        numTombstones:
+          type: integer
+          format: int64
+        numFloatSamples:
+          type: integer
+          format: int64
+        numHistogramSamples:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: Block statistics.
+    PrometheusVersion:
+      type: object
+      properties:
+        version:
+          type: string
+        revision:
+          type: string
+        branch:
+          type: string
+        buildUser:
+          type: string
+        buildDate:
+          type: string
+        goVersion:
+          type: string
+      required:
+      - version
+      - revision
+      - branch
+      - buildUser
+      - buildDate
+      - goVersion
+      additionalProperties: false
+      description: Prometheus version information.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
+    StatusTSDBBlocksData:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockMeta'
+      required:
+      - blocks
+      additionalProperties: false
+      description: TSDB blocks information.
+    StatusRuntimeInfoOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/RuntimeInfo'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status runtime info endpoint.
+    StatusTSDBOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/TSDBStatus'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status TSDB endpoint.
+    StatusSelfMetricsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          description: Response data (structure varies by endpoint).
+          example:
+            result: ok
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Generic response body.
+    StatusFlagsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: object
+          additionalProperties:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status flags endpoint.
+    BlockDesc:
+      type: object
+      properties:
+        ulid:
+          type: string
+        minTime:
+          type: integer
+          format: int64
+        maxTime:
+          type: integer
+          format: int64
+      required:
+      - ulid
+      - minTime
+      - maxTime
+      additionalProperties: false
+      description: Block descriptor.
+    StatusConfigOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/StatusConfigData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status config endpoint.
+    BlockMetaCompaction:
+      type: object
+      properties:
+        level:
+          type: integer
+          format: int64
+        sources:
+          type: array
+          items:
+            type: string
+        parents:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDesc'
+        failed:
+          type: boolean
+        deletable:
+          type: boolean
+        hints:
+          type: array
+          items:
+            type: string
+      required:
+      - level
+      additionalProperties: false
+      description: Block compaction metadata.
+    BlockMeta:
+      type: object
+      properties:
+        ulid:
+          type: string
+        minTime:
+          type: integer
+          format: int64
+        maxTime:
+          type: integer
+          format: int64
+        stats:
+          $ref: '#/components/schemas/BlockStats'
+        compaction:
+          $ref: '#/components/schemas/BlockMetaCompaction'
+        version:
+          type: integer
+          format: int64
+      required:
+      - ulid
+      - minTime
+      - maxTime
+      - compaction
+      - version
+      additionalProperties: false
+      description: Block metadata.
+    StatusWALReplayData:
+      type: object
+      properties:
+        min:
+          type: integer
+          format: int64
+        max:
+          type: integer
+          format: int64
+        current:
+          type: integer
+          format: int64
+      required:
+      - min
+      - max
+      - current
+      additionalProperties: false
+      description: WAL replay status.

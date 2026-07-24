@@ -1,0 +1,273 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin rules API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: rules
+  description: Query recording and alerting rules.
+paths:
+  /rules:
+    get:
+      tags:
+      - rules
+      summary: Get alerting and recording rules
+      operationId: rules
+      parameters:
+      - name: type
+        in: query
+        description: 'Filter by rule type: alert or record.'
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: alert
+      - name: rule_name[]
+        in: query
+        description: Filter by rule name.
+        required: false
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        examples:
+          example:
+            value:
+            - HighErrorRate
+      - name: rule_group[]
+        in: query
+        description: Filter by rule group name.
+        required: false
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        examples:
+          example:
+            value:
+            - example_alerts
+      - name: file[]
+        in: query
+        description: Filter by file path.
+        required: false
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        examples:
+          example:
+            value:
+            - /etc/prometheus/rules.yml
+      - name: match[]
+        in: query
+        description: Label matchers to filter rules.
+        required: false
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        examples:
+          example:
+            value:
+            - '{severity="critical"}'
+      - name: exclude_alerts
+        in: query
+        description: Exclude active alerts from response.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: 'false'
+      - name: group_limit
+        in: query
+        description: Maximum number of rule groups to return.
+        required: false
+        explode: false
+        schema:
+          type: integer
+          format: int64
+        examples:
+          example:
+            value: 100
+      - name: group_next_token
+        in: query
+        description: Pagination token for next page.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: abc123
+      responses:
+        '200':
+          description: Rules retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RulesOutputBody'
+              examples:
+                ruleGroups:
+                  summary: Alerting and recording rules
+                  value:
+                    data:
+                      groups:
+                      - evaluationTime: 0.000561635
+                        file: /etc/prometheus/rules/ansible_managed.yml
+                        interval: 15
+                        lastEvaluation: '2026-01-02T13:36:56.874Z'
+                        limit: 0
+                        name: ansible managed alert rules
+                        rules:
+                        - annotations:
+                            description: This is an alert meant to ensure that the entire alerting pipeline is functional. This alert is always firing, therefore it should always be firing in Alertmanager and always fire against a receiver. There are integrations with various notification mechanisms that send a notification when this alert is not firing. For example the "DeadMansSnitch" integration in PagerDuty.
+                            summary: Ensure entire alerting pipeline is functional
+                          duration: 600
+                          evaluationTime: 0.000356688
+                          health: ok
+                          keepFiringFor: 0
+                          labels:
+                            severity: warning
+                          lastEvaluation: '2026-01-02T13:36:56.874Z'
+                          name: Watchdog
+                          query: vector(1)
+                          state: firing
+                          type: alerting
+                    status: success
+        default:
+          description: Error retrieving rules.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    RuleGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the rule group.
+        file:
+          type: string
+          description: File containing the rule group.
+        rules:
+          type: array
+          items:
+            type: object
+            description: Rule definition.
+          description: Rules in this group.
+        interval:
+          type: number
+          format: double
+          description: Evaluation interval in seconds.
+        limit:
+          type: integer
+          format: int64
+          description: Maximum number of alerts for this group.
+        evaluationTime:
+          type: number
+          format: double
+          description: Time taken to evaluate the group in seconds.
+        lastEvaluation:
+          type: string
+          format: date-time
+          description: Timestamp of the last evaluation.
+      required:
+      - name
+      - file
+      - rules
+      - interval
+      - limit
+      - evaluationTime
+      - lastEvaluation
+      additionalProperties: false
+      description: Rule group information.
+    RuleDiscovery:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleGroup'
+        groupNextToken:
+          type: string
+          description: Pagination token for the next page of groups.
+      required:
+      - groups
+      additionalProperties: false
+      description: Rule discovery information containing all rule groups.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
+    RulesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/RuleDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for rules endpoint.

@@ -1,0 +1,205 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin silence API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: silence
+  description: Everything related to Alertmanager silences
+paths:
+  /silences:
+    get:
+      tags:
+      - silence
+      operationId: getSilences
+      description: Get a list of silences
+      responses:
+        '200':
+          description: Get silences response
+          schema:
+            $ref: '#/definitions/gettableSilences'
+        '400':
+          $ref: '#/responses/BadRequest'
+        '500':
+          $ref: '#/responses/InternalServerError'
+      parameters:
+      - name: filter
+        in: query
+        description: A matcher expression to filter silences. For example `alertname="MyAlert"`. It can be repeated to apply multiple matchers.
+        required: false
+        type: array
+        collectionFormat: multi
+        items:
+          type: string
+    post:
+      tags:
+      - silence
+      operationId: postSilences
+      description: Post a new silence or update an existing one
+      parameters:
+      - in: body
+        name: silence
+        description: The silence to create
+        required: true
+        schema:
+          $ref: '#/definitions/postableSilence'
+      responses:
+        '200':
+          description: Create / update silence response
+          schema:
+            type: object
+            properties:
+              silenceID:
+                type: string
+        '400':
+          $ref: '#/responses/BadRequest'
+        '404':
+          description: A silence with the specified ID was not found
+          schema:
+            type: string
+  /silence/{silenceID}:
+    parameters:
+    - in: path
+      name: silenceID
+      type: string
+      format: uuid
+      required: true
+      description: ID of the silence to get
+    get:
+      tags:
+      - silence
+      operationId: getSilence
+      description: Get a silence by its ID
+      responses:
+        '200':
+          description: Get silence response
+          schema:
+            $ref: '#/definitions/gettableSilence'
+        '404':
+          description: A silence with the specified ID was not found
+        '500':
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+      - silence
+      operationId: deleteSilence
+      description: Delete a silence by its ID
+      parameters:
+      - in: path
+        name: silenceID
+        type: string
+        format: uuid
+        required: true
+        description: ID of the silence to get
+      responses:
+        '200':
+          description: Delete silence response
+        '404':
+          description: A silence with the specified ID was not found
+        '500':
+          $ref: '#/responses/InternalServerError'
+definitions:
+  matchers:
+    type: array
+    items:
+      $ref: '#/definitions/matcher'
+    minItems: 1
+  gettableSilences:
+    type: array
+    items:
+      $ref: '#/definitions/gettableSilence'
+  postableSilence:
+    allOf:
+    - type: object
+      properties:
+        id:
+          type: string
+    - $ref: '#/definitions/silence'
+  labelSet:
+    type: object
+    additionalProperties:
+      type: string
+  matcher:
+    type: object
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+      isRegex:
+        type: boolean
+      isEqual:
+        type: boolean
+        default: true
+    required:
+    - name
+    - value
+    - isRegex
+  silence:
+    type: object
+    properties:
+      matchers:
+        $ref: '#/definitions/matchers'
+      startsAt:
+        type: string
+        format: date-time
+      endsAt:
+        type: string
+        format: date-time
+      createdBy:
+        type: string
+      comment:
+        type: string
+      annotations:
+        $ref: '#/definitions/labelSet'
+    required:
+    - matchers
+    - startsAt
+    - endsAt
+    - createdBy
+    - comment
+  gettableSilence:
+    allOf:
+    - type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/definitions/silenceStatus'
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - status
+      - updatedAt
+      - annotations
+    - $ref: '#/definitions/silence'
+  silenceStatus:
+    type: object
+    properties:
+      state:
+        type: string
+        enum:
+        - expired
+        - active
+        - pending
+    required:
+    - state
+responses:
+  InternalServerError:
+    description: Internal server error
+    schema:
+      type: string
+  BadRequest:
+    description: Bad request
+    schema:
+      type: string

@@ -1,0 +1,602 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Alertmanager admin targets API
+  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api/v2/
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: targets
+  description: Retrieve target and scrape pool information.
+paths:
+  /scrape_pools:
+    get:
+      tags:
+      - targets
+      summary: Get scrape pools
+      operationId: get-scrape-pools
+      responses:
+        '200':
+          description: Scrape pools retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScrapePoolsOutputBody'
+              examples:
+                scrapePoolsList:
+                  summary: List of scrape pool names
+                  value:
+                    data:
+                      scrapePools:
+                      - alertmanager
+                      - blackbox
+                      - caddy
+                      - cadvisor
+                      - grafana
+                      - node
+                      - prometheus
+                      - random
+                    status: success
+        default:
+          description: Error retrieving scrape pools.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /targets:
+    get:
+      tags:
+      - targets
+      summary: Get targets
+      operationId: get-targets
+      parameters:
+      - name: scrapePool
+        in: query
+        description: Filter targets by scrape pool name.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: prometheus
+      - name: state
+        in: query
+        description: 'Filter by state: active, dropped, or any.'
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: active
+      responses:
+        '200':
+          description: Target discovery information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetsOutputBody'
+              examples:
+                targetsList:
+                  summary: Active and dropped targets
+                  value:
+                    data:
+                      activeTargets:
+                      - discoveredLabels:
+                          __address__: demo.prometheus.io:9093
+                          __meta_filepath: /etc/prometheus/file_sd/alertmanager.yml
+                          __metrics_path__: /metrics
+                          __scheme__: http
+                          env: demo
+                          job: alertmanager
+                        globalUrl: http://demo.prometheus.io:9093/metrics
+                        health: up
+                        labels:
+                          env: demo
+                          instance: demo.prometheus.io:9093
+                          job: alertmanager
+                        lastError: ''
+                        lastScrape: '2026-01-02T13:36:40.200Z'
+                        lastScrapeDuration: 0.006576866
+                        scrapeInterval: 15s
+                        scrapePool: alertmanager
+                        scrapeTimeout: 10s
+                        scrapeUrl: http://demo.prometheus.io:9093/metrics
+                      droppedTargetCounts:
+                        alertmanager: 0
+                        blackbox: 0
+                        caddy: 0
+                        cadvisor: 0
+                        grafana: 0
+                        node: 0
+                        prometheus: 0
+                        random: 0
+                      droppedTargets: []
+                    status: success
+        default:
+          description: Error retrieving targets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /targets/metadata:
+    get:
+      tags:
+      - targets
+      summary: Get targets metadata
+      operationId: get-targets-metadata
+      parameters:
+      - name: match_target
+        in: query
+        description: Label selector to filter targets.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: '{job="prometheus"}'
+      - name: metric
+        in: query
+        description: Metric name to retrieve metadata for.
+        required: false
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: http_requests_total
+      - name: limit
+        in: query
+        description: Maximum number of targets to match.
+        required: false
+        explode: false
+        schema:
+          type: integer
+          format: int64
+        examples:
+          example:
+            value: 10
+      responses:
+        '200':
+          description: Target metadata retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetMetadataOutputBody'
+              examples:
+                targetMetadata:
+                  summary: Metadata for targets
+                  value:
+                    data:
+                    - help: The current health status of the target
+                      metric: up
+                      target:
+                        instance: localhost:9090
+                        job: prometheus
+                      type: gauge
+                      unit: ''
+                    status: success
+        default:
+          description: Error retrieving target metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+  /targets/relabel_steps:
+    get:
+      tags:
+      - targets
+      summary: Get targets relabel steps
+      operationId: get-targets-relabel-steps
+      parameters:
+      - name: scrapePool
+        in: query
+        description: Name of the scrape pool.
+        required: true
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: prometheus
+      - name: labels
+        in: query
+        description: JSON-encoded labels to apply relabel rules to.
+        required: true
+        explode: false
+        schema:
+          type: string
+        examples:
+          example:
+            value: '{"__address__":"localhost:9090","job":"prometheus"}'
+      responses:
+        '200':
+          description: Relabel steps retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetRelabelStepsOutputBody'
+              examples:
+                relabelSteps:
+                  summary: Relabel steps for a target
+                  value:
+                    data:
+                      steps:
+                      - keep: true
+                        output:
+                          __address__: localhost:9090
+                          instance: localhost:9090
+                          job: prometheus
+                        rule:
+                          action: replace
+                          regex: (.*)
+                          replacement: $1
+                          source_labels:
+                          - __address__
+                          target_label: instance
+                    status: success
+        default:
+          description: Error retrieving relabel steps.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                tsdbNotReady:
+                  summary: TSDB not ready
+                  value:
+                    error: TSDB not ready
+                    errorType: internal
+                    status: error
+components:
+  schemas:
+    TargetMetadataOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricMetadata'
+          example:
+          - help: The current health status of the target
+            metric: up
+            target:
+              instance: localhost:9090
+              job: prometheus
+            type: gauge
+            unit: ''
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body with an array of metric metadata.
+    ScrapePoolsDiscovery:
+      type: object
+      properties:
+        scrapePools:
+          type: array
+          items:
+            type: string
+      required:
+      - scrapePools
+      additionalProperties: false
+      description: List of all configured scrape pools.
+    Config:
+      type: object
+      properties:
+        source_labels:
+          type: array
+          items:
+            type: string
+          description: Source labels for relabeling.
+        separator:
+          type: string
+          description: Separator for source label values.
+        regex:
+          type: string
+          description: Regular expression for matching.
+        modulus:
+          type: integer
+          format: int64
+          description: Modulus for hash-based relabeling.
+        target_label:
+          type: string
+          description: Target label name.
+        replacement:
+          type: string
+          description: Replacement value.
+        action:
+          type: string
+          description: Relabel action.
+      additionalProperties: false
+      description: Relabel configuration.
+    RelabelStep:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/Config'
+        output:
+          $ref: '#/components/schemas/Labels'
+        keep:
+          type: boolean
+      required:
+      - rule
+      - output
+      - keep
+      additionalProperties: false
+      description: Relabel step showing the rule, output, and whether the target was kept.
+    ScrapePoolsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/ScrapePoolsDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for scrape pools endpoint.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
+    DroppedTarget:
+      type: object
+      properties:
+        discoveredLabels:
+          $ref: '#/components/schemas/Labels'
+        scrapePool:
+          type: string
+          description: Name of the scrape pool.
+      required:
+      - discoveredLabels
+      - scrapePool
+      additionalProperties: false
+      description: Dropped target information.
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.
+    RelabelStepsResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelabelStep'
+      required:
+      - steps
+      additionalProperties: false
+      description: Relabeling steps response.
+    Target:
+      type: object
+      properties:
+        discoveredLabels:
+          $ref: '#/components/schemas/Labels'
+        labels:
+          $ref: '#/components/schemas/Labels'
+        scrapePool:
+          type: string
+          description: Name of the scrape pool.
+        scrapeUrl:
+          type: string
+          description: URL of the target.
+        globalUrl:
+          type: string
+          description: Global URL of the target.
+        lastError:
+          type: string
+          description: Last error message from scraping.
+        lastScrape:
+          type: string
+          format: date-time
+          description: Timestamp of the last scrape.
+        lastScrapeDuration:
+          type: number
+          format: double
+          description: Duration of the last scrape in seconds.
+        health:
+          type: string
+          description: Health status of the target (up, down, or unknown).
+        scrapeInterval:
+          type: string
+          description: Scrape interval for this target.
+        scrapeTimeout:
+          type: string
+          description: Scrape timeout for this target.
+      required:
+      - discoveredLabels
+      - labels
+      - scrapePool
+      - scrapeUrl
+      - globalUrl
+      - lastError
+      - lastScrape
+      - lastScrapeDuration
+      - health
+      - scrapeInterval
+      - scrapeTimeout
+      additionalProperties: false
+      description: Scrape target information.
+    MetricMetadata:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/Labels'
+        metric:
+          type: string
+          description: Metric name.
+        type:
+          type: string
+          description: Metric type (counter, gauge, histogram, summary, or untyped).
+        help:
+          type: string
+          description: Help text describing the metric.
+        unit:
+          type: string
+          description: Unit of the metric.
+      required:
+      - target
+      - type
+      - help
+      - unit
+      additionalProperties: false
+      description: Target metric metadata.
+    TargetsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/TargetDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for targets endpoint.
+    TargetRelabelStepsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/RelabelStepsResponse'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for target relabel steps endpoint.
+    TargetDiscovery:
+      type: object
+      properties:
+        activeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Target'
+        droppedTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DroppedTarget'
+        droppedTargetCounts:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+      required:
+      - activeTargets
+      - droppedTargets
+      - droppedTargetCounts
+      additionalProperties: false
+      description: Target discovery information including active and dropped targets.
