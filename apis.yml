@@ -22,7 +22,18 @@ description: Prometheus is a Cloud Native Computing Foundation graduated open so
   consul, graphite, memcached, pushgateway, etc.) for pulling metrics out of existing
   systems. Prometheus also drives the OpenMetrics exposition format and an experimental
   Remote Write 2.0 protocol for shipping samples to long-term storage backends.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/prometheus-io.png
 kind: contract
 access: Self-Hosted
 x-type: opensource
@@ -30,75 +41,6 @@ created: 2026-05-25 00:00:00+00:00
 modified: 2026-05-25 00:00:00+00:00
 specificationVersion: '0.20'
 apis:
-- aid: prometheus-io:prometheus-server-api
-  name: Prometheus Server HTTP API
-  tags:
-  - Metrics
-  - PromQL
-  - Query
-  - Monitoring
-  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
-  baseURL: http://localhost:9090/api/v1
-  description: The HTTP API exposed by every Prometheus server under /api/v1. Lets
-    clients evaluate instant and range PromQL queries, list and search series, labels
-    and metric metadata, inspect targets, scrape pools, rules, active alerts, alertmanagers,
-    status, TSDB stats, WAL replay, build/runtime info, server-side notifications,
-    and the live feature set. Also includes admin endpoints behind --web.enable-admin-api
-    for snapshots, series deletion, and tombstone clean-up, plus optional remote read/write
-    and OTLP metrics receivers. Stable v1 with non-breaking additions; experimental
-    endpoints (parse_query, query_exemplars, targets/relabel_steps, status/tsdb/blocks,
-    notifications) are clearly marked.
-  properties:
-  - url: https://prometheus.io/docs/prometheus/latest/querying/api/
-    type: Documentation
-  - url: https://prometheus.io/docs/prometheus/latest/querying/basics/
-    type: Documentation
-    name: PromQL Basics
-  - url: https://prometheus.io/docs/prometheus/latest/querying/operators/
-    type: Documentation
-    name: PromQL Operators
-  - url: https://prometheus.io/docs/prometheus/latest/querying/functions/
-    type: Documentation
-    name: PromQL Functions
-  - url: openapi/prometheus-server-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/prometheus-query-result-schema.json
-    type: JSONSchema
-  - url: json-schema/prometheus-target-schema.json
-    type: JSONSchema
-  - url: json-ld/prometheus-io-context.jsonld
-    type: JSONLD
-  - url: examples/prometheus-query-example.json
-    type: Examples
-  - url: examples/prometheus-query-range-example.json
-    type: Examples
-  - url: examples/prometheus-targets-example.json
-    type: Examples
-  - url: graphql/prometheus-io-graphql.md
-    type: GraphQL
-- aid: prometheus-io:prometheus-alertmanager-api
-  name: Prometheus Alertmanager API v2
-  tags:
-  - Alerts
-  - Silences
-  - Notifications
-  - Receivers
-  - Cluster
-  humanURL: https://github.com/prometheus/alertmanager
-  baseURL: http://localhost:9093/api/v2
-  description: Alertmanager's HTTP API v2 — the canonical interface for posting alerts,
-    listing and grouping firing/inhibited/silenced alerts, managing silences, listing
-    configured receivers, and inspecting cluster status. Spec is generated with go-swagger
-    from api/v2/openapi.yaml in the alertmanager repo and consumed by the Alertmanager
-    UI and external integrations.
-  properties:
-  - url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
-    type: Documentation
-  - url: https://prometheus.io/docs/alerting/latest/alertmanager/
-    type: Documentation
-    name: Alertmanager Overview
-  - url: openapi/prometheus-alertmanager-api-openapi.yml
-    type: OpenAPI
 - aid: prometheus-io:prometheus-remote-write
   name: Prometheus Remote Write
   tags:
@@ -107,12 +49,11 @@ apis:
   - Protocol Buffers
   - Streaming
   humanURL: https://prometheus.io/docs/specs/prw/remote_write_spec_2_0/
-  description: Remote Write is Prometheus' push protocol for shipping scraped samples
-    to long-term storage and analysis backends (Cortex, Thanos, Mimir, VictoriaMetrics,
-    InfluxDB, Datadog, etc.). Snappy-compressed protocol-buffer payloads POSTed over
-    HTTP. Version 1.0 is stable and widely implemented; version 2.0 (experimental
-    specification) adds native histograms, metadata-per-series, created timestamps,
-    and tighter validation.
+  description: >-
+    Remote Write is Prometheus' push protocol for shipping scraped samples to long-term storage and analysis
+    backends (Cortex, Thanos, Mimir, VictoriaMetrics, InfluxDB, Datadog, etc.). Snappy-compressed protocol-buffer
+    payloads POSTed over HTTP. Version 1.0 is stable and widely implemented; version 2.0 (experimental
+    specification) adds native histograms, metadata-per-series, created timestamps, and tighter validation.
   properties:
   - url: https://prometheus.io/docs/specs/prw/remote_write_spec/
     type: Documentation
@@ -131,11 +72,11 @@ apis:
   - Scraping
   - Metrics Format
   humanURL: https://prometheus.io/docs/instrumenting/exposition_formats/
-  description: The text-based exposition format that every instrumented target exposes
-    (typically on /metrics) and that the Prometheus server scrapes over HTTP. The
-    format evolved into OpenMetrics, a CNCF Sandbox specification that is the standardized
-    successor; both are scrape-compatible with Prometheus. Defines counters, gauges,
-    histograms, summaries, and (in OpenMetrics) info, stateset, gaugehistogram, and
+  description: >-
+    The text-based exposition format that every instrumented target exposes (typically on /metrics) and
+    that the Prometheus server scrapes over HTTP. The format evolved into OpenMetrics, a CNCF Sandbox
+    specification that is the standardized successor; both are scrape-compatible with Prometheus. Defines
+    counters, gauges, histograms, summaries, and (in OpenMetrics) info, stateset, gaugehistogram, and
     exemplars.
   properties:
   - url: https://prometheus.io/docs/instrumenting/exposition_formats/
@@ -154,10 +95,10 @@ apis:
   - Receiver
   - Ingest
   humanURL: https://prometheus.io/docs/prometheus/latest/feature_flags/
-  description: Optional OpenTelemetry Protocol metrics receiver exposed on /api/v1/otlp/v1/metrics
-    when the Prometheus server is started with --web.enable-otlp-receiver. Accepts
-    OTLP/HTTP protobuf payloads from OpenTelemetry Collectors and SDKs; delta-to-cumulative
-    conversion is available behind --enable-feature=otlp-deltatocumulative.
+  description: >-
+    Optional OpenTelemetry Protocol metrics receiver exposed on /api/v1/otlp/v1/metrics when the Prometheus
+    server is started with --web.enable-otlp-receiver. Accepts OTLP/HTTP protobuf payloads from OpenTelemetry
+    Collectors and SDKs; delta-to-cumulative conversion is available behind --enable-feature=otlp-deltatocumulative.
   properties:
   - url: https://prometheus.io/docs/guides/opentelemetry/
     type: Documentation
@@ -165,6 +106,654 @@ apis:
   - url: https://github.com/open-telemetry/opentelemetry-proto
     type: SourceCode
     name: OTLP Protocol Buffers
+- aid: prometheus-io:prometheus-io-admin-api
+  name: Prometheus admin API
+  description: Administrative operations for TSDB management.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - admin
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-admin-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-alert-api
+  name: Prometheus alert API
+  description: Everything related to Alertmanager alerts
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - alert
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-alert-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-alertgroup-api
+  name: Prometheus alertgroup API
+  description: The alertgroup API from Prometheus — 1 operation(s) for alertgroup.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - alertgroup
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-alertgroup-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-alerts-api
+  name: Prometheus alerts API
+  description: Query active alerts and alertmanager discovery.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-features-api
+  name: Prometheus features API
+  description: Query enabled features.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - features
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-features-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-general-api
+  name: Prometheus general API
+  description: General Alertmanager operations
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - general
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-general-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-labels-api
+  name: Prometheus labels API
+  description: Query label names and values.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - labels
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-labels-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-metadata-api
+  name: Prometheus metadata API
+  description: Retrieve metric metadata such as type and unit.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-notifications-api
+  name: Prometheus notifications API
+  description: Server notifications and events.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-otlp-api
+  name: Prometheus otlp API
+  description: OpenTelemetry Protocol metrics ingestion.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - otlp
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-otlp-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-query-api
+  name: Prometheus query API
+  description: Query and evaluate PromQL expressions.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - query
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-query-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-receiver-api
+  name: Prometheus receiver API
+  description: Everything related to Alertmanager receivers
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - receiver
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-receiver-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-remote-api
+  name: Prometheus remote API
+  description: Remote read and write endpoints.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - remote
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-remote-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-rules-api
+  name: Prometheus rules API
+  description: Query recording and alerting rules.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - rules
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-rules-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-series-api
+  name: Prometheus series API
+  description: Query and manage time series.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - series
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-series-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-silence-api
+  name: Prometheus silence API
+  description: Everything related to Alertmanager silences
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - silence
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-silence-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-status-api
+  name: Prometheus status API
+  description: Retrieve server status and configuration.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - status
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-status-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
+- aid: prometheus-io:prometheus-io-targets-api
+  name: Prometheus targets API
+  description: Retrieve target and scrape pool information.
+  humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
+  baseURL: http://localhost:9090/api/v1
+  tags:
+  - targets
+  properties:
+  - type: OpenAPI
+    url: openapi/prometheus-io-targets-api-openapi.yml
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/api/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/basics/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/operators/
+  - type: Documentation
+    url: https://prometheus.io/docs/prometheus/latest/querying/functions/
+  - type: JSONSchema
+    url: json-schema/prometheus-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/prometheus-target-schema.json
+  - type: JSONLD
+    url: json-ld/prometheus-io-context.jsonld
+  - type: Examples
+    url: examples/prometheus-query-example.json
+  - type: Examples
+    url: examples/prometheus-query-range-example.json
+  - type: Examples
+    url: examples/prometheus-targets-example.json
+  - type: GraphQL
+    url: graphql/prometheus-io-graphql.md
+  - type: Documentation
+    url: https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml
+  - type: Documentation
+    url: https://prometheus.io/docs/alerting/latest/alertmanager/
 common:
 - type: AgenticAccess
   url: agentic-access/prometheus-io-agentic-access.yml
