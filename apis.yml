@@ -39,7 +39,7 @@ access: Self-Hosted
 x-type: opensource
 created: 2026-05-25 00:00:00+00:00
 modified: 2026-05-25 00:00:00+00:00
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 apis:
 - aid: prometheus-io:prometheus-remote-write
   name: Prometheus Remote Write
