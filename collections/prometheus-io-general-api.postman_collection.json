@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "4b381f3f-6d04-4d2d-9a87-beddffaccaf9",
+      "name": "general",
+      "description": {
+        "content": "General Alertmanager operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "018a3a08-3b3f-4839-a042-44dd278d6ead",
+          "name": "get Status",
+          "request": {
+            "name": "get Status",
+            "description": {
+              "content": "Get current status of an Alertmanager instance and its cluster",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "048852cb-15ef-4094-bb3f-600bec6b8559",
+              "name": "Get status response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cluster\": {\n    \"status\": \"disabled\",\n    \"name\": \"string\",\n    \"peers\": [\n      {\n        \"name\": \"string\",\n        \"address\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"address\": \"string\"\n      }\n    ]\n  },\n  \"versionInfo\": {\n    \"version\": \"string\",\n    \"revision\": \"string\",\n    \"branch\": \"string\",\n    \"buildUser\": \"string\",\n    \"buildDate\": \"string\",\n    \"goVersion\": \"string\"\n  },\n  \"config\": {\n    \"original\": \"string\"\n  },\n  \"uptime\": \"1964-06-12T07:45:11.837Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "be8d3329-d082-46d1-bfa7-fc29027fadfb",
+    "name": "Alertmanager admin general API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

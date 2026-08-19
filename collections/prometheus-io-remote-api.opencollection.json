@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin remote API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "remote",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Remote read endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/read"
+          },
+          "docs": "Prometheus remote read endpoint for federated queries. Accepts and returns Protocol Buffer encoded data."
+        },
+        {
+          "info": {
+            "name": "Remote write endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/write"
+          },
+          "docs": "Prometheus remote write endpoint for sending metrics. Accepts Protocol Buffer encoded write requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

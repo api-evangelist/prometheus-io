@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete series matching selectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/tsdb/delete_series",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selectors to identify series to delete."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for deletion."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for deletion."
+              }
+            ]
+          },
+          "docs": "Deletes data for a selection of series in a time range."
+        },
+        {
+          "info": {
+            "name": "Delete series matching selectors via PUT",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/admin/tsdb/delete_series",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selectors to identify series to delete."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for deletion."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for deletion."
+              }
+            ]
+          },
+          "docs": "Deletes data for a selection of series in a time range using PUT method."
+        },
+        {
+          "info": {
+            "name": "Clean tombstones in the TSDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/tsdb/clean_tombstones"
+          },
+          "docs": "Removes deleted data from disk and cleans up existing tombstones."
+        },
+        {
+          "info": {
+            "name": "Clean tombstones in the TSDB via PUT",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/admin/tsdb/clean_tombstones"
+          },
+          "docs": "Removes deleted data from disk and cleans up existing tombstones using PUT method."
+        },
+        {
+          "info": {
+            "name": "Create a snapshot of the TSDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/tsdb/snapshot",
+            "params": [
+              {
+                "name": "skip_head",
+                "value": "",
+                "type": "query",
+                "description": "If true, do not snapshot data in the head block."
+              }
+            ]
+          },
+          "docs": "Creates a snapshot of all current data."
+        },
+        {
+          "info": {
+            "name": "Create a snapshot of the TSDB via PUT",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/admin/tsdb/snapshot",
+            "params": [
+              {
+                "name": "skip_head",
+                "value": "",
+                "type": "query",
+                "description": "If true, do not snapshot data in the head block."
+              }
+            ]
+          },
+          "docs": "Creates a snapshot of all current data using PUT method."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

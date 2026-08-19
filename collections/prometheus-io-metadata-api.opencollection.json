@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin metadata API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search metric names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search/metric_names",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument used to scope metric discovery."
+              },
+              {
+                "name": "search[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms matched against metric names (OR logic)."
+              },
+              {
+                "name": "fuzz_threshold",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+              },
+              {
+                "name": "fuzz_alg",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+              },
+              {
+                "name": "case_sensitive",
+                "value": "",
+                "type": "query",
+                "description": "Whether matching is case-sensitive."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort mode. Supported values are alpha and score."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+              },
+              {
+                "name": "include_score",
+                "value": "",
+                "type": "query",
+                "description": "Include the relevance score in each result."
+              },
+              {
+                "name": "include_metadata",
+                "value": "",
+                "type": "query",
+                "description": "Include metric metadata in each result."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for metric name search."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for metric name search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of metric names to return."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Preferred number of results per NDJSON batch."
+              }
+            ]
+          },
+          "docs": "Search metric names"
+        },
+        {
+          "info": {
+            "name": "Search metric names",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/search/metric_names",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Search metric names"
+        },
+        {
+          "info": {
+            "name": "Get metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/metadata",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metrics to return."
+              },
+              {
+                "name": "limit_per_metric",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metadata entries per metric."
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "query",
+                "description": "A metric name to filter metadata for."
+              }
+            ]
+          },
+          "docs": "Get metadata"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

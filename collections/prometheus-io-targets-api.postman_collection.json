@@ -1,0 +1,553 @@
+{
+  "item": [
+    {
+      "id": "99aa5c57-b605-4c5e-a15f-fb727f3495d1",
+      "name": "targets",
+      "description": {
+        "content": "Retrieve target and scrape pool information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "973d6494-0933-48ab-9831-c8c306c64273",
+          "name": "Get scrape pools",
+          "request": {
+            "name": "Get scrape pools",
+            "description": {},
+            "url": {
+              "path": [
+                "scrape_pools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fe647a4-128c-4def-ac30-8cd9ad5ec424",
+              "name": "Scrape pools retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scrape_pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"scrapePools\": [\n      \"alertmanager\",\n      \"blackbox\",\n      \"caddy\",\n      \"cadvisor\",\n      \"grafana\",\n      \"node\",\n      \"prometheus\",\n      \"random\"\n    ]\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a7cad74-e4b1-45df-83c7-4c5e671be23e",
+              "name": "Error retrieving scrape pools.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scrape_pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a316edd-2754-4682-a0ee-e7d7360bb326",
+          "name": "Get targets",
+          "request": {
+            "name": "Get targets",
+            "description": {},
+            "url": {
+              "path": [
+                "targets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scrapePool",
+                  "value": "<string>",
+                  "description": "Filter targets by scrape pool name."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Filter by state: active, dropped, or any."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e142c03-e520-42a9-9867-d2eb5fd6c1ff",
+              "name": "Target discovery information retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "targets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scrapePool",
+                      "value": "prometheus"
+                    },
+                    {
+                      "key": "state",
+                      "value": "active"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"activeTargets\": [\n      {\n        \"discoveredLabels\": {\n          \"__address__\": \"demo.prometheus.io:9093\",\n          \"__meta_filepath\": \"/etc/prometheus/file_sd/alertmanager.yml\",\n          \"__metrics_path__\": \"/metrics\",\n          \"__scheme__\": \"http\",\n          \"env\": \"demo\",\n          \"job\": \"alertmanager\"\n        },\n        \"globalUrl\": \"http://demo.prometheus.io:9093/metrics\",\n        \"health\": \"up\",\n        \"labels\": {\n          \"env\": \"demo\",\n          \"instance\": \"demo.prometheus.io:9093\",\n          \"job\": \"alertmanager\"\n        },\n        \"lastError\": \"\",\n        \"lastScrape\": \"2026-01-02T13:36:40.200Z\",\n        \"lastScrapeDuration\": 0.006576866,\n        \"scrapeInterval\": \"15s\",\n        \"scrapePool\": \"alertmanager\",\n        \"scrapeTimeout\": \"10s\",\n        \"scrapeUrl\": \"http://demo.prometheus.io:9093/metrics\"\n      }\n    ],\n    \"droppedTargetCounts\": {\n      \"alertmanager\": 0,\n      \"blackbox\": 0,\n      \"caddy\": 0,\n      \"cadvisor\": 0,\n      \"grafana\": 0,\n      \"node\": 0,\n      \"prometheus\": 0,\n      \"random\": 0\n    },\n    \"droppedTargets\": []\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "034ecb83-8b03-4fd2-981d-d5e2d25eef64",
+              "name": "Error retrieving targets.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "targets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scrapePool",
+                      "value": "prometheus"
+                    },
+                    {
+                      "key": "state",
+                      "value": "active"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1fb7a09-3d39-4664-8ffb-44db605286d3",
+          "name": "Get targets metadata",
+          "request": {
+            "name": "Get targets metadata",
+            "description": {},
+            "url": {
+              "path": [
+                "targets",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "match_target",
+                  "value": "<string>",
+                  "description": "Label selector to filter targets."
+                },
+                {
+                  "disabled": false,
+                  "key": "metric",
+                  "value": "<string>",
+                  "description": "Metric name to retrieve metadata for."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int64>",
+                  "description": "Maximum number of targets to match."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e91bc838-bbb9-4259-9a97-f87b362a99c8",
+              "name": "Target metadata retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "targets",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "match_target",
+                      "value": "{job=\"prometheus\"}"
+                    },
+                    {
+                      "key": "metric",
+                      "value": "http_requests_total"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"help\": \"The current health status of the target\",\n      \"metric\": \"up\",\n      \"target\": {\n        \"instance\": \"localhost:9090\",\n        \"job\": \"prometheus\"\n      },\n      \"type\": \"gauge\",\n      \"unit\": \"\"\n    }\n  ],\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e6cf4f8-711e-4117-9212-e8d3274dd20a",
+              "name": "Error retrieving target metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "targets",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "match_target",
+                      "value": "{job=\"prometheus\"}"
+                    },
+                    {
+                      "key": "metric",
+                      "value": "http_requests_total"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "217db3ba-89d2-4a1c-8378-7b9a24b9130c",
+          "name": "Get targets relabel steps",
+          "request": {
+            "name": "Get targets relabel steps",
+            "description": {},
+            "url": {
+              "path": [
+                "targets",
+                "relabel_steps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scrapePool",
+                  "value": "<string>",
+                  "description": "(Required) Name of the scrape pool."
+                },
+                {
+                  "disabled": false,
+                  "key": "labels",
+                  "value": "<string>",
+                  "description": "(Required) JSON-encoded labels to apply relabel rules to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3adc28dc-e569-41c3-9ab1-87ee3b774a97",
+              "name": "Relabel steps retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "targets",
+                    "relabel_steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scrapePool",
+                      "value": "prometheus"
+                    },
+                    {
+                      "key": "labels",
+                      "value": "{\"__address__\":\"localhost:9090\",\"job\":\"prometheus\"}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"steps\": [\n      {\n        \"keep\": true,\n        \"output\": {\n          \"__address__\": \"localhost:9090\",\n          \"instance\": \"localhost:9090\",\n          \"job\": \"prometheus\"\n        },\n        \"rule\": {\n          \"action\": \"replace\",\n          \"regex\": \"(.*)\",\n          \"replacement\": \"$1\",\n          \"source_labels\": [\n            \"__address__\"\n          ],\n          \"target_label\": \"instance\"\n        }\n      }\n    ]\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0aae048b-4a6d-40e4-8b67-b4c1ad0e8154",
+              "name": "Error retrieving relabel steps.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "targets",
+                    "relabel_steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scrapePool",
+                      "value": "prometheus"
+                    },
+                    {
+                      "key": "labels",
+                      "value": "{\"__address__\":\"localhost:9090\",\"job\":\"prometheus\"}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "206e9fce-2fa4-4ef2-beb9-e2fa2dfb1cff",
+    "name": "Alertmanager admin targets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

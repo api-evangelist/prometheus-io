@@ -1,0 +1,509 @@
+{
+  "item": [
+    {
+      "id": "5a9146f9-8cb5-4e2e-b565-299f36ed2964",
+      "name": "alert",
+      "description": {
+        "content": "Everything related to Alertmanager alerts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf3fed83-d787-456e-a8ef-013689cbed52",
+          "name": "get Alerts",
+          "request": {
+            "name": "get Alerts",
+            "description": {
+              "content": "Get a list of alerts",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "true",
+                  "description": "Include active alerts in results. If false, excludes active alerts and returns only suppressed (silenced or inhibited) alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "silenced",
+                  "value": "true",
+                  "description": "Include silenced alerts in results. If false, excludes silenced alerts. Note that true (default) shows both silenced and non-silenced alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "inhibited",
+                  "value": "true",
+                  "description": "Include inhibited alerts in results. If false, excludes inhibited alerts. Note that true (default) shows both inhibited and non-inhibited alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "unprocessed",
+                  "value": "true",
+                  "description": "Include unprocessed alerts in results. If false, excludes unprocessed alerts. Note that true (default) shows both processed and unprocessed alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alerts. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alerts. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver",
+                  "value": "<string>",
+                  "description": "A regex matching receivers to filter alerts by"
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "621fd33f-6547-4581-beb9-a695a6909b3d",
+              "name": "Get alerts response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "unprocessed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"endsAt\": \"1965-01-27T12:11:32.085Z\",\n    \"fingerprint\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"receivers\": [\n      {\n        \"name\": \"string\"\n      },\n      {\n        \"name\": \"string\"\n      }\n    ],\n    \"startsAt\": \"2004-10-30T15:36:11.241Z\",\n    \"status\": {\n      \"state\": \"suppressed\",\n      \"silencedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"inhibitedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"mutedBy\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"updatedAt\": \"1959-07-06T00:56:16.088Z\",\n    \"generatorURL\": \"http://ncyJjtJLpSQAOKCtoVtSZaRuoO.mucpc+S,LUinYpkk8NdFO58PAkCXyCEn+fUoCacs7eGKn.9CNkkgPMA1Pld18IlvI-a\"\n  },\n  {\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"endsAt\": \"1984-11-07T08:19:22.279Z\",\n    \"fingerprint\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"receivers\": [\n      {\n        \"name\": \"string\"\n      },\n      {\n        \"name\": \"string\"\n      }\n    ],\n    \"startsAt\": \"2004-09-05T13:25:41.090Z\",\n    \"status\": {\n      \"state\": \"unprocessed\",\n      \"silencedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"inhibitedBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"mutedBy\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"updatedAt\": \"2023-03-14T07:30:32.551Z\",\n    \"generatorURL\": \"http://LAaxyAoqEj.juaqueOv6,vOdESd35ebCHhraMfx+1msrqpCCGtWVatkINYdnqYGx8uyjBz\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8942ad5-23bc-4ebb-9f9d-8b4712d4812a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "unprocessed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5478c934-d42d-40db-8242-625fbb2460e7",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "unprocessed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e324f30f-5708-4ac1-8ade-8545920ddc9d",
+          "name": "post Alerts",
+          "request": {
+            "name": "post Alerts",
+            "description": {
+              "content": "Create new Alerts",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42f9f2c2-f6b1-4212-a485-bb77beb4f46c",
+              "name": "Create alerts response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39d91765-54ae-4959-9c55-ef3c12183598",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30bc0301-9378-4080-a585-4a7cbdac8744",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"startsAt\": \"<dateTime>\",\n    \"endsAt\": \"<dateTime>\",\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"generatorURL\": \"<uri>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b627df98-4f85-4d56-8c6b-ed35145e1945",
+    "name": "Alertmanager admin alert API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

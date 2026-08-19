@@ -1,0 +1,272 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin query API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Evaluate an instant query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/query",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metrics to return."
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "The evaluation timestamp (optional, defaults to current time)."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The PromQL query to execute."
+              },
+              {
+                "name": "timeout",
+                "value": "",
+                "type": "query",
+                "description": "Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag."
+              },
+              {
+                "name": "lookback_delta",
+                "value": "",
+                "type": "query",
+                "description": "Override the lookback period for this query. Optional."
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "When provided, include query statistics in the response. The special value 'all' enables more comprehensive statistics."
+              }
+            ]
+          },
+          "docs": "Evaluate an instant query"
+        },
+        {
+          "info": {
+            "name": "Evaluate an instant query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/query",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Evaluate an instant query"
+        },
+        {
+          "info": {
+            "name": "Evaluate a range query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/query_range",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of metrics to return."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The start time of the query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The end time of the query."
+              },
+              {
+                "name": "step",
+                "value": "",
+                "type": "query",
+                "description": "The step size of the query."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The query to execute."
+              },
+              {
+                "name": "timeout",
+                "value": "",
+                "type": "query",
+                "description": "Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag."
+              },
+              {
+                "name": "lookback_delta",
+                "value": "",
+                "type": "query",
+                "description": "Override the lookback period for this query. Optional."
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "When provided, include query statistics in the response. The special value 'all' enables more comprehensive statistics."
+              }
+            ]
+          },
+          "docs": "Evaluate a range query"
+        },
+        {
+          "info": {
+            "name": "Evaluate a range query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/query_range",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Evaluate a range query"
+        },
+        {
+          "info": {
+            "name": "Query exemplars",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/query_exemplars",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for exemplars query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for exemplars query."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "PromQL query to extract exemplars for."
+              }
+            ]
+          },
+          "docs": "Query exemplars"
+        },
+        {
+          "info": {
+            "name": "Query exemplars",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/query_exemplars",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Query exemplars"
+        },
+        {
+          "info": {
+            "name": "Format a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/format_query",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "PromQL expression to format."
+              }
+            ]
+          },
+          "docs": "Format a PromQL query"
+        },
+        {
+          "info": {
+            "name": "Format a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/format_query",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Format a PromQL query"
+        },
+        {
+          "info": {
+            "name": "Parse a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/parse_query",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "PromQL expression to parse."
+              }
+            ]
+          },
+          "docs": "Parse a PromQL query"
+        },
+        {
+          "info": {
+            "name": "Parse a PromQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/parse_query",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Parse a PromQL query"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

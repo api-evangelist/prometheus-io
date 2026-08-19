@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin series API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "series",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find series by label matchers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/series",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for series query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for series query."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of series to return."
+              }
+            ]
+          },
+          "docs": "Find series by label matchers"
+        },
+        {
+          "info": {
+            "name": "Find series by label matchers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/series",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Find series by label matchers"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

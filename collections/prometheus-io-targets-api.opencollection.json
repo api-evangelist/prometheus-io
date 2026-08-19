@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin targets API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "targets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get scrape pools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/scrape_pools"
+          },
+          "docs": "Get scrape pools"
+        },
+        {
+          "info": {
+            "name": "Get targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/targets",
+            "params": [
+              {
+                "name": "scrapePool",
+                "value": "",
+                "type": "query",
+                "description": "Filter targets by scrape pool name."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by state: active, dropped, or any."
+              }
+            ]
+          },
+          "docs": "Get targets"
+        },
+        {
+          "info": {
+            "name": "Get targets metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/targets/metadata",
+            "params": [
+              {
+                "name": "match_target",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter targets."
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "query",
+                "description": "Metric name to retrieve metadata for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of targets to match."
+              }
+            ]
+          },
+          "docs": "Get targets metadata"
+        },
+        {
+          "info": {
+            "name": "Get targets relabel steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/targets/relabel_steps",
+            "params": [
+              {
+                "name": "scrapePool",
+                "value": "",
+                "type": "query",
+                "description": "Name of the scrape pool."
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "JSON-encoded labels to apply relabel rules to."
+              }
+            ]
+          },
+          "docs": "Get targets relabel steps"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

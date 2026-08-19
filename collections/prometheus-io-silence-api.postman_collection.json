@@ -1,0 +1,723 @@
+{
+  "item": [
+    {
+      "id": "1820804a-fd7b-4e0f-9f6a-e2b1a64bd766",
+      "name": "silence",
+      "description": {
+        "content": "Everything related to Alertmanager silences",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e730e597-94fc-4728-8430-c25add3ff2fb",
+          "name": "get Silences",
+          "request": {
+            "name": "get Silences",
+            "description": {
+              "content": "Get a list of silences",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter silences. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter silences. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d43e754-98e6-43c1-84f3-4b333b7e496c",
+              "name": "Get silences response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"comment\": \"string\",\n    \"createdBy\": \"string\",\n    \"endsAt\": \"1973-12-30T02:41:58.435Z\",\n    \"id\": \"string\",\n    \"matchers\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"isRegex\": true,\n        \"isEqual\": true\n      }\n    ],\n    \"startsAt\": \"2019-08-28T09:30:19.698Z\",\n    \"status\": {\n      \"state\": \"active\"\n    },\n    \"updatedAt\": \"1997-11-06T19:19:14.710Z\"\n  },\n  {\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"comment\": \"string\",\n    \"createdBy\": \"string\",\n    \"endsAt\": \"1974-12-25T08:03:19.362Z\",\n    \"id\": \"string\",\n    \"matchers\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"isRegex\": false,\n        \"isEqual\": true\n      }\n    ],\n    \"startsAt\": \"2000-12-02T21:50:06.001Z\",\n    \"status\": {\n      \"state\": \"expired\"\n    },\n    \"updatedAt\": \"2024-06-05T07:01:29.844Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f829446-8e2f-4113-984e-4d97fb543271",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49972e11-74d0-42ee-9ddc-113b7b84d413",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "337eed33-da42-4159-82ae-484825bc301c",
+          "name": "post Silences",
+          "request": {
+            "name": "post Silences",
+            "description": {
+              "content": "Post a new silence or update an existing one",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b00e2a57-a727-4e7a-9c57-2606b6464a8e",
+              "name": "Create / update silence response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"silenceID\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e892cd13-544a-4b88-b2cd-6ff64c9e9367",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15b00ae4-6360-4c32-9b31-3e3c23e9afa6",
+              "name": "A silence with the specified ID was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"createdBy\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"id\": \"<string>\",\n  \"annotations\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "761ffcc9-cf80-47dd-b41c-344ad8fbcdb8",
+          "name": "get Silence",
+          "request": {
+            "name": "get Silence",
+            "description": {
+              "content": "Get a silence by its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silence",
+                ":silenceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "silenceID",
+                  "description": "(Required) ID of the silence to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81295c68-0423-4084-850d-7146bad18809",
+              "name": "Get silence response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"annotations\": {\n    \"key_0\": \"<string>\"\n  },\n  \"comment\": \"<string>\",\n  \"createdBy\": \"<string>\",\n  \"endsAt\": \"<dateTime>\",\n  \"id\": \"string\",\n  \"matchers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"isRegex\": \"<boolean>\",\n      \"isEqual\": true\n    }\n  ],\n  \"startsAt\": \"<dateTime>\",\n  \"status\": {\n    \"state\": \"pending\"\n  },\n  \"updatedAt\": \"1950-09-22T17:01:34.798Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3db05e9a-0e0a-485b-b5b5-3b8f384afb61",
+              "name": "A silence with the specified ID was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2d8cdb0d-3f04-42d1-ad35-aeb0c55c4d75",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2191776a-efe7-429c-92fc-027f6035a99c",
+          "name": "delete Silence",
+          "request": {
+            "name": "delete Silence",
+            "description": {
+              "content": "Delete a silence by its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "silence",
+                ":silenceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "silenceID",
+                  "description": "(Required) ID of the silence to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3123348-9ff2-407c-b1ba-7cd44dd1ced8",
+              "name": "Delete silence response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "97424596-6280-408a-8858-3d14a2d7de4b",
+              "name": "A silence with the specified ID was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08886c2d-d526-4449-b42d-2cdaeab13a72",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "silence",
+                    ":silenceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "silenceID",
+                      "description": "(Required) ID of the silence to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8172aae9-af5c-493a-aeda-fa2f59f91142",
+    "name": "Alertmanager admin silence API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

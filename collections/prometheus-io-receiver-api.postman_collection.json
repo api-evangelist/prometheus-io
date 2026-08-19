@@ -1,0 +1,168 @@
+{
+  "item": [
+    {
+      "id": "0bbc20a3-2491-4144-a405-44d5f3fcb2ed",
+      "name": "receiver",
+      "description": {
+        "content": "Everything related to Alertmanager receivers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "950c1fe7-4eba-436a-bac4-1d513e6c9536",
+          "name": "get Receivers",
+          "request": {
+            "name": "get Receivers",
+            "description": {
+              "content": "Get list of all receivers (name of notification integrations)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "receivers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "381dfabe-d280-4824-9dc2-a8e8d8b14ea5",
+              "name": "Get receivers response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8dae59c-2d78-4211-9017-36da3e0de678",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cb0f976b-1641-4b6d-81c4-87699c54782f",
+    "name": "Alertmanager admin receiver API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1493 @@
+{
+  "item": [
+    {
+      "id": "30d731ef-b174-4c8a-a063-ad354f796643",
+      "name": "query",
+      "description": {
+        "content": "Query and evaluate PromQL expressions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "70075a05-939b-4577-bd8b-77d35ebf132d",
+          "name": "Evaluate an instant query",
+          "request": {
+            "name": "Evaluate an instant query",
+            "description": {},
+            "url": {
+              "path": [
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int64>",
+                  "description": "The maximum number of metrics to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<dateTime>",
+                  "description": "The evaluation timestamp (optional, defaults to current time)."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) The PromQL query to execute."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<duration>",
+                  "description": "Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag."
+                },
+                {
+                  "disabled": false,
+                  "key": "lookback_delta",
+                  "value": "<duration>",
+                  "description": "Override the lookback period for this query. Optional."
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "When provided, include query statistics in the response. The special value 'all' enables more comprehensive statistics."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a378c90f-b04d-42ae-9e58-e9cb3454a74d",
+              "name": "Query executed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "up"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "lookback_delta",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"resultType\": \"vector\",\n    \"result\": [\n      {\n        \"metric\": {\n          \"__name__\": \"up\",\n          \"instance\": \"demo.prometheus.io:9090\",\n          \"job\": \"prometheus\"\n        },\n        \"value\": [\n          1767436620,\n          \"1\"\n        ]\n      },\n      {\n        \"metric\": {\n          \"__name__\": \"up\",\n          \"env\": \"demo\",\n          \"instance\": \"demo.prometheus.io:9093\",\n          \"job\": \"alertmanager\"\n        },\n        \"value\": [\n          1767436620,\n          \"1\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1eda481a-e871-428e-b3fc-378a127a151a",
+              "name": "Error executing query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "up"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "lookback_delta",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4c74191-3c80-4455-8737-66d3662ae5c0",
+          "name": "Evaluate an instant query",
+          "request": {
+            "name": "Evaluate an instant query",
+            "description": {},
+            "url": {
+              "path": [
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "d472c298-a88d-470a-b997-626f1e413786",
+              "name": "Instant query executed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"resultType\": \"vector\",\n    \"result\": [\n      {\n        \"metric\": {\n          \"__name__\": \"up\",\n          \"instance\": \"demo.prometheus.io:9090\",\n          \"job\": \"prometheus\"\n        },\n        \"value\": [\n          1767436620,\n          \"1\"\n        ]\n      },\n      {\n        \"metric\": {\n          \"__name__\": \"up\",\n          \"env\": \"demo\",\n          \"instance\": \"demo.prometheus.io:9093\",\n          \"job\": \"alertmanager\"\n        },\n        \"value\": [\n          1767436620,\n          \"1\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8920d5af-f413-4465-bd28-4b6fed493349",
+              "name": "Error executing instant query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c105f8b7-870b-47f5-bf34-fbe754a802a7",
+          "name": "Evaluate a range query",
+          "request": {
+            "name": "Evaluate a range query",
+            "description": {},
+            "url": {
+              "path": [
+                "query_range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int64>",
+                  "description": "The maximum number of metrics to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) The start time of the query."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) The end time of the query."
+                },
+                {
+                  "disabled": false,
+                  "key": "step",
+                  "value": "<duration>",
+                  "description": "(Required) The step size of the query."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) The query to execute."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<duration>",
+                  "description": "Evaluation timeout. Optional. Defaults to and is capped by the value of the -query.timeout flag."
+                },
+                {
+                  "disabled": false,
+                  "key": "lookback_delta",
+                  "value": "<duration>",
+                  "description": "Override the lookback period for this query. Optional."
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "When provided, include query statistics in the response. The special value 'all' enables more comprehensive statistics."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bda56b53-9038-4b25-839f-27e1431e3113",
+              "name": "Range query executed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "step",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "rate(prometheus_http_requests_total{handler=\"/api/v1/query\"}[5m])"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "lookback_delta",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"resultType\": \"matrix\",\n    \"result\": [\n      {\n        \"metric\": {\n          \"__name__\": \"up\",\n          \"instance\": \"demo.prometheus.io:9090\",\n          \"job\": \"prometheus\"\n        },\n        \"values\": [\n          [\n            1767433020,\n            \"1\"\n          ],\n          [\n            1767434820,\n            \"1\"\n          ],\n          [\n            1767436620,\n            \"1\"\n          ]\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c97967d-9acf-4153-866a-2d42cff5dc49",
+              "name": "Error executing range query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "step",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "rate(prometheus_http_requests_total{handler=\"/api/v1/query\"}[5m])"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "lookback_delta",
+                      "value": "<duration>"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f03e3209-ffe9-4659-ac24-6c5146237218",
+          "name": "Evaluate a range query",
+          "request": {
+            "name": "Evaluate a range query",
+            "description": {},
+            "url": {
+              "path": [
+                "query_range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "a10dc23c-c898-4a23-b14c-743dd2709708",
+              "name": "Range query executed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "end",
+                      "value": "2026-01-02T13:37:00.000Z"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "2026-01-02T12:37:00.000Z"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "step",
+                      "value": "15s"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"resultType\": \"matrix\",\n    \"result\": [\n      {\n        \"metric\": {\n          \"__name__\": \"up\",\n          \"instance\": \"demo.prometheus.io:9090\",\n          \"job\": \"prometheus\"\n        },\n        \"values\": [\n          [\n            1767433020,\n            \"1\"\n          ],\n          [\n            1767434820,\n            \"1\"\n          ],\n          [\n            1767436620,\n            \"1\"\n          ]\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b04d2c99-3477-4e1e-959a-867f27f1dba2",
+              "name": "Error executing range query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "end",
+                      "value": "2026-01-02T13:37:00.000Z"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "2026-01-02T12:37:00.000Z"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "step",
+                      "value": "15s"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05ca7a74-b592-4f92-93a4-11cc9aee7776",
+          "name": "Query exemplars",
+          "request": {
+            "name": "Query exemplars",
+            "description": {},
+            "url": {
+              "path": [
+                "query_exemplars"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Start timestamp for exemplars query."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "End timestamp for exemplars query."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) PromQL query to extract exemplars for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b848f991-b9d7-41f1-8e9e-c0261a11ad1d",
+              "name": "Exemplars retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_exemplars"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "prometheus_http_requests_total"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"exemplars\": [\n        {\n          \"labels\": {\n            \"traceID\": \"abc123def456\"\n          },\n          \"timestamp\": 1689956451.781,\n          \"value\": \"1.5\"\n        }\n      ],\n      \"seriesLabels\": {\n        \"__name__\": \"http_requests_total\",\n        \"job\": \"api-server\",\n        \"method\": \"GET\"\n      }\n    }\n  ],\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1564871f-3d67-4cdd-bdbf-612bcbc3b749",
+              "name": "Error retrieving exemplars.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_exemplars"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "prometheus_http_requests_total"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47b7832c-7c02-4129-9cc0-490b32b8182d",
+          "name": "Query exemplars",
+          "request": {
+            "name": "Query exemplars",
+            "description": {},
+            "url": {
+              "path": [
+                "query_exemplars"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "288dc350-bdc7-4abd-a1dd-7a701c6fb669",
+              "name": "Exemplars query completed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_exemplars"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "prometheus_http_requests_total"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"exemplars\": [\n        {\n          \"labels\": {\n            \"traceID\": \"abc123def456\"\n          },\n          \"timestamp\": 1689956451.781,\n          \"value\": \"1.5\"\n        }\n      ],\n      \"seriesLabels\": {\n        \"__name__\": \"http_requests_total\",\n        \"job\": \"api-server\",\n        \"method\": \"GET\"\n      }\n    }\n  ],\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10a074f7-184b-46c3-bec8-1f8f8552d00f",
+              "name": "Error processing exemplars query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query_exemplars"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "prometheus_http_requests_total"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4510446c-4ea1-482b-8da3-8aa45ea14422",
+          "name": "Format a PromQL query",
+          "request": {
+            "name": "Format a PromQL query",
+            "description": {},
+            "url": {
+              "path": [
+                "format_query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) PromQL expression to format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f63e2796-5077-4cae-b974-434a2f844e8c",
+              "name": "Query formatted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "format_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "sum(rate(http_requests_total[5m])) by (job)"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"sum by(job, status) (rate(http_requests_total[5m]))\",\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1aac6e0-59b8-42d2-a18b-157bdb4203ac",
+              "name": "Error formatting query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "format_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "sum(rate(http_requests_total[5m])) by (job)"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "570c271d-184f-4451-9531-3b3f6e560743",
+          "name": "Format a PromQL query",
+          "request": {
+            "name": "Format a PromQL query",
+            "description": {},
+            "url": {
+              "path": [
+                "format_query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "be277e7f-9c1c-4ae2-b35d-d51a4686cfea",
+              "name": "Query formatting completed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "format_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up{job=\"prometheus\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"sum by(job, status) (rate(http_requests_total[5m]))\",\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42c941af-f020-47f8-8c2c-09513a46b9cf",
+              "name": "Error formatting query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "format_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up{job=\"prometheus\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e52c7618-461d-4d18-8dc2-4532389799f6",
+          "name": "Parse a PromQL query",
+          "request": {
+            "name": "Parse a PromQL query",
+            "description": {},
+            "url": {
+              "path": [
+                "parse_query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) PromQL expression to parse."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5633eaa0-e7a5-4632-927b-7d608d365d77",
+              "name": "Query parsed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parse_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "up{job=\"prometheus\"}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"resultType\": \"vector\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2bf75fc-7fd0-4a1d-8cc0-ab0bfc8e5cf6",
+              "name": "Error parsing query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parse_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "up{job=\"prometheus\"}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfeac65a-3e9f-46f1-bf5a-317f1af0dcbc",
+          "name": "Parse a PromQL query",
+          "request": {
+            "name": "Parse a PromQL query",
+            "description": {},
+            "url": {
+              "path": [
+                "parse_query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "94a8326f-ebd3-4d52-a0b6-904c4cfa4593",
+              "name": "Query parsed successfully via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parse_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"resultType\": \"vector\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b905e6d0-eaeb-4527-b00e-110344c61229",
+              "name": "Error parsing query via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parse_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "query",
+                      "value": "up"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f23ff230-2d7b-497f-af37-960c4b0a5d32",
+    "name": "Alertmanager admin query API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

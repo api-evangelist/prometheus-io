@@ -1,0 +1,137 @@
+{
+  "item": [
+    {
+      "id": "67f91210-1753-477e-98a6-d8d5bf183113",
+      "name": "otlp",
+      "description": {
+        "content": "OpenTelemetry Protocol metrics ingestion.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "582a5952-3824-491a-92f0-7c149600e977",
+          "name": "OTLP metrics write endpoint",
+          "request": {
+            "name": "OTLP metrics write endpoint",
+            "description": {
+              "content": "OpenTelemetry Protocol metrics ingestion endpoint. Accepts OTLP/HTTP metrics in Protocol Buffer format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "otlp",
+                "v1",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0cc983db-38cb-4c3f-b46f-35f4af5a9d86",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "otlp",
+                    "v1",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa44a077-1677-4f6c-99f9-3dfc6634134e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "otlp",
+                    "v1",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1f0837b5-6788-4400-8d7b-c77b86a05bb2",
+    "name": "Alertmanager admin otlp API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

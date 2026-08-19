@@ -1,0 +1,236 @@
+{
+  "item": [
+    {
+      "id": "c656b91f-8785-4203-a00b-36bc80deb051",
+      "name": "alerts",
+      "description": {
+        "content": "Query active alerts and alertmanager discovery.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ede5da47-8858-491c-aa2c-41e128cf94a7",
+          "name": "Get active alerts",
+          "request": {
+            "name": "Get active alerts",
+            "description": {},
+            "url": {
+              "path": [
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef4b9149-cda5-4511-a119-6eb1d37dac22",
+              "name": "Active alerts retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"alerts\": [\n      {\n        \"activeAt\": \"2026-01-02T13:30:00.000Z\",\n        \"annotations\": {\n          \"description\": \"This is an alert meant to ensure that the entire alerting pipeline is functional. This alert is always firing, therefore it should always be firing in Alertmanager and always fire against a receiver. There are integrations with various notification mechanisms that send a notification when this alert is not firing. For example the \\\"DeadMansSnitch\\\" integration in PagerDuty.\",\n          \"summary\": \"Ensure entire alerting pipeline is functional\"\n        },\n        \"labels\": {\n          \"alertname\": \"Watchdog\",\n          \"severity\": \"warning\"\n        },\n        \"state\": \"firing\",\n        \"value\": 1\n      }\n    ]\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fd45b86-e844-473a-a37e-9867721e1552",
+              "name": "Error retrieving alerts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac274c32-e5a3-4933-910d-c6cb5d834158",
+          "name": "Get Alertmanager discovery",
+          "request": {
+            "name": "Get Alertmanager discovery",
+            "description": {},
+            "url": {
+              "path": [
+                "alertmanagers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "580713cf-bf3a-4c15-813a-ed428cf9632d",
+              "name": "Alertmanager targets retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alertmanagers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"activeAlertmanagers\": [\n      {\n        \"url\": \"http://demo.prometheus.io:9093/api/v2/alerts\"\n      }\n    ],\n    \"droppedAlertmanagers\": []\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f3f9449-84ab-4bfe-b7e7-f3727212c896",
+              "name": "Error retrieving Alertmanager targets.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alertmanagers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5368a5a2-22f9-4bfd-b1aa-caf35945b9e4",
+    "name": "Alertmanager admin alerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

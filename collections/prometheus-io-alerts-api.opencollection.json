@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin alerts API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get active alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/alerts"
+          },
+          "docs": "Get active alerts"
+        },
+        {
+          "info": {
+            "name": "Get Alertmanager discovery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/alertmanagers"
+          },
+          "docs": "Get Alertmanager discovery"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

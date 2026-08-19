@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin rules API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get alerting and recording rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rules",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule type: alert or record."
+              },
+              {
+                "name": "rule_name[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule name."
+              },
+              {
+                "name": "rule_group[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule group name."
+              },
+              {
+                "name": "file[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by file path."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Label matchers to filter rules."
+              },
+              {
+                "name": "exclude_alerts",
+                "value": "",
+                "type": "query",
+                "description": "Exclude active alerts from response."
+              },
+              {
+                "name": "group_limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rule groups to return."
+              },
+              {
+                "name": "group_next_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for next page."
+              }
+            ]
+          },
+          "docs": "Get alerting and recording rules"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

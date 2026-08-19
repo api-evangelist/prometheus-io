@@ -1,0 +1,1398 @@
+{
+  "item": [
+    {
+      "id": "a8e1b74c-0dd2-4d0d-9c93-c712f5340487",
+      "name": "labels",
+      "description": {
+        "content": "Query label names and values.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "565a936f-ff2c-4072-b4e1-45bc6c2af84c",
+          "name": "Get label names",
+          "request": {
+            "name": "Get label names",
+            "description": {},
+            "url": {
+              "path": [
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Start timestamp for label names query."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "End timestamp for label names query."
+                },
+                {
+                  "disabled": false,
+                  "key": "match[]",
+                  "value": "<string>",
+                  "description": "Series selector argument."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int64>",
+                  "description": "Maximum number of label names to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc8e91ce-9ae6-46e1-9f9e-2f3cd9ed8bf2",
+              "name": "Label names retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"__name__\",\n    \"active\",\n    \"address\",\n    \"alertmanager\",\n    \"alertname\",\n    \"alertstate\",\n    \"backend\",\n    \"branch\",\n    \"code\",\n    \"collector\",\n    \"component\",\n    \"device\",\n    \"env\",\n    \"endpoint\",\n    \"fstype\",\n    \"handler\",\n    \"instance\",\n    \"job\",\n    \"le\",\n    \"method\",\n    \"mode\",\n    \"name\"\n  ],\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f810048-b4b9-4b63-9212-911e03572276",
+              "name": "Error retrieving label names.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf6c0490-54d4-4fbe-a647-2b932ca87602",
+          "name": "Get label names",
+          "request": {
+            "name": "Get label names",
+            "description": {},
+            "url": {
+              "path": [
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "d8325667-465d-4b38-8be4-e306b279ea48",
+              "name": "Label names retrieved successfully via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": []
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"__name__\",\n    \"active\",\n    \"address\",\n    \"alertmanager\",\n    \"alertname\",\n    \"alertstate\",\n    \"backend\",\n    \"branch\",\n    \"code\",\n    \"collector\",\n    \"component\",\n    \"device\",\n    \"env\",\n    \"endpoint\",\n    \"fstype\",\n    \"handler\",\n    \"instance\",\n    \"job\",\n    \"le\",\n    \"method\",\n    \"mode\",\n    \"name\"\n  ],\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acfd60f3-0478-4e1d-97ea-fc133208ad7f",
+              "name": "Error retrieving label names via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": []
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ace24ab-a433-4363-ae25-54e881407ac9",
+          "name": "Get label values",
+          "request": {
+            "name": "Get label values",
+            "description": {},
+            "url": {
+              "path": [
+                "label",
+                ":name",
+                "values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Start timestamp for label values query."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "End timestamp for label values query."
+                },
+                {
+                  "disabled": false,
+                  "key": "match[]",
+                  "value": "<string>",
+                  "description": "Series selector argument."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int64>",
+                  "description": "Maximum number of label values to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Label name."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e52bb7d-a353-429a-b6df-512df95001a0",
+              "name": "Label values retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "label",
+                    ":name",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Label name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"alertmanager\",\n    \"blackbox\",\n    \"caddy\",\n    \"cadvisor\",\n    \"grafana\",\n    \"node\",\n    \"prometheus\",\n    \"random\"\n  ],\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9874a45-3a74-4dd3-9fb1-ff8b4c60ce2d",
+              "name": "Error retrieving label values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "label",
+                    ":name",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Label name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abee9072-c5a6-4a29-a7ec-78c7449ded9d",
+          "name": "Search label names",
+          "request": {
+            "name": "Search label names",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "label_names"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "match[]",
+                  "value": "<string>",
+                  "description": "Series selector argument used to scope label discovery."
+                },
+                {
+                  "disabled": false,
+                  "key": "search[]",
+                  "value": "<string>",
+                  "description": "One or more search terms matched against label names (OR logic)."
+                },
+                {
+                  "disabled": false,
+                  "key": "fuzz_threshold",
+                  "value": "<int64>",
+                  "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+                },
+                {
+                  "disabled": false,
+                  "key": "fuzz_alg",
+                  "value": "<string>",
+                  "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+                },
+                {
+                  "disabled": false,
+                  "key": "case_sensitive",
+                  "value": "<string>",
+                  "description": "Whether matching is case-sensitive."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort mode. Supported values are alpha and score."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_score",
+                  "value": "<string>",
+                  "description": "Include the relevance score in each result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Start timestamp for label name search."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "End timestamp for label name search."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of label names to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "batch_size",
+                  "value": "100",
+                  "description": "Preferred number of results per NDJSON batch."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d21b436-78f9-41f9-94c5-7e24c64b8f7e",
+              "name": "Label names streamed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fuzz_threshold",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "fuzz_alg",
+                      "value": "subsequence"
+                    },
+                    {
+                      "key": "case_sensitive",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "alpha"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "include_score",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "batch_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "{\"results\":[{\"name\":\"instance\"},{\"name\":\"job\"}]}\n{\"status\":\"success\",\"has_more\":false}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c57cbce-60fd-4843-9825-088b15c37756",
+              "name": "Error searching label names.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fuzz_threshold",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "fuzz_alg",
+                      "value": "subsequence"
+                    },
+                    {
+                      "key": "case_sensitive",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "alpha"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "include_score",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "batch_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3f5bed6-5b8f-42bb-b27f-a2de437f066b",
+          "name": "Search label names",
+          "request": {
+            "name": "Search label names",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "label_names"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "631db569-4196-4ceb-b369-6a3278ea40b2",
+              "name": "Label names streamed successfully via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "match[]",
+                      "value": "{__name__=\"http_requests_total\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "search[]",
+                      "value": "sta"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sort_by",
+                      "value": "score"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "{\"results\":[{\"name\":\"instance\"},{\"name\":\"job\"}]}\n{\"status\":\"success\",\"has_more\":false}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b9ebad83-a983-462e-8a88-2eb980b696d3",
+              "name": "Error searching label names via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "match[]",
+                      "value": "{__name__=\"http_requests_total\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "search[]",
+                      "value": "sta"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sort_by",
+                      "value": "score"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27a732f4-9c32-4733-949e-fe4a3e1063b9",
+          "name": "Search label values",
+          "request": {
+            "name": "Search label values",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "label_values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "label",
+                  "value": "<string>",
+                  "description": "(Required) Label name whose values should be searched."
+                },
+                {
+                  "disabled": false,
+                  "key": "match[]",
+                  "value": "<string>",
+                  "description": "Series selector argument used to scope label value discovery."
+                },
+                {
+                  "disabled": false,
+                  "key": "search[]",
+                  "value": "<string>",
+                  "description": "One or more search terms matched against label values (OR logic)."
+                },
+                {
+                  "disabled": false,
+                  "key": "fuzz_threshold",
+                  "value": "<int64>",
+                  "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+                },
+                {
+                  "disabled": false,
+                  "key": "fuzz_alg",
+                  "value": "<string>",
+                  "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+                },
+                {
+                  "disabled": false,
+                  "key": "case_sensitive",
+                  "value": "<string>",
+                  "description": "Whether matching is case-sensitive."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort mode. Supported values are alpha and score."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_score",
+                  "value": "<string>",
+                  "description": "Include the relevance score in each result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Start timestamp for label value search."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "End timestamp for label value search."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of label values to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "batch_size",
+                  "value": "100",
+                  "description": "Preferred number of results per NDJSON batch."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "119e75c5-da3c-4e68-b623-618e38863077",
+              "name": "Label values streamed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "instance"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fuzz_threshold",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "fuzz_alg",
+                      "value": "subsequence"
+                    },
+                    {
+                      "key": "case_sensitive",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "alpha"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "include_score",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "batch_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "{\"results\":[{\"value\":\"localhost:9090\"},{\"value\":\"localhost:9091\"}]}\n{\"status\":\"success\",\"has_more\":true}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c415f047-4af2-4760-b442-40cdc831cec8",
+              "name": "Error searching label values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "instance"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fuzz_threshold",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "fuzz_alg",
+                      "value": "subsequence"
+                    },
+                    {
+                      "key": "case_sensitive",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "alpha"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "include_score",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "batch_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c16262de-2dab-47e0-a2e1-9ea00e9e875a",
+          "name": "Search label values",
+          "request": {
+            "name": "Search label values",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "label_values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "c2a4c049-9d9b-4fba-bfdc-bb0f0af382af",
+              "name": "Label values streamed successfully via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "label",
+                      "value": "instance"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "match[]",
+                      "value": "up"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "search[]",
+                      "value": "909"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sort_by",
+                      "value": "score"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "{\"results\":[{\"value\":\"localhost:9090\"},{\"value\":\"localhost:9091\"}]}\n{\"status\":\"success\",\"has_more\":true}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71c37eb0-6ec1-47cd-b72e-e4ba1fc4d665",
+              "name": "Error searching label values via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "label_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "label",
+                      "value": "instance"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "match[]",
+                      "value": "up"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "search[]",
+                      "value": "909"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sort_by",
+                      "value": "score"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2e60b0c7-f825-4f14-91c3-213b47ecd5f6",
+    "name": "Alertmanager admin labels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

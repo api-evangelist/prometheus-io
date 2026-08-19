@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin general API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "general",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status"
+          },
+          "docs": "Get current status of an Alertmanager instance and its cluster"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

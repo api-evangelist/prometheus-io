@@ -1,0 +1,342 @@
+{
+  "item": [
+    {
+      "id": "c79ff1e8-448d-420c-9382-93901bc2b270",
+      "name": "alertgroup",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80524734-76db-4339-9bad-3c361d5d7adb",
+          "name": "get Alert Groups",
+          "request": {
+            "name": "get Alert Groups",
+            "description": {
+              "content": "Get a list of alert groups",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alerts",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "true",
+                  "description": "Include active alerts within the returned groups. If false, excludes active alerts from groups and only shows suppressed (silenced or inhibited) alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "silenced",
+                  "value": "true",
+                  "description": "Include silenced alerts within the returned groups. If false, excludes silenced alerts from groups. Note that true (default) shows both silenced and non-silenced alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "inhibited",
+                  "value": "true",
+                  "description": "Include inhibited alerts within the returned groups. If false, excludes inhibited alerts from groups. Note that true (default) shows both inhibited and non-inhibited alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "muted",
+                  "value": "true",
+                  "description": "Include muted (silenced or inhibited) alert groups in results. If false, excludes entire groups where all alerts are muted."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alert groups. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter alert groups. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver",
+                  "value": "<string>",
+                  "description": "A regex matching receivers to filter alerts by"
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                },
+                {
+                  "disabled": false,
+                  "key": "receiver_matchers",
+                  "value": "<string>",
+                  "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c9ab1f76-de3a-4b86-b7f7-4860df2e4a9d",
+              "name": "Get alert groups response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "muted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"receiver\": {\n      \"name\": \"string\"\n    },\n    \"alerts\": [\n      {\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"endsAt\": \"1976-09-22T10:50:26.046Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"2012-02-17T12:28:43.509Z\",\n        \"status\": {\n          \"state\": \"suppressed\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"1996-02-06T10:43:13.129Z\",\n        \"generatorURL\": \"http://IZEFNOSueLKOVOwKiO.fxfzTTwkJFmmc+dW2RELoJ7XFwOA-KZDK62J2y.XtyPEEP\"\n      },\n      {\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"endsAt\": \"2019-02-04T12:31:27.407Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_2\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"1984-03-17T11:09:44.148Z\",\n        \"status\": {\n          \"state\": \"unprocessed\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"1947-11-06T05:05:55.678Z\",\n        \"generatorURL\": \"https://svRgOAdAlLxHO.wnaL5n1KGrsasWfn1oVF4cRlXQ6jIh1xfNg+gzCWSh0vIu\"\n      }\n    ]\n  },\n  {\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"receiver\": {\n      \"name\": \"string\"\n    },\n    \"alerts\": [\n      {\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"endsAt\": \"1997-12-05T04:57:21.489Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"2023-01-06T14:51:55.806Z\",\n        \"status\": {\n          \"state\": \"unprocessed\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"2014-12-20T05:07:11.512Z\",\n        \"generatorURL\": \"https://WrqkAiNdoBNt.frGUqxnXAfCc4L,aO\"\n      },\n      {\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        \"endsAt\": \"1988-10-28T11:32:34.377Z\",\n        \"fingerprint\": \"string\",\n        \"labels\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_2\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_3\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"receivers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"startsAt\": \"1989-04-29T04:33:16.083Z\",\n        \"status\": {\n          \"state\": \"active\",\n          \"silencedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"inhibitedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mutedBy\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"updatedAt\": \"2005-04-14T14:13:28.207Z\",\n        \"generatorURL\": \"https://jznF.dcM45u55yF1AWd4BMdmQwVJ7P3kMhfba.tMVd+aB.tzv,6m5XBz8crAhfiQqA2RKW.kXj,X7wC37BIvBogTw\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0adcbe3-31ad-4a85-a116-8f18ca0f5a14",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "muted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66c159f1-d138-49ed-bd37-8707cc803b16",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "silenced",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inhibited",
+                      "value": "true"
+                    },
+                    {
+                      "key": "muted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "receiver_matchers",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9ca80203-928c-4076-9320-492f39fab8c2",
+    "name": "Alertmanager admin alertgroup API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

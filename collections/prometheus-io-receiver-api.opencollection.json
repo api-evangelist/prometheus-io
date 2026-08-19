@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin receiver API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "receiver",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getReceivers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/receivers",
+            "params": [
+              {
+                "name": "receiver_matchers",
+                "value": "",
+                "type": "query",
+                "description": "A matcher expression to filter by receiver labels. For example `owner=\"my-team\"`. Can be repeated to apply multiple matchers."
+              }
+            ]
+          },
+          "docs": "Get list of all receivers (name of notification integrations)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin status API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/config"
+          },
+          "docs": "Get status config"
+        },
+        {
+          "info": {
+            "name": "Get status runtimeinfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/runtimeinfo"
+          },
+          "docs": "Get status runtimeinfo"
+        },
+        {
+          "info": {
+            "name": "Get status buildinfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/buildinfo"
+          },
+          "docs": "Get status buildinfo"
+        },
+        {
+          "info": {
+            "name": "Get status flags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/flags"
+          },
+          "docs": "Get status flags"
+        },
+        {
+          "info": {
+            "name": "Get TSDB status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/tsdb",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per category."
+              }
+            ]
+          },
+          "docs": "Get TSDB status"
+        },
+        {
+          "info": {
+            "name": "Get TSDB blocks information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/tsdb/blocks"
+          },
+          "docs": "Get TSDB blocks information"
+        },
+        {
+          "info": {
+            "name": "Get status walreplay",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/walreplay"
+          },
+          "docs": "Get status walreplay"
+        },
+        {
+          "info": {
+            "name": "Get Prometheus self-instrumentation metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/status/self_metrics",
+            "params": [
+              {
+                "name": "metric_name_pattern",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression filter for metric names (fully anchored, like PromQL label matchers). Only metric families whose names fully match the pattern are returned."
+              }
+            ]
+          },
+          "docs": "Returns Prometheus' own instrumentation metrics from its internal client registry, as structured JSON. Supports optional regex filtering via the metric_name_pattern parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

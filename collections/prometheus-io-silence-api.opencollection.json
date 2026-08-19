@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin silence API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "silence",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getSilences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/silences",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "A matcher expression to filter silences. For example `alertname=\"MyAlert\"`. It can be repeated to apply multiple matchers."
+              }
+            ]
+          },
+          "docs": "Get a list of silences"
+        },
+        {
+          "info": {
+            "name": "postSilences",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/silences"
+          },
+          "docs": "Post a new silence or update an existing one"
+        },
+        {
+          "info": {
+            "name": "getSilence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/silence/:silenceID",
+            "params": [
+              {
+                "name": "silenceID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the silence to get"
+              }
+            ]
+          },
+          "docs": "Get a silence by its ID"
+        },
+        {
+          "info": {
+            "name": "deleteSilence",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/silence/:silenceID",
+            "params": [
+              {
+                "name": "silenceID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the silence to get"
+              }
+            ]
+          },
+          "docs": "Delete a silence by its ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

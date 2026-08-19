@@ -1,0 +1,912 @@
+{
+  "item": [
+    {
+      "id": "44e0b30b-65c5-4732-9d76-f00adccdb222",
+      "name": "status",
+      "description": {
+        "content": "Retrieve server status and configuration.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c1bf37bf-c88c-4cd7-886f-814d90fe45c7",
+          "name": "Get status config",
+          "request": {
+            "name": "Get status config",
+            "description": {},
+            "url": {
+              "path": [
+                "status",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19221581-1ebe-49b1-a520-ec9cd604a357",
+              "name": "Configuration retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"yaml\": \"global:\\n  scrape_interval: 15s\\n  scrape_timeout: 10s\\n  evaluation_interval: 15s\\n  external_labels:\\n    environment: demo-prometheus-io\\nalerting:\\n  alertmanagers:\\n  - scheme: http\\n    static_configs:\\n    - targets:\\n      - demo.prometheus.io:9093\\nrule_files:\\n- /etc/prometheus/rules/*.yml\\n\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4d9a92b-e740-466c-9302-ff5efce5a128",
+              "name": "Error retrieving configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8950a830-dab3-4f6b-b0ef-df891241a3b5",
+          "name": "Get status runtimeinfo",
+          "request": {
+            "name": "Get status runtimeinfo",
+            "description": {},
+            "url": {
+              "path": [
+                "status",
+                "runtimeinfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a030a3a5-54d4-4959-9b9e-89c38477d6a1",
+              "name": "Runtime information retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "runtimeinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"CWD\": \"/\",\n    \"GODEBUG\": \"\",\n    \"GOGC\": \"75\",\n    \"GOMAXPROCS\": 2,\n    \"GOMEMLIMIT\": 3703818240,\n    \"corruptionCount\": 0,\n    \"goroutineCount\": 88,\n    \"hostname\": \"demo-prometheus-io\",\n    \"lastConfigTime\": \"2026-01-01T13:37:00.000Z\",\n    \"reloadConfigSuccess\": true,\n    \"serverTime\": \"2026-01-02T13:37:00.000Z\",\n    \"startTime\": \"2026-01-01T13:37:00.000Z\",\n    \"storageRetention\": \"31d\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55e95b11-3eec-42ac-a558-f6fee82d493b",
+              "name": "Error retrieving runtime information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "runtimeinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2305e80-9cad-44f8-9d73-8cd08ae8a3fa",
+          "name": "Get status buildinfo",
+          "request": {
+            "name": "Get status buildinfo",
+            "description": {},
+            "url": {
+              "path": [
+                "status",
+                "buildinfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c21a571-59f3-453a-8433-80198c37f297",
+              "name": "Build information retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "buildinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"branch\": \"HEAD\",\n    \"buildDate\": \"20251030-07:26:10\",\n    \"buildUser\": \"root@08c890a84441\",\n    \"goVersion\": \"go1.25.3\",\n    \"revision\": \"0a41f0000705c69ab8e0f9a723fc73e39ed62b07\",\n    \"version\": \"3.7.3\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee09d780-6c6e-403c-ade3-63de5b70cf94",
+              "name": "Error retrieving build information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "buildinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c07ef02-f0ae-4500-95c0-8be3c3a715ad",
+          "name": "Get status flags",
+          "request": {
+            "name": "Get status flags",
+            "description": {},
+            "url": {
+              "path": [
+                "status",
+                "flags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99fea062-dafc-4b54-ac97-110df8497979",
+              "name": "Command-line flags retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "flags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"agent\": \"false\",\n    \"alertmanager.notification-queue-capacity\": \"10000\",\n    \"config.file\": \"/etc/prometheus/prometheus.yml\",\n    \"enable-feature\": \"exemplar-storage,native-histograms\",\n    \"query.max-concurrency\": \"20\",\n    \"query.timeout\": \"2m\",\n    \"storage.tsdb.path\": \"/prometheus\",\n    \"storage.tsdb.retention.time\": \"15d\",\n    \"web.console.libraries\": \"/usr/share/prometheus/console_libraries\",\n    \"web.console.templates\": \"/usr/share/prometheus/consoles\",\n    \"web.enable-admin-api\": \"true\",\n    \"web.enable-lifecycle\": \"true\",\n    \"web.listen-address\": \"0.0.0.0:9090\",\n    \"web.page-title\": \"Prometheus Time Series Collection and Processing Server\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f74ac907-ec42-4324-a732-46f1e02df534",
+              "name": "Error retrieving flags.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "flags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4da188c0-e454-4693-9b04-e8ef2f572fdc",
+          "name": "Get TSDB status",
+          "request": {
+            "name": "Get TSDB status",
+            "description": {},
+            "url": {
+              "path": [
+                "status",
+                "tsdb"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int64>",
+                  "description": "The maximum number of items to return per category."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef572300-4b77-486d-900c-68468be24bd8",
+              "name": "TSDB status retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "tsdb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"headStats\": {\n      \"chunkCount\": 37525,\n      \"maxTime\": 1767436620000,\n      \"minTime\": 1767362400712,\n      \"numLabelPairs\": 2512,\n      \"numSeries\": 9925\n    },\n    \"labelValueCountByLabelName\": [\n      {\n        \"name\": \"__name__\",\n        \"value\": 5\n      },\n      {\n        \"name\": \"job\",\n        \"value\": 3\n      }\n    ],\n    \"memoryInBytesByLabelName\": [\n      {\n        \"name\": \"__name__\",\n        \"value\": 1024\n      },\n      {\n        \"name\": \"job\",\n        \"value\": 512\n      }\n    ],\n    \"seriesCountByLabelValuePair\": [\n      {\n        \"name\": \"job=prometheus\",\n        \"value\": 100\n      },\n      {\n        \"name\": \"instance=localhost:9090\",\n        \"value\": 100\n      }\n    ],\n    \"seriesCountByMetricName\": [\n      {\n        \"name\": \"up\",\n        \"value\": 100\n      },\n      {\n        \"name\": \"http_requests_total\",\n        \"value\": 500\n      }\n    ]\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8af0f2c3-fc1f-481d-966c-46bfbecbd854",
+              "name": "Error retrieving TSDB status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "tsdb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82ef1114-c41d-4f05-87bd-5a46d09a16ea",
+          "name": "Get TSDB blocks information",
+          "request": {
+            "name": "Get TSDB blocks information",
+            "description": {},
+            "url": {
+              "path": [
+                "status",
+                "tsdb",
+                "blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39cee04d-84e3-4dbc-803d-1c7348970597",
+              "name": "TSDB blocks information retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "tsdb",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"blocks\": [\n      {\n        \"compaction\": {\n          \"level\": 4,\n          \"sources\": [\n            \"01KBCJ7TR8A4QAJ3AA1J651P5S\",\n            \"01KBCS3J0E34567YPB8Y5W0E24\",\n            \"01KBCZZ9KRTYGG3E7HVQFGC3S3\"\n          ]\n        },\n        \"maxTime\": 1764763200000,\n        \"minTime\": 1764568801099,\n        \"stats\": {\n          \"numChunks\": 1073962,\n          \"numSamples\": 129505582,\n          \"numSeries\": 10661\n        },\n        \"ulid\": \"01KC4D6GXQA4CRHYKV78NEBVAE\",\n        \"version\": 1\n      }\n    ]\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "135542e2-cf6a-462a-b699-18830a88cc90",
+              "name": "Error retrieving TSDB blocks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "tsdb",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56577a9e-9c82-4fb9-bb74-e3e105d971fb",
+          "name": "Get status walreplay",
+          "request": {
+            "name": "Get status walreplay",
+            "description": {},
+            "url": {
+              "path": [
+                "status",
+                "walreplay"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9447f180-28e0-4b97-9ee3-9adc2ac5d4c7",
+              "name": "WAL replay status retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "walreplay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"current\": 3214,\n    \"max\": 3214,\n    \"min\": 3209\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42b5552c-6db6-451c-b583-848a3b9918ab",
+              "name": "Error retrieving WAL replay status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "walreplay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fcbcef85-b5c5-4a0c-b998-399120f53d0d",
+          "name": "Get Prometheus self-instrumentation metrics",
+          "request": {
+            "name": "Get Prometheus self-instrumentation metrics",
+            "description": {
+              "content": "Returns Prometheus' own instrumentation metrics from its internal client registry, as structured JSON. Supports optional regex filtering via the metric_name_pattern parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                "self_metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "metric_name_pattern",
+                  "value": "<string>",
+                  "description": "Regular expression filter for metric names (fully anchored, like PromQL label matchers). Only metric families whose names fully match the pattern are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8e24278-94a6-449f-96a5-6dc7ae2de002",
+              "name": "Self metrics retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "self_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "metric_name_pattern",
+                      "value": "prometheus_tsdb_.*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"help\": \"A metric with a constant '1' value labeled by version, revision, branch, goversion from which prometheus was built, and the goos and goarch for the build.\",\n      \"metric\": [\n        {\n          \"gauge\": {\n            \"value\": 1\n          },\n          \"label\": [\n            {\n              \"name\": \"branch\",\n              \"value\": \"HEAD\"\n            },\n            {\n              \"name\": \"goarch\",\n              \"value\": \"amd64\"\n            },\n            {\n              \"name\": \"goos\",\n              \"value\": \"linux\"\n            },\n            {\n              \"name\": \"goversion\",\n              \"value\": \"go1.23.0\"\n            },\n            {\n              \"name\": \"revision\",\n              \"value\": \"abc1234\"\n            },\n            {\n              \"name\": \"tags\",\n              \"value\": \"netgo,builtinassets,stringlabels\"\n            },\n            {\n              \"name\": \"version\",\n              \"value\": \"3.0.0\"\n            }\n          ]\n        }\n      ],\n      \"name\": \"prometheus_build_info\",\n      \"type\": \"GAUGE\"\n    },\n    {\n      \"help\": \"Total number of chunks in the head block.\",\n      \"metric\": [\n        {\n          \"gauge\": {\n            \"value\": 1024\n          }\n        }\n      ],\n      \"name\": \"prometheus_tsdb_head_chunks\",\n      \"type\": \"GAUGE\"\n    }\n  ],\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c293436c-4988-4afa-9f81-54f0dad2df95",
+              "name": "Error retrieving self metrics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "self_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "metric_name_pattern",
+                      "value": "prometheus_tsdb_.*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c7995b58-6490-4547-b3e8-489302c5c286",
+    "name": "Alertmanager admin status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

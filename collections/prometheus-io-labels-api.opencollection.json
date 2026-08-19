@@ -1,0 +1,319 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Alertmanager admin labels API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/labels",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label names query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label names query."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label names to return."
+              }
+            ]
+          },
+          "docs": "Get label names"
+        },
+        {
+          "info": {
+            "name": "Get label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/labels",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Get label names"
+        },
+        {
+          "info": {
+            "name": "Get label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/label/:name/values",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Label name."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label values query."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label values query."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label values to return."
+              }
+            ]
+          },
+          "docs": "Get label values"
+        },
+        {
+          "info": {
+            "name": "Search label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search/label_names",
+            "params": [
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument used to scope label discovery."
+              },
+              {
+                "name": "search[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms matched against label names (OR logic)."
+              },
+              {
+                "name": "fuzz_threshold",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+              },
+              {
+                "name": "fuzz_alg",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+              },
+              {
+                "name": "case_sensitive",
+                "value": "",
+                "type": "query",
+                "description": "Whether matching is case-sensitive."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort mode. Supported values are alpha and score."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+              },
+              {
+                "name": "include_score",
+                "value": "",
+                "type": "query",
+                "description": "Include the relevance score in each result."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label name search."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label name search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label names to return."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Preferred number of results per NDJSON batch."
+              }
+            ]
+          },
+          "docs": "Search label names"
+        },
+        {
+          "info": {
+            "name": "Search label names",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/search/label_names",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Search label names"
+        },
+        {
+          "info": {
+            "name": "Search label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search/label_values",
+            "params": [
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Label name whose values should be searched."
+              },
+              {
+                "name": "match[]",
+                "value": "",
+                "type": "query",
+                "description": "Series selector argument used to scope label value discovery."
+              },
+              {
+                "name": "search[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms matched against label values (OR logic)."
+              },
+              {
+                "name": "fuzz_threshold",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+              },
+              {
+                "name": "fuzz_alg",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+              },
+              {
+                "name": "case_sensitive",
+                "value": "",
+                "type": "query",
+                "description": "Whether matching is case-sensitive."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort mode. Supported values are alpha and score."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+              },
+              {
+                "name": "include_score",
+                "value": "",
+                "type": "query",
+                "description": "Include the relevance score in each result."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for label value search."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for label value search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of label values to return."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Preferred number of results per NDJSON batch."
+              }
+            ]
+          },
+          "docs": "Search label values"
+        },
+        {
+          "info": {
+            "name": "Search label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/search/label_values",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Search label values"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

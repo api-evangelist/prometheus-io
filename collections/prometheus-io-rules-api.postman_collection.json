@@ -1,0 +1,249 @@
+{
+  "item": [
+    {
+      "id": "d87daa5e-cee4-4fbe-83cf-71ff486852b1",
+      "name": "rules",
+      "description": {
+        "content": "Query recording and alerting rules.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de3096b7-e433-4a40-a10b-118abd1e33eb",
+          "name": "Get alerting and recording rules",
+          "request": {
+            "name": "Get alerting and recording rules",
+            "description": {},
+            "url": {
+              "path": [
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by rule type: alert or record."
+                },
+                {
+                  "disabled": false,
+                  "key": "rule_name[]",
+                  "value": "<string>",
+                  "description": "Filter by rule name."
+                },
+                {
+                  "disabled": false,
+                  "key": "rule_group[]",
+                  "value": "<string>",
+                  "description": "Filter by rule group name."
+                },
+                {
+                  "disabled": false,
+                  "key": "file[]",
+                  "value": "<string>",
+                  "description": "Filter by file path."
+                },
+                {
+                  "disabled": false,
+                  "key": "match[]",
+                  "value": "<string>",
+                  "description": "Label matchers to filter rules."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_alerts",
+                  "value": "<string>",
+                  "description": "Exclude active alerts from response."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_limit",
+                  "value": "<int64>",
+                  "description": "Maximum number of rule groups to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_next_token",
+                  "value": "<string>",
+                  "description": "Pagination token for next page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "28519dbe-7ac5-4d09-b73f-726630546379",
+              "name": "Rules retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "alert"
+                    },
+                    {
+                      "key": "rule_name[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rule_group[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "group_limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "group_next_token",
+                      "value": "abc123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"groups\": [\n      {\n        \"evaluationTime\": 0.000561635,\n        \"file\": \"/etc/prometheus/rules/ansible_managed.yml\",\n        \"interval\": 15,\n        \"lastEvaluation\": \"2026-01-02T13:36:56.874Z\",\n        \"limit\": 0,\n        \"name\": \"ansible managed alert rules\",\n        \"rules\": [\n          {\n            \"annotations\": {\n              \"description\": \"This is an alert meant to ensure that the entire alerting pipeline is functional. This alert is always firing, therefore it should always be firing in Alertmanager and always fire against a receiver. There are integrations with various notification mechanisms that send a notification when this alert is not firing. For example the \\\"DeadMansSnitch\\\" integration in PagerDuty.\",\n              \"summary\": \"Ensure entire alerting pipeline is functional\"\n            },\n            \"duration\": 600,\n            \"evaluationTime\": 0.000356688,\n            \"health\": \"ok\",\n            \"keepFiringFor\": 0,\n            \"labels\": {\n              \"severity\": \"warning\"\n            },\n            \"lastEvaluation\": \"2026-01-02T13:36:56.874Z\",\n            \"name\": \"Watchdog\",\n            \"query\": \"vector(1)\",\n            \"state\": \"firing\",\n            \"type\": \"alerting\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcbf0517-8da3-4dc5-a69c-6b7baa3df317",
+              "name": "Error retrieving rules.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "alert"
+                    },
+                    {
+                      "key": "rule_name[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rule_group[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "group_limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "group_next_token",
+                      "value": "abc123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "afce6696-3235-4441-8fb3-fcc211b92acc",
+    "name": "Alertmanager admin rules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}

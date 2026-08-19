@@ -1,0 +1,630 @@
+{
+  "item": [
+    {
+      "id": "86d88f8e-a7c6-4c17-94cb-a9e1f9b63b86",
+      "name": "metadata",
+      "description": {
+        "content": "Retrieve metric metadata such as type and unit.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d472722f-c0bd-4fea-a321-97cc8a5b3854",
+          "name": "Search metric names",
+          "request": {
+            "name": "Search metric names",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "metric_names"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "match[]",
+                  "value": "<string>",
+                  "description": "Series selector argument used to scope metric discovery."
+                },
+                {
+                  "disabled": false,
+                  "key": "search[]",
+                  "value": "<string>",
+                  "description": "One or more search terms matched against metric names (OR logic)."
+                },
+                {
+                  "disabled": false,
+                  "key": "fuzz_threshold",
+                  "value": "<int64>",
+                  "description": "Fuzzy threshold in the range 0-100. A value of 0 is the lowest fuzzy threshold."
+                },
+                {
+                  "disabled": false,
+                  "key": "fuzz_alg",
+                  "value": "<string>",
+                  "description": "Fuzzy algorithm. Supported values are subsequence (default) and jarowinkler."
+                },
+                {
+                  "disabled": false,
+                  "key": "case_sensitive",
+                  "value": "<string>",
+                  "description": "Whether matching is case-sensitive."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort mode. Supported values are alpha and score."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Sort direction. Only valid with sort_by=alpha. Supported values are asc and dsc."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_score",
+                  "value": "<string>",
+                  "description": "Include the relevance score in each result."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_metadata",
+                  "value": "<string>",
+                  "description": "Include metric metadata in each result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Start timestamp for metric name search."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "End timestamp for metric name search."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of metric names to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "batch_size",
+                  "value": "100",
+                  "description": "Preferred number of results per NDJSON batch."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ce9e314-0e69-41ea-9433-dd17e60636a4",
+              "name": "Metric names streamed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "metric_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fuzz_threshold",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "fuzz_alg",
+                      "value": "subsequence"
+                    },
+                    {
+                      "key": "case_sensitive",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "alpha"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "include_score",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_metadata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "batch_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "{\"results\":[{\"name\":\"http_requests_total\",\"type\":\"counter\",\"help\":\"Total HTTP requests.\"}]}\n{\"status\":\"success\",\"has_more\":false}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "38d7fea2-708a-461b-b7af-cd3a852e645e",
+              "name": "Error searching metric names.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "metric_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "match[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fuzz_threshold",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "fuzz_alg",
+                      "value": "subsequence"
+                    },
+                    {
+                      "key": "case_sensitive",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "alpha"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "include_score",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_metadata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "batch_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b40f952c-813c-47ff-afb0-e0fe5dfeb02c",
+          "name": "Search metric names",
+          "request": {
+            "name": "Search metric names",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "metric_names"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "f57d69c9-bad6-4171-adf5-40ede8154b32",
+              "name": "Metric names streamed successfully via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "metric_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "include_metadata",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "search[]",
+                      "value": "http_req"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sort_by",
+                      "value": "score"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "{\"results\":[{\"name\":\"http_requests_total\",\"type\":\"counter\",\"help\":\"Total HTTP requests.\"}]}\n{\"status\":\"success\",\"has_more\":false}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f12a1fdc-da1d-4032-a2d6-a43ef77021da",
+              "name": "Error searching metric names via POST.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "metric_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "include_metadata",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "search[]",
+                      "value": "http_req"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sort_by",
+                      "value": "score"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59fbc56e-54be-4f9e-bb40-f59eab2ad7d4",
+          "name": "Get metadata",
+          "request": {
+            "name": "Get metadata",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int64>",
+                  "description": "The maximum number of metrics to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit_per_metric",
+                  "value": "<int64>",
+                  "description": "The maximum number of metadata entries per metric."
+                },
+                {
+                  "disabled": false,
+                  "key": "metric",
+                  "value": "<string>",
+                  "description": "A metric name to filter metadata for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61c14d6e-745a-4792-ae8c-222f4c77159d",
+              "name": "Metric metadata retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "limit_per_metric",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "metric",
+                      "value": "http_requests_total"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"go_gc_stack_starting_size_bytes\": [\n      {\n        \"help\": \"The stack size of new goroutines. Sourced from /gc/stack/starting-size:bytes.\",\n        \"type\": \"gauge\",\n        \"unit\": \"\"\n      }\n    ],\n    \"prometheus_rule_group_iterations_missed_total\": [\n      {\n        \"help\": \"The total number of rule group evaluations missed due to slow rule group evaluation.\",\n        \"type\": \"counter\",\n        \"unit\": \"\"\n      }\n    ],\n    \"prometheus_sd_updates_total\": [\n      {\n        \"help\": \"Total number of update events sent to the SD consumers.\",\n        \"type\": \"counter\",\n        \"unit\": \"\"\n      }\n    ]\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42925ec4-d9bf-4e1c-8af2-90bcdcf1a7e2",
+              "name": "Error retrieving metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "limit_per_metric",
+                      "value": "<int64>"
+                    },
+                    {
+                      "key": "metric",
+                      "value": "http_requests_total"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"TSDB not ready\",\n  \"errorType\": \"internal\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v2/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7b22a785-b44c-4615-b3dc-1d75dc1bc4f0",
+    "name": "Alertmanager admin metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+      "type": "text/plain"
+    }
+  }
+}
