@@ -7,6 +7,17 @@ tags:
 - Observability
 - Time Series
 - Alerting
+- Cloud-Native
+- CNCF
+- Open-Source
+- PromQL
+- Telemetry
+tags_raw:
+- Monitoring
+- Metrics
+- Observability
+- Time Series
+- Alerting
 - Cloud Native
 - CNCF
 - Open Source
@@ -112,6 +123,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Admin
+  tags_raw:
   - admin
   properties:
   - type: OpenAPI
@@ -148,6 +161,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Alert
+  tags_raw:
   - alert
   properties:
   - type: OpenAPI
@@ -220,6 +235,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Alerts
+  tags_raw:
   - alerts
   properties:
   - type: OpenAPI
@@ -256,6 +273,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Features
+  tags_raw:
   - features
   properties:
   - type: OpenAPI
@@ -291,7 +310,8 @@ apis:
   description: General Alertmanager operations
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - general
   properties:
   - type: OpenAPI
@@ -328,6 +348,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Labels
+  tags_raw:
   - labels
   properties:
   - type: OpenAPI
@@ -364,6 +386,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Metadata
+  tags_raw:
   - metadata
   properties:
   - type: OpenAPI
@@ -400,6 +424,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Notification
+  tags_raw:
   - notifications
   properties:
   - type: OpenAPI
@@ -436,6 +462,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - OTLP
+  tags_raw:
   - otlp
   properties:
   - type: OpenAPI
@@ -472,6 +500,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Query
+  tags_raw:
   - query
   properties:
   - type: OpenAPI
@@ -508,6 +538,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Receiver
+  tags_raw:
   - receiver
   properties:
   - type: OpenAPI
@@ -544,6 +576,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Remote
+  tags_raw:
   - remote
   properties:
   - type: OpenAPI
@@ -580,6 +614,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Rules
+  tags_raw:
   - rules
   properties:
   - type: OpenAPI
@@ -616,6 +652,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Series
+  tags_raw:
   - series
   properties:
   - type: OpenAPI
@@ -688,6 +726,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Status
+  tags_raw:
   - status
   properties:
   - type: OpenAPI
@@ -724,6 +764,8 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
+  - Targets
+  tags_raw:
   - targets
   properties:
   - type: OpenAPI
