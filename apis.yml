@@ -33,6 +33,20 @@ description: Prometheus is a Cloud Native Computing Foundation graduated open so
   consul, graphite, memcached, pushgateway, etc.) for pulling metrics out of existing
   systems. Prometheus also drives the OpenMetrics exposition format and an experimental
   Remote Write 2.0 protocol for shipping samples to long-term storage backends.
+deliveryModel:
+  model: saas
+  license: License (Apache 2.0)
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
