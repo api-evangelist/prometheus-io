@@ -476,7 +476,7 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
-  - OTLP
+  - otlp
   tags_raw:
   - otlp
   properties:
@@ -552,7 +552,7 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
-  - Receiver
+  - receiver
   tags_raw:
   - receiver
   properties:
@@ -590,7 +590,7 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
-  - Remote
+  - remote
   tags_raw:
   - remote
   properties:
@@ -628,7 +628,7 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
-  - Rules
+  - rules
   tags_raw:
   - rules
   properties:
@@ -666,7 +666,7 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
-  - Series
+  - series
   tags_raw:
   - series
   properties:
@@ -778,7 +778,7 @@ apis:
   humanURL: https://prometheus.io/docs/prometheus/latest/querying/api/
   baseURL: http://localhost:9090/api/v1
   tags:
-  - Targets
+  - targets
   tags_raw:
   - targets
   properties:
