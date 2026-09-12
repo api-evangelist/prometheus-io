@@ -811,6 +811,8 @@ apis:
   - type: Documentation
     url: https://prometheus.io/docs/alerting/latest/alertmanager/
 common:
+- type: Website
+  url: https://www.prometheus.io/
 - type: AgenticAccess
   url: agentic-access/prometheus-io-agentic-access.yml
 - type: DomainSecurity
