@@ -2,6 +2,7 @@ aid: prometheus-io
 url: https://raw.githubusercontent.com/api-evangelist/prometheus-io/refs/heads/main/apis.yml
 name: Prometheus
 tags:
+- Prometheus
 - Monitoring
 - Metrics
 - Observability
