@@ -12,8 +12,8 @@ tags:
 - Open-Source
 - PromQL
 - Telemetry
-- Prometheus
 tags_raw:
+- Prometheus
 - Monitoring
 - Metrics
 - Observability
