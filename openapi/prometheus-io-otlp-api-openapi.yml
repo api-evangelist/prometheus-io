@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin otlp API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Otlp API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: otlp
+- name: Otlp
   description: OpenTelemetry Protocol metrics ingestion.
 paths:
   /otlp/v1/metrics:
     post:
       tags:
-      - otlp
+      - Otlp
       summary: OTLP metrics write endpoint
       description: OpenTelemetry Protocol metrics ingestion endpoint. Accepts OTLP/HTTP metrics in Protocol Buffer format.
       operationId: otlpWrite

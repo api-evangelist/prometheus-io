@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin query API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Query API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: query
+- name: Query
   description: Query and evaluate PromQL expressions.
 paths:
   /query:
     get:
       tags:
-      - query
+      - Query
       summary: Evaluate an instant query
       operationId: query
       parameters:
@@ -180,7 +177,7 @@ paths:
                     status: error
     post:
       tags:
-      - query
+      - Query
       summary: Evaluate an instant query
       operationId: query-post
       requestBody:
@@ -277,7 +274,7 @@ paths:
   /query_range:
     get:
       tags:
-      - query
+      - Query
       summary: Evaluate a range query
       operationId: query-range
       parameters:
@@ -448,7 +445,7 @@ paths:
                     status: error
     post:
       tags:
-      - query
+      - Query
       summary: Evaluate a range query
       operationId: query-range-post
       requestBody:
@@ -516,7 +513,7 @@ paths:
   /query_exemplars:
     get:
       tags:
-      - query
+      - Query
       summary: Query exemplars
       operationId: query-exemplars
       parameters:
@@ -605,7 +602,7 @@ paths:
                     status: error
     post:
       tags:
-      - query
+      - Query
       summary: Query exemplars
       operationId: query-exemplars-post
       requestBody:
@@ -664,7 +661,7 @@ paths:
   /format_query:
     get:
       tags:
-      - query
+      - Query
       summary: Format a PromQL query
       operationId: format-query
       parameters:
@@ -706,7 +703,7 @@ paths:
                     status: error
     post:
       tags:
-      - query
+      - Query
       summary: Format a PromQL query
       operationId: format-query-post
       requestBody:
@@ -754,7 +751,7 @@ paths:
   /parse_query:
     get:
       tags:
-      - query
+      - Query
       summary: Parse a PromQL query
       operationId: parse-query
       parameters:
@@ -797,7 +794,7 @@ paths:
                     status: error
     post:
       tags:
-      - query
+      - Query
       summary: Parse a PromQL query
       operationId: parse-query-post
       requestBody:
@@ -845,77 +842,6 @@ paths:
                     status: error
 components:
   schemas:
-    QueryExemplarsOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          description: Response data (structure varies by endpoint).
-          example:
-            result: ok
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Generic response body.
-    HistogramSeries:
-      type: object
-      properties:
-        metric:
-          $ref: '#/components/schemas/Labels'
-        histograms:
-          type: array
-          items:
-            type: array
-            items:
-              oneOf:
-              - type: number
-              - $ref: '#/components/schemas/HistogramValue'
-            maxItems: 2
-            minItems: 2
-          description: Array of [timestamp, histogramObject] pairs for histogram values.
-      required:
-      - metric
-      - histograms
-      additionalProperties: false
-      description: A time series with native histogram values.
-    FloatSeries:
-      type: object
-      properties:
-        metric:
-          $ref: '#/components/schemas/Labels'
-        values:
-          type: array
-          items:
-            type: array
-            items:
-              oneOf:
-              - type: number
-              - type: string
-            maxItems: 2
-            minItems: 2
-          description: Array of [timestamp, stringValue] pairs for float values.
-      required:
-      - metric
-      - values
-      additionalProperties: false
-      description: A time series with float values.
     FormatQueryPostInputBody:
       type: object
       properties:
@@ -927,186 +853,6 @@ components:
       - query
       additionalProperties: false
       description: POST request body for format query.
-    FloatSample:
-      type: object
-      properties:
-        metric:
-          $ref: '#/components/schemas/Labels'
-        value:
-          type: array
-          items:
-            oneOf:
-            - type: number
-            - type: string
-          maxItems: 2
-          minItems: 2
-          description: Timestamp and float value as [unixTimestamp, stringValue].
-          example:
-          - 1767436620
-          - '1'
-      required:
-      - metric
-      - value
-      additionalProperties: false
-      description: A sample with a float value.
-    QueryOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/QueryData'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for instant query.
-    QueryPostInputBody:
-      type: object
-      properties:
-        query:
-          type: string
-          description: 'Form field: The PromQL query to execute.'
-          example: up
-        time:
-          type: string
-          description: 'Form field: The evaluation timestamp (optional, defaults to current time).'
-          example: '2023-07-21T20:10:51.781Z'
-        limit:
-          type: integer
-          format: int64
-          description: 'Form field: The maximum number of metrics to return.'
-          example: 100
-        timeout:
-          type: string
-          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
-          example: 30s
-        lookback_delta:
-          type: string
-          description: 'Form field: Override the lookback period for this query (optional).'
-          example: 5m
-        stats:
-          type: string
-          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
-          example: all
-      required:
-      - query
-      additionalProperties: false
-      description: POST request body for instant query.
-    Labels:
-      type: object
-      additionalProperties: true
-      description: Label set represented as a key-value map.
-    HistogramValue:
-      type: object
-      properties:
-        count:
-          type: string
-          description: Total count of observations.
-        sum:
-          type: string
-          description: Sum of all observed values.
-        buckets:
-          type: array
-          items:
-            type: array
-            items:
-              oneOf:
-              - type: number
-              - type: string
-          description: Histogram buckets as [boundary_rule, lower, upper, count].
-      required:
-      - count
-      - sum
-      additionalProperties: false
-      description: Native histogram value representation.
-    FormatQueryOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          type: string
-          description: Formatted query string.
-          example: sum by(status) (rate(http_requests_total[5m]))
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for format query endpoint.
-    QueryRangePostInputBody:
-      type: object
-      properties:
-        query:
-          type: string
-          description: 'Form field: The query to execute.'
-          example: rate(http_requests_total[5m])
-        start:
-          type: string
-          description: 'Form field: The start time of the query.'
-          example: '2023-07-21T20:10:30.781Z'
-        end:
-          type: string
-          description: 'Form field: The end time of the query.'
-          example: '2023-07-21T20:20:30.781Z'
-        step:
-          type: string
-          description: 'Form field: The step size of the query.'
-          example: 15s
-        limit:
-          type: integer
-          format: int64
-          description: 'Form field: The maximum number of metrics to return.'
-          example: 100
-        timeout:
-          type: string
-          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
-          example: 30s
-        lookback_delta:
-          type: string
-          description: 'Form field: Override the lookback period for this query (optional).'
-          example: 5m
-        stats:
-          type: string
-          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
-          example: all
-      required:
-      - query
-      - start
-      - end
-      - step
-      additionalProperties: false
-      description: POST request body for range query.
     QueryStats:
       type: object
       properties:
@@ -1151,6 +897,315 @@ components:
                 description: Timestamp and sample count as [timestamp, count].
               description: Total queryable samples per step (only included with stats=all).
       description: Query execution statistics (included when the stats query parameter is provided).
+    HistogramValue:
+      type: object
+      properties:
+        count:
+          type: string
+          description: Total count of observations.
+        sum:
+          type: string
+          description: Sum of all observed values.
+        buckets:
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+              - type: number
+              - type: string
+          description: Histogram buckets as [boundary_rule, lower, upper, count].
+      required:
+      - count
+      - sum
+      additionalProperties: false
+      description: Native histogram value representation.
+    QueryOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/QueryData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for instant query.
+    QueryExemplarsPostInputBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'Form field: The query to execute.'
+          example: http_requests_total
+        start:
+          type: string
+          description: 'Form field: The start time of the query.'
+          example: '2023-07-21T20:00:00.000Z'
+        end:
+          type: string
+          description: 'Form field: The end time of the query.'
+          example: '2023-07-21T21:00:00.000Z'
+      required:
+      - query
+      additionalProperties: false
+      description: POST request body for exemplars query.
+    FloatSample:
+      type: object
+      properties:
+        metric:
+          $ref: '#/components/schemas/Labels'
+        value:
+          type: array
+          items:
+            oneOf:
+            - type: number
+            - type: string
+          maxItems: 2
+          minItems: 2
+          description: Timestamp and float value as [unixTimestamp, stringValue].
+          example:
+          - 1767436620
+          - '1'
+      required:
+      - metric
+      - value
+      additionalProperties: false
+      description: A sample with a float value.
+    QueryRangePostInputBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'Form field: The query to execute.'
+          example: rate(http_requests_total[5m])
+        start:
+          type: string
+          description: 'Form field: The start time of the query.'
+          example: '2023-07-21T20:10:30.781Z'
+        end:
+          type: string
+          description: 'Form field: The end time of the query.'
+          example: '2023-07-21T20:20:30.781Z'
+        step:
+          type: string
+          description: 'Form field: The step size of the query.'
+          example: 15s
+        limit:
+          type: integer
+          format: int64
+          description: 'Form field: The maximum number of metrics to return.'
+          example: 100
+        timeout:
+          type: string
+          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
+          example: 30s
+        lookback_delta:
+          type: string
+          description: 'Form field: Override the lookback period for this query (optional).'
+          example: 5m
+        stats:
+          type: string
+          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
+          example: all
+      required:
+      - query
+      - start
+      - end
+      - step
+      additionalProperties: false
+      description: POST request body for range query.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
+    FormatQueryOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: string
+          description: Formatted query string.
+          example: sum by(status) (rate(http_requests_total[5m]))
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for format query endpoint.
+    HistogramSeries:
+      type: object
+      properties:
+        metric:
+          $ref: '#/components/schemas/Labels'
+        histograms:
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+              - type: number
+              - $ref: '#/components/schemas/HistogramValue'
+            maxItems: 2
+            minItems: 2
+          description: Array of [timestamp, histogramObject] pairs for histogram values.
+      required:
+      - metric
+      - histograms
+      additionalProperties: false
+      description: A time series with native histogram values.
+    QueryExemplarsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          description: Response data (structure varies by endpoint).
+          example:
+            result: ok
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Generic response body.
+    HistogramSample:
+      type: object
+      properties:
+        metric:
+          $ref: '#/components/schemas/Labels'
+        histogram:
+          type: array
+          items:
+            oneOf:
+            - type: number
+            - $ref: '#/components/schemas/HistogramValue'
+          maxItems: 2
+          minItems: 2
+          description: Timestamp and histogram value as [unixTimestamp, histogramObject].
+          example:
+          - 1767436620
+          - buckets: []
+            count: '60'
+            sum: '120'
+      required:
+      - metric
+      - histogram
+      additionalProperties: false
+      description: A sample with a native histogram value.
+    FloatSeries:
+      type: object
+      properties:
+        metric:
+          $ref: '#/components/schemas/Labels'
+        values:
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+              - type: number
+              - type: string
+            maxItems: 2
+            minItems: 2
+          description: Array of [timestamp, stringValue] pairs for float values.
+      required:
+      - metric
+      - values
+      additionalProperties: false
+      description: A time series with float values.
+    QueryRangeOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/QueryData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for range query.
     QueryData:
       anyOf:
       - type: object
@@ -1241,73 +1296,6 @@ components:
           - 1627845600
           - '1'
         resultType: vector
-    QueryExemplarsPostInputBody:
-      type: object
-      properties:
-        query:
-          type: string
-          description: 'Form field: The query to execute.'
-          example: http_requests_total
-        start:
-          type: string
-          description: 'Form field: The start time of the query.'
-          example: '2023-07-21T20:00:00.000Z'
-        end:
-          type: string
-          description: 'Form field: The end time of the query.'
-          example: '2023-07-21T21:00:00.000Z'
-      required:
-      - query
-      additionalProperties: false
-      description: POST request body for exemplars query.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.
-    HistogramSample:
-      type: object
-      properties:
-        metric:
-          $ref: '#/components/schemas/Labels'
-        histogram:
-          type: array
-          items:
-            oneOf:
-            - type: number
-            - $ref: '#/components/schemas/HistogramValue'
-          maxItems: 2
-          minItems: 2
-          description: Timestamp and histogram value as [unixTimestamp, histogramObject].
-          example:
-          - 1767436620
-          - buckets: []
-            count: '60'
-            sum: '120'
-      required:
-      - metric
-      - histogram
-      additionalProperties: false
-      description: A sample with a native histogram value.
     ParseQueryOutputBody:
       type: object
       properties:
@@ -1337,6 +1325,42 @@ components:
       - data
       additionalProperties: false
       description: Generic response body.
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.
+    QueryPostInputBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'Form field: The PromQL query to execute.'
+          example: up
+        time:
+          type: string
+          description: 'Form field: The evaluation timestamp (optional, defaults to current time).'
+          example: '2023-07-21T20:10:51.781Z'
+        limit:
+          type: integer
+          format: int64
+          description: 'Form field: The maximum number of metrics to return.'
+          example: 100
+        timeout:
+          type: string
+          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
+          example: 30s
+        lookback_delta:
+          type: string
+          description: 'Form field: Override the lookback period for this query (optional).'
+          example: 5m
+        stats:
+          type: string
+          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
+          example: all
+      required:
+      - query
+      additionalProperties: false
+      description: POST request body for instant query.
     ParseQueryPostInputBody:
       type: object
       properties:
@@ -1348,30 +1372,3 @@ components:
       - query
       additionalProperties: false
       description: POST request body for parse query.
-    QueryRangeOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/QueryData'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for range query.

@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Admin API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: admin
+- name: Admin
   description: Administrative operations for TSDB management.
 paths:
   /admin/tsdb/delete_series:
     put:
       tags:
-      - admin
+      - Admin
       summary: Delete series matching selectors via PUT
       description: Deletes data for a selection of series in a time range using PUT method.
       operationId: deleteSeriesPut
@@ -101,7 +98,7 @@ paths:
                     status: error
     post:
       tags:
-      - admin
+      - Admin
       summary: Delete series matching selectors
       description: Deletes data for a selection of series in a time range.
       operationId: deleteSeriesPost
@@ -185,7 +182,7 @@ paths:
   /admin/tsdb/clean_tombstones:
     put:
       tags:
-      - admin
+      - Admin
       summary: Clean tombstones in the TSDB via PUT
       description: Removes deleted data from disk and cleans up existing tombstones using PUT method.
       operationId: cleanTombstonesPut
@@ -216,7 +213,7 @@ paths:
                     status: error
     post:
       tags:
-      - admin
+      - Admin
       summary: Clean tombstones in the TSDB
       description: Removes deleted data from disk and cleans up existing tombstones.
       operationId: cleanTombstonesPost
@@ -248,7 +245,7 @@ paths:
   /admin/tsdb/snapshot:
     put:
       tags:
-      - admin
+      - Admin
       summary: Create a snapshot of the TSDB via PUT
       description: Creates a snapshot of all current data using PUT method.
       operationId: snapshotPut
@@ -292,7 +289,7 @@ paths:
                     status: error
     post:
       tags:
-      - admin
+      - Admin
       summary: Create a snapshot of the TSDB
       description: Creates a snapshot of all current data.
       operationId: snapshotPost
@@ -336,30 +333,6 @@ paths:
                     status: error
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.
     DataStruct:
       type: object
       properties:
@@ -444,3 +417,27 @@ components:
       - status
       additionalProperties: false
       description: Response body containing only status.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.

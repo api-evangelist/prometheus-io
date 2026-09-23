@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin alerts API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Alerts API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: alerts
+- name: Alerts
   description: Query active alerts and alertmanager discovery.
 paths:
   /alerts:
     get:
       tags:
-      - alerts
+      - Alerts
       summary: Get active alerts
       operationId: alerts
       responses:
@@ -60,7 +57,7 @@ paths:
   /alertmanagers:
     get:
       tags:
-      - alerts
+      - Alerts
       summary: Get Alertmanager discovery
       operationId: alertmanagers
       responses:
@@ -94,71 +91,10 @@ paths:
                     status: error
 components:
   schemas:
-    AlertmanagerTarget:
-      type: object
-      properties:
-        url:
-          type: string
-          description: URL of the Alertmanager instance.
-      required:
-      - url
-      additionalProperties: false
-      description: Alertmanager target information.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.
     Labels:
       type: object
       additionalProperties: true
       description: Label set represented as a key-value map.
-    AlertsOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/AlertDiscovery'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for alerts endpoint.
     AlertDiscovery:
       type: object
       properties:
@@ -170,6 +106,32 @@ components:
       - alerts
       additionalProperties: false
       description: Alert discovery information containing all active alerts.
+    AlertmanagerDiscovery:
+      type: object
+      properties:
+        activeAlertmanagers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertmanagerTarget'
+        droppedAlertmanagers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertmanagerTarget'
+      required:
+      - activeAlertmanagers
+      - droppedAlertmanagers
+      additionalProperties: false
+      description: Alertmanager discovery information including active and dropped instances.
+    AlertmanagerTarget:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL of the Alertmanager instance.
+      required:
+      - url
+      additionalProperties: false
+      description: Alertmanager target information.
     Alert:
       type: object
       properties:
@@ -225,19 +187,54 @@ components:
       - data
       additionalProperties: false
       description: Response body for alertmanagers endpoint.
-    AlertmanagerDiscovery:
+    AlertsOutputBody:
       type: object
       properties:
-        activeAlertmanagers:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/AlertDiscovery'
+        warnings:
           type: array
           items:
-            $ref: '#/components/schemas/AlertmanagerTarget'
-        droppedAlertmanagers:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
           type: array
           items:
-            $ref: '#/components/schemas/AlertmanagerTarget'
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
       required:
-      - activeAlertmanagers
-      - droppedAlertmanagers
+      - status
+      - data
       additionalProperties: false
-      description: Alertmanager discovery information including active and dropped instances.
+      description: Response body for alerts endpoint.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.

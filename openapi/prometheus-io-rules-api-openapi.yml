@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin rules API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Rules API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: rules
+- name: Rules
   description: Query recording and alerting rules.
 paths:
   /rules:
     get:
       tags:
-      - rules
+      - Rules
       summary: Get alerting and recording rules
       operationId: rules
       parameters:
@@ -165,6 +162,47 @@ paths:
                     status: error
 components:
   schemas:
+    RuleDiscovery:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleGroup'
+        groupNextToken:
+          type: string
+          description: Pagination token for the next page of groups.
+      required:
+      - groups
+      additionalProperties: false
+      description: Rule discovery information containing all rule groups.
+    RulesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/RuleDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for rules endpoint.
     RuleGroup:
       type: object
       properties:
@@ -206,20 +244,6 @@ components:
       - lastEvaluation
       additionalProperties: false
       description: Rule group information.
-    RuleDiscovery:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleGroup'
-        groupNextToken:
-          type: string
-          description: Pagination token for the next page of groups.
-      required:
-      - groups
-      additionalProperties: false
-      description: Rule discovery information containing all rule groups.
     Error:
       type: object
       properties:
@@ -244,30 +268,3 @@ components:
       - error
       additionalProperties: false
       description: Error response.
-    RulesOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/RuleDiscovery'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for rules endpoint.

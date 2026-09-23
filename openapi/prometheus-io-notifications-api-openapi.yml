@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin notifications API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Notifications API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: notifications
+- name: Notifications
   description: Server notifications and events.
 paths:
   /notifications:
     get:
       tags:
-      - notifications
+      - Notifications
       summary: Get notifications
       operationId: get-notifications
       responses:
@@ -52,22 +49,6 @@ paths:
                     status: error
 components:
   schemas:
-    Notification:
-      type: object
-      properties:
-        text:
-          type: string
-        date:
-          type: string
-          format: date-time
-        active:
-          type: boolean
-      required:
-      - text
-      - date
-      - active
-      additionalProperties: false
-      description: Server notification.
     NotificationsOutputBody:
       type: object
       properties:
@@ -101,6 +82,22 @@ components:
       - data
       additionalProperties: false
       description: Response body with an array of notifications.
+    Notification:
+      type: object
+      properties:
+        text:
+          type: string
+        date:
+          type: string
+          format: date-time
+        active:
+          type: boolean
+      required:
+      - text
+      - date
+      - active
+      additionalProperties: false
+      description: Server notification.
     Error:
       type: object
       properties:

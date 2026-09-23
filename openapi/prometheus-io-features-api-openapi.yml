@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin features API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Features API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: features
+- name: Features
   description: Query enabled features.
 paths:
   /features:
     get:
       tags:
-      - features
+      - Features
       summary: Get features
       operationId: get-features
       responses:
@@ -51,6 +48,30 @@ paths:
                     status: error
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
     FeaturesOutputBody:
       type: object
       properties:
@@ -80,27 +101,3 @@ components:
       - data
       additionalProperties: false
       description: Generic response body.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.

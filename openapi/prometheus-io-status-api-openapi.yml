@@ -1,24 +1,21 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  version: 0.0.1
-  title: Alertmanager admin status API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /api/v2/
-consumes:
-- application/json
-produces:
-- application/json
+  title: Prometheus Status API
+  description: Prometheus is an Open-Source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+  contact:
+    name: Prometheus Community
+    url: https://prometheus.io/community/
+  version: 0.0.1-undefined
+servers:
+- url: /api/v1
 tags:
-- name: status
+- name: Status
   description: Retrieve server status and configuration.
 paths:
   /status/config:
     get:
       tags:
-      - status
+      - Status
       summary: Get status config
       operationId: get-status-config
       responses:
@@ -51,7 +48,7 @@ paths:
   /status/runtimeinfo:
     get:
       tags:
-      - status
+      - Status
       summary: Get status runtimeinfo
       operationId: get-status-runtimeinfo
       responses:
@@ -96,7 +93,7 @@ paths:
   /status/buildinfo:
     get:
       tags:
-      - status
+      - Status
       summary: Get status buildinfo
       operationId: get-status-buildinfo
       responses:
@@ -134,7 +131,7 @@ paths:
   /status/flags:
     get:
       tags:
-      - status
+      - Status
       summary: Get status flags
       operationId: get-status-flags
       responses:
@@ -180,7 +177,7 @@ paths:
   /status/tsdb:
     get:
       tags:
-      - status
+      - Status
       summary: Get TSDB status
       operationId: status-tsdb
       parameters:
@@ -250,7 +247,7 @@ paths:
   /status/tsdb/blocks:
     get:
       tags:
-      - status
+      - Status
       summary: Get TSDB blocks information
       operationId: status-tsdb-blocks
       responses:
@@ -297,7 +294,7 @@ paths:
   /status/walreplay:
     get:
       tags:
-      - status
+      - Status
       summary: Get status walreplay
       operationId: get-status-walreplay
       responses:
@@ -332,7 +329,7 @@ paths:
   /status/self_metrics:
     get:
       tags:
-      - status
+      - Status
       summary: Get Prometheus self-instrumentation metrics
       description: Returns Prometheus' own instrumentation metrics from its internal client registry, as structured JSON. Supports optional regex filtering via the metric_name_pattern parameter.
       operationId: get-status-self-metrics
@@ -402,33 +399,7 @@ paths:
                     status: error
 components:
   schemas:
-    HeadStats:
-      type: object
-      properties:
-        numSeries:
-          type: integer
-          format: int64
-        numLabelPairs:
-          type: integer
-          format: int64
-        chunkCount:
-          type: integer
-          format: int64
-        minTime:
-          type: integer
-          format: int64
-        maxTime:
-          type: integer
-          format: int64
-      required:
-      - numSeries
-      - numLabelPairs
-      - chunkCount
-      - minTime
-      - maxTime
-      additionalProperties: false
-      description: TSDB head statistics.
-    StatusWALReplayOutputBody:
+    StatusTSDBBlocksOutputBody:
       type: object
       properties:
         status:
@@ -439,7 +410,7 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/StatusWALReplayData'
+          $ref: '#/components/schemas/StatusTSDBBlocksData'
         warnings:
           type: array
           items:
@@ -454,18 +425,34 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for status WAL replay endpoint.
-    StatusConfigData:
+      description: Response body for status TSDB blocks endpoint.
+    BlockMetaCompaction:
       type: object
       properties:
-        yaml:
-          type: string
-          description: Prometheus configuration in YAML format.
+        level:
+          type: integer
+          format: int64
+        sources:
+          type: array
+          items:
+            type: string
+        parents:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDesc'
+        failed:
+          type: boolean
+        deletable:
+          type: boolean
+        hints:
+          type: array
+          items:
+            type: string
       required:
-      - yaml
+      - level
       additionalProperties: false
-      description: Prometheus configuration.
-    StatusBuildInfoOutputBody:
+      description: Block compaction metadata.
+    StatusRuntimeInfoOutputBody:
       type: object
       properties:
         status:
@@ -476,7 +463,7 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/PrometheusVersion'
+          $ref: '#/components/schemas/RuntimeInfo'
         warnings:
           type: array
           items:
@@ -491,7 +478,60 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for status build info endpoint.
+      description: Response body for status runtime info endpoint.
+    PrometheusVersion:
+      type: object
+      properties:
+        version:
+          type: string
+        revision:
+          type: string
+        branch:
+          type: string
+        buildUser:
+          type: string
+        buildDate:
+          type: string
+        goVersion:
+          type: string
+      required:
+      - version
+      - revision
+      - branch
+      - buildUser
+      - buildDate
+      - goVersion
+      additionalProperties: false
+      description: Prometheus version information.
+    TSDBStatus:
+      type: object
+      properties:
+        headStats:
+          $ref: '#/components/schemas/HeadStats'
+        seriesCountByMetricName:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+        labelValueCountByLabelName:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+        memoryInBytesByLabelName:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+        seriesCountByLabelValuePair:
+          type: array
+          items:
+            $ref: '#/components/schemas/TSDBStat'
+      required:
+      - headStats
+      - seriesCountByMetricName
+      - labelValueCountByLabelName
+      - memoryInBytesByLabelName
+      - seriesCountByLabelValuePair
+      additionalProperties: false
+      description: TSDB status information.
     RuntimeInfo:
       type: object
       properties:
@@ -544,75 +584,6 @@ components:
       - storageRetention
       additionalProperties: false
       description: Prometheus runtime information.
-    TSDBStatus:
-      type: object
-      properties:
-        headStats:
-          $ref: '#/components/schemas/HeadStats'
-        seriesCountByMetricName:
-          type: array
-          items:
-            $ref: '#/components/schemas/TSDBStat'
-        labelValueCountByLabelName:
-          type: array
-          items:
-            $ref: '#/components/schemas/TSDBStat'
-        memoryInBytesByLabelName:
-          type: array
-          items:
-            $ref: '#/components/schemas/TSDBStat'
-        seriesCountByLabelValuePair:
-          type: array
-          items:
-            $ref: '#/components/schemas/TSDBStat'
-      required:
-      - headStats
-      - seriesCountByMetricName
-      - labelValueCountByLabelName
-      - memoryInBytesByLabelName
-      - seriesCountByLabelValuePair
-      additionalProperties: false
-      description: TSDB status information.
-    StatusTSDBBlocksOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/StatusTSDBBlocksData'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for status TSDB blocks endpoint.
-    TSDBStat:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: integer
-          format: int64
-      required:
-      - name
-      - value
-      additionalProperties: false
-      description: TSDB statistic.
     BlockStats:
       type: object
       properties:
@@ -636,30 +607,99 @@ components:
           format: int64
       additionalProperties: false
       description: Block statistics.
-    PrometheusVersion:
+    BlockMeta:
       type: object
       properties:
+        ulid:
+          type: string
+        minTime:
+          type: integer
+          format: int64
+        maxTime:
+          type: integer
+          format: int64
+        stats:
+          $ref: '#/components/schemas/BlockStats'
+        compaction:
+          $ref: '#/components/schemas/BlockMetaCompaction'
         version:
-          type: string
-        revision:
-          type: string
-        branch:
-          type: string
-        buildUser:
-          type: string
-        buildDate:
-          type: string
-        goVersion:
-          type: string
+          type: integer
+          format: int64
       required:
+      - ulid
+      - minTime
+      - maxTime
+      - compaction
       - version
-      - revision
-      - branch
-      - buildUser
-      - buildDate
-      - goVersion
       additionalProperties: false
-      description: Prometheus version information.
+      description: Block metadata.
+    TSDBStat:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: integer
+          format: int64
+      required:
+      - name
+      - value
+      additionalProperties: false
+      description: TSDB statistic.
+    StatusWALReplayOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/StatusWALReplayData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status WAL replay endpoint.
+    StatusConfigOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/StatusConfigData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status config endpoint.
     Error:
       type: object
       properties:
@@ -684,18 +724,7 @@ components:
       - error
       additionalProperties: false
       description: Error response.
-    StatusTSDBBlocksData:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockMeta'
-      required:
-      - blocks
-      additionalProperties: false
-      description: TSDB blocks information.
-    StatusRuntimeInfoOutputBody:
+    StatusBuildInfoOutputBody:
       type: object
       properties:
         status:
@@ -706,7 +735,7 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/RuntimeInfo'
+          $ref: '#/components/schemas/PrometheusVersion'
         warnings:
           type: array
           items:
@@ -721,7 +750,7 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for status runtime info endpoint.
+      description: Response body for status build info endpoint.
     StatusTSDBOutputBody:
       type: object
       properties:
@@ -778,6 +807,88 @@ components:
       - data
       additionalProperties: false
       description: Generic response body.
+    StatusTSDBBlocksData:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockMeta'
+      required:
+      - blocks
+      additionalProperties: false
+      description: TSDB blocks information.
+    StatusConfigData:
+      type: object
+      properties:
+        yaml:
+          type: string
+          description: Prometheus configuration in YAML format.
+      required:
+      - yaml
+      additionalProperties: false
+      description: Prometheus configuration.
+    BlockDesc:
+      type: object
+      properties:
+        ulid:
+          type: string
+        minTime:
+          type: integer
+          format: int64
+        maxTime:
+          type: integer
+          format: int64
+      required:
+      - ulid
+      - minTime
+      - maxTime
+      additionalProperties: false
+      description: Block descriptor.
+    StatusWALReplayData:
+      type: object
+      properties:
+        min:
+          type: integer
+          format: int64
+        max:
+          type: integer
+          format: int64
+        current:
+          type: integer
+          format: int64
+      required:
+      - min
+      - max
+      - current
+      additionalProperties: false
+      description: WAL replay status.
+    HeadStats:
+      type: object
+      properties:
+        numSeries:
+          type: integer
+          format: int64
+        numLabelPairs:
+          type: integer
+          format: int64
+        chunkCount:
+          type: integer
+          format: int64
+        minTime:
+          type: integer
+          format: int64
+        maxTime:
+          type: integer
+          format: int64
+      required:
+      - numSeries
+      - numLabelPairs
+      - chunkCount
+      - minTime
+      - maxTime
+      additionalProperties: false
+      description: TSDB head statistics.
     StatusFlagsOutputBody:
       type: object
       properties:
@@ -807,117 +918,3 @@ components:
       - data
       additionalProperties: false
       description: Response body for status flags endpoint.
-    BlockDesc:
-      type: object
-      properties:
-        ulid:
-          type: string
-        minTime:
-          type: integer
-          format: int64
-        maxTime:
-          type: integer
-          format: int64
-      required:
-      - ulid
-      - minTime
-      - maxTime
-      additionalProperties: false
-      description: Block descriptor.
-    StatusConfigOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/StatusConfigData'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for status config endpoint.
-    BlockMetaCompaction:
-      type: object
-      properties:
-        level:
-          type: integer
-          format: int64
-        sources:
-          type: array
-          items:
-            type: string
-        parents:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDesc'
-        failed:
-          type: boolean
-        deletable:
-          type: boolean
-        hints:
-          type: array
-          items:
-            type: string
-      required:
-      - level
-      additionalProperties: false
-      description: Block compaction metadata.
-    BlockMeta:
-      type: object
-      properties:
-        ulid:
-          type: string
-        minTime:
-          type: integer
-          format: int64
-        maxTime:
-          type: integer
-          format: int64
-        stats:
-          $ref: '#/components/schemas/BlockStats'
-        compaction:
-          $ref: '#/components/schemas/BlockMetaCompaction'
-        version:
-          type: integer
-          format: int64
-      required:
-      - ulid
-      - minTime
-      - maxTime
-      - compaction
-      - version
-      additionalProperties: false
-      description: Block metadata.
-    StatusWALReplayData:
-      type: object
-      properties:
-        min:
-          type: integer
-          format: int64
-        max:
-          type: integer
-          format: int64
-        current:
-          type: integer
-          format: int64
-      required:
-      - min
-      - max
-      - current
-      additionalProperties: false
-      description: WAL replay status.
