@@ -333,6 +333,30 @@ paths:
                     status: error
 components:
   schemas:
+    DeleteSeriesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      additionalProperties: false
+      description: Response body containing only status.
     DataStruct:
       type: object
       properties:
@@ -393,30 +417,6 @@ components:
       - data
       additionalProperties: false
       description: Response body for snapshot endpoint.
-    DeleteSeriesOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      additionalProperties: false
-      description: Response body containing only status.
     Error:
       type: object
       properties:

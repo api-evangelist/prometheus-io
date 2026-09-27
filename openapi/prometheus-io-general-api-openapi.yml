@@ -29,13 +29,23 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    alertmanagerConfig:
+    alertmanagerStatus:
       type: object
       properties:
-        original:
+        cluster:
+          $ref: '#/components/schemas/clusterStatus'
+        versionInfo:
+          $ref: '#/components/schemas/versionInfo'
+        config:
+          $ref: '#/components/schemas/alertmanagerConfig'
+        uptime:
           type: string
+          format: date-time
       required:
-      - original
+      - cluster
+      - versionInfo
+      - config
+      - uptime
     clusterStatus:
       type: object
       properties:
@@ -53,6 +63,23 @@ components:
             $ref: '#/components/schemas/peerStatus'
       required:
       - status
+    peerStatus:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+      - name
+      - address
+    alertmanagerConfig:
+      type: object
+      properties:
+        original:
+          type: string
+      required:
+      - original
     versionInfo:
       type: object
       properties:
@@ -75,30 +102,3 @@ components:
       - buildUser
       - buildDate
       - goVersion
-    alertmanagerStatus:
-      type: object
-      properties:
-        cluster:
-          $ref: '#/components/schemas/clusterStatus'
-        versionInfo:
-          $ref: '#/components/schemas/versionInfo'
-        config:
-          $ref: '#/components/schemas/alertmanagerConfig'
-        uptime:
-          type: string
-          format: date-time
-      required:
-      - cluster
-      - versionInfo
-      - config
-      - uptime
-    peerStatus:
-      type: object
-      properties:
-        name:
-          type: string
-        address:
-          type: string
-      required:
-      - name
-      - address

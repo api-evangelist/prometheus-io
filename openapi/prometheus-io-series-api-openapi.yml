@@ -197,61 +197,10 @@ paths:
                     status: error
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.
     Labels:
       type: object
       additionalProperties: true
       description: Label set represented as a key-value map.
-    SeriesPostInputBody:
-      type: object
-      properties:
-        start:
-          type: string
-          description: 'Form field: The start time of the query.'
-          example: '2023-07-21T20:00:00.000Z'
-        end:
-          type: string
-          description: 'Form field: The end time of the query.'
-          example: '2023-07-21T21:00:00.000Z'
-        match[]:
-          type: array
-          items:
-            type: string
-          description: 'Form field: Series selector argument that selects the series to return.'
-          example:
-          - '{job="prometheus"}'
-        limit:
-          type: integer
-          format: int64
-          description: 'Form field: The maximum number of series to return.'
-          example: 100
-      required:
-      - match[]
-      additionalProperties: false
-      description: POST request body for series query.
     SeriesOutputBody:
       type: object
       properties:
@@ -285,3 +234,54 @@ components:
       - data
       additionalProperties: false
       description: Response body with an array of label sets.
+    SeriesPostInputBody:
+      type: object
+      properties:
+        start:
+          type: string
+          description: 'Form field: The start time of the query.'
+          example: '2023-07-21T20:00:00.000Z'
+        end:
+          type: string
+          description: 'Form field: The end time of the query.'
+          example: '2023-07-21T21:00:00.000Z'
+        match[]:
+          type: array
+          items:
+            type: string
+          description: 'Form field: Series selector argument that selects the series to return.'
+          example:
+          - '{job="prometheus"}'
+        limit:
+          type: integer
+          format: int64
+          description: 'Form field: The maximum number of series to return.'
+          example: 100
+      required:
+      - match[]
+      additionalProperties: false
+      description: POST request body for series query.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.

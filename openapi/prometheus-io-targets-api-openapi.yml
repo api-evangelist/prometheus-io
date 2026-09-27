@@ -276,22 +276,7 @@ paths:
                     status: error
 components:
   schemas:
-    ScrapePoolsDiscovery:
-      type: object
-      properties:
-        scrapePools:
-          type: array
-          items:
-            type: string
-      required:
-      - scrapePools
-      additionalProperties: false
-      description: List of all configured scrape pools.
-    Labels:
-      type: object
-      additionalProperties: true
-      description: Label set represented as a key-value map.
-    TargetsOutputBody:
+    TargetMetadataOutputBody:
       type: object
       properties:
         status:
@@ -302,7 +287,17 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/TargetDiscovery'
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricMetadata'
+          example:
+          - help: The current health status of the target
+            metric: up
+            target:
+              instance: localhost:9090
+              job: prometheus
+            type: gauge
+            unit: ''
         warnings:
           type: array
           items:
@@ -317,7 +312,181 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for targets endpoint.
+      description: Response body with an array of metric metadata.
+    ScrapePoolsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/ScrapePoolsDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for scrape pools endpoint.
+    RelabelStep:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/Config'
+        output:
+          $ref: '#/components/schemas/Labels'
+        keep:
+          type: boolean
+      required:
+      - rule
+      - output
+      - keep
+      additionalProperties: false
+      description: Relabel step showing the rule, output, and whether the target was kept.
+    TargetDiscovery:
+      type: object
+      properties:
+        activeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Target'
+        droppedTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DroppedTarget'
+        droppedTargetCounts:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+      required:
+      - activeTargets
+      - droppedTargets
+      - droppedTargetCounts
+      additionalProperties: false
+      description: Target discovery information including active and dropped targets.
+    DroppedTarget:
+      type: object
+      properties:
+        discoveredLabels:
+          $ref: '#/components/schemas/Labels'
+        scrapePool:
+          type: string
+          description: Name of the scrape pool.
+      required:
+      - discoveredLabels
+      - scrapePool
+      additionalProperties: false
+      description: Dropped target information.
+    RelabelStepsResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelabelStep'
+      required:
+      - steps
+      additionalProperties: false
+      description: Relabeling steps response.
+    ScrapePoolsDiscovery:
+      type: object
+      properties:
+        scrapePools:
+          type: array
+          items:
+            type: string
+      required:
+      - scrapePools
+      additionalProperties: false
+      description: List of all configured scrape pools.
+    TargetRelabelStepsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/RelabelStepsResponse'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for target relabel steps endpoint.
+    MetricMetadata:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/Labels'
+        metric:
+          type: string
+          description: Metric name.
+        type:
+          type: string
+          description: Metric type (counter, gauge, histogram, summary, or untyped).
+        help:
+          type: string
+          description: Help text describing the metric.
+        unit:
+          type: string
+          description: Unit of the metric.
+      required:
+      - target
+      - type
+      - help
+      - unit
+      additionalProperties: false
+      description: Target metric metadata.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
     Target:
       type: object
       properties:
@@ -368,7 +537,7 @@ components:
       - scrapeTimeout
       additionalProperties: false
       description: Scrape target information.
-    TargetRelabelStepsOutputBody:
+    TargetsOutputBody:
       type: object
       properties:
         status:
@@ -379,7 +548,7 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/RelabelStepsResponse'
+          $ref: '#/components/schemas/TargetDiscovery'
         warnings:
           type: array
           items:
@@ -394,129 +563,7 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for target relabel steps endpoint.
-    TargetDiscovery:
-      type: object
-      properties:
-        activeTargets:
-          type: array
-          items:
-            $ref: '#/components/schemas/Target'
-        droppedTargets:
-          type: array
-          items:
-            $ref: '#/components/schemas/DroppedTarget'
-        droppedTargetCounts:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-      required:
-      - activeTargets
-      - droppedTargets
-      - droppedTargetCounts
-      additionalProperties: false
-      description: Target discovery information including active and dropped targets.
-    RelabelStepsResponse:
-      type: object
-      properties:
-        steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/RelabelStep'
-      required:
-      - steps
-      additionalProperties: false
-      description: Relabeling steps response.
-    RelabelStep:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/Config'
-        output:
-          $ref: '#/components/schemas/Labels'
-        keep:
-          type: boolean
-      required:
-      - rule
-      - output
-      - keep
-      additionalProperties: false
-      description: Relabel step showing the rule, output, and whether the target was kept.
-    DroppedTarget:
-      type: object
-      properties:
-        discoveredLabels:
-          $ref: '#/components/schemas/Labels'
-        scrapePool:
-          type: string
-          description: Name of the scrape pool.
-      required:
-      - discoveredLabels
-      - scrapePool
-      additionalProperties: false
-      description: Dropped target information.
-    TargetMetadataOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricMetadata'
-          example:
-          - help: The current health status of the target
-            metric: up
-            target:
-              instance: localhost:9090
-              job: prometheus
-            type: gauge
-            unit: ''
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body with an array of metric metadata.
-    MetricMetadata:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/Labels'
-        metric:
-          type: string
-          description: Metric name.
-        type:
-          type: string
-          description: Metric type (counter, gauge, histogram, summary, or untyped).
-        help:
-          type: string
-          description: Help text describing the metric.
-        unit:
-          type: string
-          description: Unit of the metric.
-      required:
-      - target
-      - type
-      - help
-      - unit
-      additionalProperties: false
-      description: Target metric metadata.
+      description: Response body for targets endpoint.
     Config:
       type: object
       properties:
@@ -546,54 +593,7 @@ components:
           description: Relabel action.
       additionalProperties: false
       description: Relabel configuration.
-    ScrapePoolsOutputBody:
+    Labels:
       type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/ScrapePoolsDiscovery'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for scrape pools endpoint.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.
+      additionalProperties: true
+      description: Label set represented as a key-value map.

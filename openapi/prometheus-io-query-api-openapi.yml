@@ -842,85 +842,7 @@ paths:
                     status: error
 components:
   schemas:
-    FormatQueryPostInputBody:
-      type: object
-      properties:
-        query:
-          type: string
-          description: 'Form field: The query to format.'
-          example: sum(rate(http_requests_total[5m])) by (status)
-      required:
-      - query
-      additionalProperties: false
-      description: POST request body for format query.
-    QueryStats:
-      type: object
-      properties:
-        timings:
-          type: object
-          properties:
-            evalTotalTime:
-              type: number
-              description: Total evaluation time in seconds.
-            resultSortTime:
-              type: number
-              description: Time spent sorting results in seconds.
-            queryPreparationTime:
-              type: number
-              description: Query preparation time in seconds.
-            innerEvalTime:
-              type: number
-              description: Inner evaluation time in seconds.
-            execQueueTime:
-              type: number
-              description: Execution queue wait time in seconds.
-            execTotalTime:
-              type: number
-              description: Total execution time in seconds.
-        samples:
-          type: object
-          properties:
-            totalQueryableSamples:
-              type: integer
-              description: Total number of samples that were queryable.
-            peakSamples:
-              type: integer
-              description: Peak number of samples in memory.
-            totalQueryableSamplesPerStep:
-              type: array
-              items:
-                type: array
-                items:
-                  type: number
-                maxItems: 2
-                minItems: 2
-                description: Timestamp and sample count as [timestamp, count].
-              description: Total queryable samples per step (only included with stats=all).
-      description: Query execution statistics (included when the stats query parameter is provided).
-    HistogramValue:
-      type: object
-      properties:
-        count:
-          type: string
-          description: Total count of observations.
-        sum:
-          type: string
-          description: Sum of all observed values.
-        buckets:
-          type: array
-          items:
-            type: array
-            items:
-              oneOf:
-              - type: number
-              - type: string
-          description: Histogram buckets as [boundary_rule, lower, upper, count].
-      required:
-      - count
-      - sum
-      additionalProperties: false
-      description: Native histogram value representation.
-    QueryOutputBody:
+    ParseQueryOutputBody:
       type: object
       properties:
         status:
@@ -931,7 +853,9 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/QueryData'
+          description: Response data (structure varies by endpoint).
+          example:
+            result: ok
         warnings:
           type: array
           items:
@@ -946,26 +870,47 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for instant query.
-    QueryExemplarsPostInputBody:
+      description: Generic response body.
+    QueryExemplarsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          description: Response data (structure varies by endpoint).
+          example:
+            result: ok
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Generic response body.
+    FormatQueryPostInputBody:
       type: object
       properties:
         query:
           type: string
-          description: 'Form field: The query to execute.'
-          example: http_requests_total
-        start:
-          type: string
-          description: 'Form field: The start time of the query.'
-          example: '2023-07-21T20:00:00.000Z'
-        end:
-          type: string
-          description: 'Form field: The end time of the query.'
-          example: '2023-07-21T21:00:00.000Z'
+          description: 'Form field: The query to format.'
+          example: sum(rate(http_requests_total[5m])) by (status)
       required:
       - query
       additionalProperties: false
-      description: POST request body for exemplars query.
+      description: POST request body for format query.
     FloatSample:
       type: object
       properties:
@@ -988,49 +933,6 @@ components:
       - value
       additionalProperties: false
       description: A sample with a float value.
-    QueryRangePostInputBody:
-      type: object
-      properties:
-        query:
-          type: string
-          description: 'Form field: The query to execute.'
-          example: rate(http_requests_total[5m])
-        start:
-          type: string
-          description: 'Form field: The start time of the query.'
-          example: '2023-07-21T20:10:30.781Z'
-        end:
-          type: string
-          description: 'Form field: The end time of the query.'
-          example: '2023-07-21T20:20:30.781Z'
-        step:
-          type: string
-          description: 'Form field: The step size of the query.'
-          example: 15s
-        limit:
-          type: integer
-          format: int64
-          description: 'Form field: The maximum number of metrics to return.'
-          example: 100
-        timeout:
-          type: string
-          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
-          example: 30s
-        lookback_delta:
-          type: string
-          description: 'Form field: Override the lookback period for this query (optional).'
-          example: 5m
-        stats:
-          type: string
-          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
-          example: all
-      required:
-      - query
-      - start
-      - end
-      - step
-      additionalProperties: false
-      description: POST request body for range query.
     Error:
       type: object
       properties:
@@ -1084,28 +986,7 @@ components:
       - data
       additionalProperties: false
       description: Response body for format query endpoint.
-    HistogramSeries:
-      type: object
-      properties:
-        metric:
-          $ref: '#/components/schemas/Labels'
-        histograms:
-          type: array
-          items:
-            type: array
-            items:
-              oneOf:
-              - type: number
-              - $ref: '#/components/schemas/HistogramValue'
-            maxItems: 2
-            minItems: 2
-          description: Array of [timestamp, histogramObject] pairs for histogram values.
-      required:
-      - metric
-      - histograms
-      additionalProperties: false
-      description: A time series with native histogram values.
-    QueryExemplarsOutputBody:
+    QueryOutputBody:
       type: object
       properties:
         status:
@@ -1116,9 +997,7 @@ components:
           description: Response status.
           example: success
         data:
-          description: Response data (structure varies by endpoint).
-          example:
-            result: ok
+          $ref: '#/components/schemas/QueryData'
         warnings:
           type: array
           items:
@@ -1133,7 +1012,43 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Generic response body.
+      description: Response body for instant query.
+    QueryPostInputBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'Form field: The PromQL query to execute.'
+          example: up
+        time:
+          type: string
+          description: 'Form field: The evaluation timestamp (optional, defaults to current time).'
+          example: '2023-07-21T20:10:51.781Z'
+        limit:
+          type: integer
+          format: int64
+          description: 'Form field: The maximum number of metrics to return.'
+          example: 100
+        timeout:
+          type: string
+          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
+          example: 30s
+        lookback_delta:
+          type: string
+          description: 'Form field: Override the lookback period for this query (optional).'
+          example: 5m
+        stats:
+          type: string
+          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
+          example: all
+      required:
+      - query
+      additionalProperties: false
+      description: POST request body for instant query.
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.
     HistogramSample:
       type: object
       properties:
@@ -1179,6 +1094,103 @@ components:
       - values
       additionalProperties: false
       description: A time series with float values.
+    QueryStats:
+      type: object
+      properties:
+        timings:
+          type: object
+          properties:
+            evalTotalTime:
+              type: number
+              description: Total evaluation time in seconds.
+            resultSortTime:
+              type: number
+              description: Time spent sorting results in seconds.
+            queryPreparationTime:
+              type: number
+              description: Query preparation time in seconds.
+            innerEvalTime:
+              type: number
+              description: Inner evaluation time in seconds.
+            execQueueTime:
+              type: number
+              description: Execution queue wait time in seconds.
+            execTotalTime:
+              type: number
+              description: Total execution time in seconds.
+        samples:
+          type: object
+          properties:
+            totalQueryableSamples:
+              type: integer
+              description: Total number of samples that were queryable.
+            peakSamples:
+              type: integer
+              description: Peak number of samples in memory.
+            totalQueryableSamplesPerStep:
+              type: array
+              items:
+                type: array
+                items:
+                  type: number
+                maxItems: 2
+                minItems: 2
+                description: Timestamp and sample count as [timestamp, count].
+              description: Total queryable samples per step (only included with stats=all).
+      description: Query execution statistics (included when the stats query parameter is provided).
+    QueryExemplarsPostInputBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'Form field: The query to execute.'
+          example: http_requests_total
+        start:
+          type: string
+          description: 'Form field: The start time of the query.'
+          example: '2023-07-21T20:00:00.000Z'
+        end:
+          type: string
+          description: 'Form field: The end time of the query.'
+          example: '2023-07-21T21:00:00.000Z'
+      required:
+      - query
+      additionalProperties: false
+      description: POST request body for exemplars query.
+    ParseQueryPostInputBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'Form field: The query to parse.'
+          example: sum(rate(http_requests_total[5m]))
+      required:
+      - query
+      additionalProperties: false
+      description: POST request body for parse query.
+    HistogramValue:
+      type: object
+      properties:
+        count:
+          type: string
+          description: Total count of observations.
+        sum:
+          type: string
+          description: Sum of all observed values.
+        buckets:
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+              - type: number
+              - type: string
+          description: Histogram buckets as [boundary_rule, lower, upper, count].
+      required:
+      - count
+      - sum
+      additionalProperties: false
+      description: Native histogram value representation.
     QueryRangeOutputBody:
       type: object
       properties:
@@ -1206,6 +1218,70 @@ components:
       - data
       additionalProperties: false
       description: Response body for range query.
+    QueryRangePostInputBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'Form field: The query to execute.'
+          example: rate(http_requests_total[5m])
+        start:
+          type: string
+          description: 'Form field: The start time of the query.'
+          example: '2023-07-21T20:10:30.781Z'
+        end:
+          type: string
+          description: 'Form field: The end time of the query.'
+          example: '2023-07-21T20:20:30.781Z'
+        step:
+          type: string
+          description: 'Form field: The step size of the query.'
+          example: 15s
+        limit:
+          type: integer
+          format: int64
+          description: 'Form field: The maximum number of metrics to return.'
+          example: 100
+        timeout:
+          type: string
+          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
+          example: 30s
+        lookback_delta:
+          type: string
+          description: 'Form field: Override the lookback period for this query (optional).'
+          example: 5m
+        stats:
+          type: string
+          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
+          example: all
+      required:
+      - query
+      - start
+      - end
+      - step
+      additionalProperties: false
+      description: POST request body for range query.
+    HistogramSeries:
+      type: object
+      properties:
+        metric:
+          $ref: '#/components/schemas/Labels'
+        histograms:
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+              - type: number
+              - $ref: '#/components/schemas/HistogramValue'
+            maxItems: 2
+            minItems: 2
+          description: Array of [timestamp, histogramObject] pairs for histogram values.
+      required:
+      - metric
+      - histograms
+      additionalProperties: false
+      description: A time series with native histogram values.
     QueryData:
       anyOf:
       - type: object
@@ -1296,79 +1372,3 @@ components:
           - 1627845600
           - '1'
         resultType: vector
-    ParseQueryOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          description: Response data (structure varies by endpoint).
-          example:
-            result: ok
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Generic response body.
-    Labels:
-      type: object
-      additionalProperties: true
-      description: Label set represented as a key-value map.
-    QueryPostInputBody:
-      type: object
-      properties:
-        query:
-          type: string
-          description: 'Form field: The PromQL query to execute.'
-          example: up
-        time:
-          type: string
-          description: 'Form field: The evaluation timestamp (optional, defaults to current time).'
-          example: '2023-07-21T20:10:51.781Z'
-        limit:
-          type: integer
-          format: int64
-          description: 'Form field: The maximum number of metrics to return.'
-          example: 100
-        timeout:
-          type: string
-          description: 'Form field: Evaluation timeout (optional, defaults to and is capped by the value of the -query.timeout flag).'
-          example: 30s
-        lookback_delta:
-          type: string
-          description: 'Form field: Override the lookback period for this query (optional).'
-          example: 5m
-        stats:
-          type: string
-          description: 'Form field: When provided, include query statistics in the response (the special value ''all'' enables more comprehensive statistics).'
-          example: all
-      required:
-      - query
-      additionalProperties: false
-      description: POST request body for instant query.
-    ParseQueryPostInputBody:
-      type: object
-      properties:
-        query:
-          type: string
-          description: 'Form field: The query to parse.'
-          example: sum(rate(http_requests_total[5m]))
-      required:
-      - query
-      additionalProperties: false
-      description: POST request body for parse query.

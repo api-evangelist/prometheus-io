@@ -34,14 +34,11 @@ paths:
       summary: Get receivers
       x-summary-source: derived
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            type: string
   schemas:
+    labelSet:
+      type: object
+      additionalProperties:
+        type: string
     receiver:
       type: object
       properties:
@@ -51,10 +48,6 @@ components:
           $ref: '#/components/schemas/labelSet'
       required:
       - name
-    labelSet:
-      type: object
-      additionalProperties:
-        type: string
   parameters:
     receiverMatchers:
       name: receiver_matchers
@@ -67,3 +60,10 @@ components:
         type: array
         items:
           type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: string

@@ -125,16 +125,33 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    labelSet:
-      type: object
-      additionalProperties:
-        type: string
     postableSilence:
       allOf:
       - type: object
         properties:
           id:
             type: string
+      - $ref: '#/components/schemas/silence'
+    gettableSilences:
+      type: array
+      items:
+        $ref: '#/components/schemas/gettableSilence'
+    gettableSilence:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          status:
+            $ref: '#/components/schemas/silenceStatus'
+          updatedAt:
+            type: string
+            format: date-time
+        required:
+        - id
+        - status
+        - updatedAt
+        - annotations
       - $ref: '#/components/schemas/silence'
     silenceStatus:
       type: object
@@ -163,6 +180,15 @@ components:
       - name
       - value
       - isRegex
+    matchers:
+      type: array
+      items:
+        $ref: '#/components/schemas/matcher'
+      minItems: 1
+    labelSet:
+      type: object
+      additionalProperties:
+        type: string
     silence:
       type: object
       properties:
@@ -186,32 +212,6 @@ components:
       - endsAt
       - createdBy
       - comment
-    gettableSilences:
-      type: array
-      items:
-        $ref: '#/components/schemas/gettableSilence'
-    matchers:
-      type: array
-      items:
-        $ref: '#/components/schemas/matcher'
-      minItems: 1
-    gettableSilence:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          status:
-            $ref: '#/components/schemas/silenceStatus'
-          updatedAt:
-            type: string
-            format: date-time
-        required:
-        - id
-        - status
-        - updatedAt
-        - annotations
-      - $ref: '#/components/schemas/silence'
   responses:
     BadRequest:
       description: Bad request

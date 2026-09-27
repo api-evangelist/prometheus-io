@@ -91,21 +91,6 @@ paths:
                     status: error
 components:
   schemas:
-    Labels:
-      type: object
-      additionalProperties: true
-      description: Label set represented as a key-value map.
-    AlertDiscovery:
-      type: object
-      properties:
-        alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alert'
-      required:
-      - alerts
-      additionalProperties: false
-      description: Alert discovery information containing all active alerts.
     AlertmanagerDiscovery:
       type: object
       properties:
@@ -122,16 +107,6 @@ components:
       - droppedAlertmanagers
       additionalProperties: false
       description: Alertmanager discovery information including active and dropped instances.
-    AlertmanagerTarget:
-      type: object
-      properties:
-        url:
-          type: string
-          description: URL of the Alertmanager instance.
-      required:
-      - url
-      additionalProperties: false
-      description: Alertmanager target information.
     Alert:
       type: object
       properties:
@@ -160,33 +135,17 @@ components:
       - value
       additionalProperties: false
       description: Alert information.
-    AlertmanagersOutputBody:
+    AlertDiscovery:
       type: object
       properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/AlertmanagerDiscovery'
-        warnings:
+        alerts:
           type: array
           items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
+            $ref: '#/components/schemas/Alert'
       required:
-      - status
-      - data
+      - alerts
       additionalProperties: false
-      description: Response body for alertmanagers endpoint.
+      description: Alert discovery information containing all active alerts.
     AlertsOutputBody:
       type: object
       properties:
@@ -214,6 +173,16 @@ components:
       - data
       additionalProperties: false
       description: Response body for alerts endpoint.
+    AlertmanagerTarget:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL of the Alertmanager instance.
+      required:
+      - url
+      additionalProperties: false
+      description: Alertmanager target information.
     Error:
       type: object
       properties:
@@ -238,3 +207,34 @@ components:
       - error
       additionalProperties: false
       description: Error response.
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.
+    AlertmanagersOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/AlertmanagerDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for alertmanagers endpoint.
