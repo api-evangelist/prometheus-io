@@ -73,18 +73,19 @@ paths:
       summary: Get alert groups
       x-summary-source: derived
 components:
-  parameters:
-    receiverMatchers:
-      name: receiver_matchers
-      in: query
-      description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: string
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: string
   schemas:
     alertGroup:
       type: object
@@ -108,16 +109,6 @@ components:
           type: string
       required:
       - name
-    alert:
-      type: object
-      properties:
-        labels:
-          $ref: '#/components/schemas/labelSet'
-        generatorURL:
-          type: string
-          format: uri
-      required:
-      - labels
     alertGroups:
       type: array
       items:
@@ -184,16 +175,25 @@ components:
       - silencedBy
       - inhibitedBy
       - mutedBy
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            type: string
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: string
+    alert:
+      type: object
+      properties:
+        labels:
+          $ref: '#/components/schemas/labelSet'
+        generatorURL:
+          type: string
+          format: uri
+      required:
+      - labels
+  parameters:
+    receiverMatchers:
+      name: receiver_matchers
+      in: query
+      description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string

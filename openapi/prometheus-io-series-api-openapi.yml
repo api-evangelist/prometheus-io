@@ -197,43 +197,6 @@ paths:
                     status: error
 components:
   schemas:
-    Labels:
-      type: object
-      additionalProperties: true
-      description: Label set represented as a key-value map.
-    SeriesOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Labels'
-          example:
-          - __name__: up
-            instance: localhost:9090
-            job: prometheus
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body with an array of label sets.
     SeriesPostInputBody:
       type: object
       properties:
@@ -285,3 +248,40 @@ components:
       - error
       additionalProperties: false
       description: Error response.
+    SeriesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Labels'
+          example:
+          - __name__: up
+            instance: localhost:9090
+            job: prometheus
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body with an array of label sets.
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.

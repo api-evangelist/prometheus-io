@@ -162,6 +162,71 @@ paths:
                     status: error
 components:
   schemas:
+    RuleDiscovery:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleGroup'
+        groupNextToken:
+          type: string
+          description: Pagination token for the next page of groups.
+      required:
+      - groups
+      additionalProperties: false
+      description: Rule discovery information containing all rule groups.
+    RulesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/RuleDiscovery'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for rules endpoint.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
     RuleGroup:
       type: object
       properties:
@@ -203,68 +268,3 @@ components:
       - lastEvaluation
       additionalProperties: false
       description: Rule group information.
-    RulesOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/RuleDiscovery'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for rules endpoint.
-    RuleDiscovery:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleGroup'
-        groupNextToken:
-          type: string
-          description: Pagination token for the next page of groups.
-      required:
-      - groups
-      additionalProperties: false
-      description: Rule discovery information containing all rule groups.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.

@@ -808,6 +808,88 @@ paths:
                     status: error
 components:
   schemas:
+    LabelValuesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: array
+          items:
+            type: string
+          example:
+          - __name__
+          - job
+          - instance
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body with an array of strings.
+    LabelsPostInputBody:
+      type: object
+      properties:
+        start:
+          type: string
+          description: 'Form field: The start time of the query.'
+          example: '2023-07-21T20:00:00.000Z'
+        end:
+          type: string
+          description: 'Form field: The end time of the query.'
+          example: '2023-07-21T21:00:00.000Z'
+        match[]:
+          type: array
+          items:
+            type: string
+          description: 'Form field: Series selector argument that selects the series from which to read the label names.'
+          example:
+          - '{job="prometheus"}'
+        limit:
+          type: integer
+          format: int64
+          description: 'Form field: The maximum number of label names to return.'
+          example: 100
+      additionalProperties: false
+      description: POST request body for labels query.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
     SearchLabelValuesPostInputBody:
       type: object
       properties:
@@ -887,6 +969,39 @@ components:
       - label
       additionalProperties: false
       description: POST request body for label value search.
+    LabelsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: array
+          items:
+            type: string
+          example:
+          - __name__
+          - job
+          - instance
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body with an array of strings.
     SearchLabelNamesPostInputBody:
       type: object
       properties:
@@ -960,118 +1075,3 @@ components:
           example: 20
       additionalProperties: false
       description: POST request body for label name search.
-    LabelsOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          type: array
-          items:
-            type: string
-          example:
-          - __name__
-          - job
-          - instance
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body with an array of strings.
-    LabelValuesOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          type: array
-          items:
-            type: string
-          example:
-          - __name__
-          - job
-          - instance
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body with an array of strings.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.
-    LabelsPostInputBody:
-      type: object
-      properties:
-        start:
-          type: string
-          description: 'Form field: The start time of the query.'
-          example: '2023-07-21T20:00:00.000Z'
-        end:
-          type: string
-          description: 'Form field: The end time of the query.'
-          example: '2023-07-21T21:00:00.000Z'
-        match[]:
-          type: array
-          items:
-            type: string
-          description: 'Form field: Series selector argument that selects the series from which to read the label names.'
-          example:
-          - '{job="prometheus"}'
-        limit:
-          type: integer
-          format: int64
-          description: 'Form field: The maximum number of label names to return.'
-          example: 100
-      additionalProperties: false
-      description: POST request body for labels query.

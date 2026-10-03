@@ -333,7 +333,7 @@ paths:
                     status: error
 components:
   schemas:
-    DeleteSeriesOutputBody:
+    Error:
       type: object
       properties:
         status:
@@ -343,20 +343,20 @@ components:
           - error
           description: Response status.
           example: success
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
       required:
       - status
+      - errorType
+      - error
       additionalProperties: false
-      description: Response body containing only status.
+      description: Error response.
     DataStruct:
       type: object
       properties:
@@ -366,30 +366,6 @@ components:
       - name
       additionalProperties: false
       description: Generic data structure with a name field.
-    CleanTombstonesOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      additionalProperties: false
-      description: Response body containing only status.
     SnapshotOutputBody:
       type: object
       properties:
@@ -417,7 +393,7 @@ components:
       - data
       additionalProperties: false
       description: Response body for snapshot endpoint.
-    Error:
+    DeleteSeriesOutputBody:
       type: object
       properties:
         status:
@@ -427,17 +403,41 @@ components:
           - error
           description: Response status.
           example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
       required:
       - status
-      - errorType
-      - error
       additionalProperties: false
-      description: Error response.
+      description: Response body containing only status.
+    CleanTombstonesOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      additionalProperties: false
+      description: Response body containing only status.

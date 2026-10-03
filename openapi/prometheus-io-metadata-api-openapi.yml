@@ -448,24 +448,6 @@ components:
           description: 'Form field: Include metric metadata in each result.'
       additionalProperties: false
       description: POST request body for metric name search.
-    Metadata:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Metric type (counter, gauge, histogram, summary, or untyped).
-        unit:
-          type: string
-          description: Unit of the metric.
-        help:
-          type: string
-          description: Help text describing the metric.
-      required:
-      - type
-      - unit
-      - help
-      additionalProperties: false
-      description: Metric metadata.
     Error:
       type: object
       properties:
@@ -490,3 +472,21 @@ components:
       - error
       additionalProperties: false
       description: Error response.
+    Metadata:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Metric type (counter, gauge, histogram, summary, or untyped).
+        unit:
+          type: string
+          description: Unit of the metric.
+        help:
+          type: string
+          description: Help text describing the metric.
+      required:
+      - type
+      - unit
+      - help
+      additionalProperties: false
+      description: Metric metadata.
