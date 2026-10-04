@@ -1,0 +1,119 @@
+slug: prometheus-io
+provider: Prometheus
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 10
+edges:
+- tag: Query
+  spec_file: prometheus-io-query-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.9
+  evidence: GET /query  Evaluate an instant query; GET /query_range  Evaluate a range query; GET /query_exemplars  Query
+    exemplars; 'Format a PromQL query'
+  reason: PromQL evaluation over stored metrics and exemplars is the core act of making the running service
+    understandable in production — metrics/traces observability.
+- tag: Otlp
+  spec_file: prometheus-io-otlp-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.8
+  evidence: POST /otlp/v1/metrics  otlpWrite  OTLP metrics write endpoint
+  reason: Ingestion of OpenTelemetry metrics into the monitoring server's time series database is metrics
+    collection for production observability.
+- tag: Targets
+  spec_file: prometheus-io-targets-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.8
+  evidence: GET /targets  get-targets  Get targets; GET /scrape_pools; GET /targets/metadata; schemas
+    Target, DroppedTarget, ScrapePoolsDiscovery
+  reason: Scrape targets and pools are the instrumented endpoints the monitoring server collects metrics
+    from — directly the metrics-collection side of observability management.
+- tag: Alert
+  spec_file: prometheus-io-alert-api-openapi.yml
+  capability_id: BC-4220
+  capability_id_l1: BC-4220
+  capability_name: SaaS Platform Operations Management
+  confidence: 0.78
+  evidence: GET /alerts Get alerts; POST /alerts Post alerts; schemas gettableAlert, alertStatus, receiverReference
+    — "API of the Prometheus Alertmanager"
+  reason: Alertmanager alert ingestion and retrieval is monitoring/alerting for a running service, not
+    financial-crime or business alerting. Sits in SaaS Platform Operations; ambiguous between Observability
+    Management and Incident Response, so L1 only.
+- tag: Alerts
+  spec_file: prometheus-io-alerts-api-openapi.yml
+  capability_id: BC-4220
+  capability_id_l1: BC-4220
+  capability_name: SaaS Platform Operations Management
+  confidence: 0.75
+  evidence: GET /alerts Get active alerts; GET /alertmanagers Get Alertmanager discovery; schemas AlertDiscovery,
+    AlertmanagerTarget
+  reason: Active alerting-rule state and Alertmanager target discovery on a systems monitoring server
+    — platform operations alerting. Left at L1 since evidence does not clearly separate observability
+    from incident response.
+- tag: Rules
+  spec_file: prometheus-io-rules-api-openapi.yml
+  capability_id: BC-4220
+  capability_id_l1: BC-4220
+  capability_name: SaaS Platform Operations Management
+  confidence: 0.75
+  evidence: GET /rules  rules  Get alerting and recording rules; schemas RuleDiscovery, RuleGroup
+  reason: Alerting and recording rules belong to SaaS platform operations monitoring, but the surface
+    spans both metric aggregation (observability) and alert definition (incident detection), so only the
+    L1 is asserted.
+- tag: Labels
+  spec_file: prometheus-io-labels-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.7
+  evidence: GET /labels  labels  Get label names; GET /label/{name}/values  label-values  Get label values
+    — within a "monitoring system with a dimensional data model, flexible query language, efficient time
+    series database"
+  reason: Label name/value discovery is part of exploring the metrics time series stored by the monitoring
+    server, i.e. observability of the running service. Narrow and somewhat plumbing-like, so confidence
+    is moderate rather than high.
+- tag: Metadata
+  spec_file: prometheus-io-metadata-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.7
+  evidence: GET /search/metric_names  Search metric names; GET /metadata  Get metadata; schema MetricMetadata-style
+    'Metadata'
+  reason: Metric name and metric metadata discovery supports metrics-based observability. Thin surface,
+    so moderate confidence.
+- tag: Receiver
+  spec_file: prometheus-io-receiver-api-openapi.yml
+  capability_id: BC-4220.30
+  capability_id_l1: BC-4220
+  capability_name: Incident Response Management
+  confidence: 0.7
+  evidence: GET /receivers  getReceivers  Get receivers — "API of the Prometheus Alertmanager"
+  reason: Alertmanager receivers are the notification destinations alerts are routed to (paging/on-call
+    channels), which sits with incident detection and on-call response rather than metric collection.
+    Thin single-operation surface, hence moderate confidence.
+- tag: alertgroup
+  spec_file: prometheus-io-alertgroup-api-openapi.yml
+  capability_id: BC-4220.30
+  capability_id_l1: BC-4220
+  capability_name: Incident Response Management
+  confidence: 0.7
+  evidence: GET /alerts/groups  getAlertGroups  Get alert groups; schemas alertGroup, gettableAlert, alertStatus,
+    receiverReference
+  reason: Alertmanager alert grouping and status feeds operational alert triage and on-call notification
+    for production incidents; it is monitoring alerting, not financial-crime or business alerting. Moderate
+    confidence given the single operation.

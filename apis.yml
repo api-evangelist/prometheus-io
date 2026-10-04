@@ -778,6 +778,9 @@ apis:
   - type: Documentation
     url: https://prometheus.io/docs/alerting/latest/alertmanager/
 common:
+- type: CapabilityMap
+  url: capabilities/prometheus-io-capability-edges.yml
+  name: Prometheus Business Capability Map
 - type: Website
   url: https://www.prometheus.io/
 - type: AgenticAccess
