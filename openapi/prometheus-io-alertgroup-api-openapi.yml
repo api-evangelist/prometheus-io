@@ -86,69 +86,27 @@ components:
         application/json:
           schema:
             type: string
-  schemas:
-    alertGroup:
-      type: object
-      properties:
-        labels:
-          $ref: '#/components/schemas/labelSet'
-        receiver:
-          $ref: '#/components/schemas/receiverReference'
-        alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/gettableAlert'
-      required:
-      - labels
-      - receiver
-      - alerts
-    receiverReference:
-      type: object
-      properties:
-        name:
+  parameters:
+    receiverMatchers:
+      name: receiver_matchers
+      in: query
+      description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
           type: string
-      required:
-      - name
-    alertGroups:
-      type: array
-      items:
-        $ref: '#/components/schemas/alertGroup'
-    gettableAlert:
-      allOf:
-      - type: object
-        properties:
-          annotations:
-            $ref: '#/components/schemas/labelSet'
-          receivers:
-            type: array
-            items:
-              $ref: '#/components/schemas/receiverReference'
-          fingerprint:
-            type: string
-          startsAt:
-            type: string
-            format: date-time
-          updatedAt:
-            type: string
-            format: date-time
-          endsAt:
-            type: string
-            format: date-time
-          status:
-            $ref: '#/components/schemas/alertStatus'
-        required:
-        - receivers
-        - fingerprint
-        - startsAt
-        - updatedAt
-        - endsAt
-        - annotations
-        - status
-      - $ref: '#/components/schemas/alert'
+  schemas:
     labelSet:
       type: object
       additionalProperties:
         type: string
+    alertGroups:
+      type: array
+      items:
+        $ref: '#/components/schemas/alertGroup'
     alertStatus:
       type: object
       properties:
@@ -185,15 +143,57 @@ components:
           format: uri
       required:
       - labels
-  parameters:
-    receiverMatchers:
-      name: receiver_matchers
-      in: query
-      description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
+    alertGroup:
+      type: object
+      properties:
+        labels:
+          $ref: '#/components/schemas/labelSet'
+        receiver:
+          $ref: '#/components/schemas/receiverReference'
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/gettableAlert'
+      required:
+      - labels
+      - receiver
+      - alerts
+    gettableAlert:
+      allOf:
+      - type: object
+        properties:
+          annotations:
+            $ref: '#/components/schemas/labelSet'
+          receivers:
+            type: array
+            items:
+              $ref: '#/components/schemas/receiverReference'
+          fingerprint:
+            type: string
+          startsAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
+          endsAt:
+            type: string
+            format: date-time
+          status:
+            $ref: '#/components/schemas/alertStatus'
+        required:
+        - receivers
+        - fingerprint
+        - startsAt
+        - updatedAt
+        - endsAt
+        - annotations
+        - status
+      - $ref: '#/components/schemas/alert'
+    receiverReference:
+      type: object
+      properties:
+        name:
           type: string
+      required:
+      - name

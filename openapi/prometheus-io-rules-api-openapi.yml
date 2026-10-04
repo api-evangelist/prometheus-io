@@ -162,20 +162,6 @@ paths:
                     status: error
 components:
   schemas:
-    RuleDiscovery:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleGroup'
-        groupNextToken:
-          type: string
-          description: Pagination token for the next page of groups.
-      required:
-      - groups
-      additionalProperties: false
-      description: Rule discovery information containing all rule groups.
     RulesOutputBody:
       type: object
       properties:
@@ -203,6 +189,20 @@ components:
       - data
       additionalProperties: false
       description: Response body for rules endpoint.
+    RuleDiscovery:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleGroup'
+        groupNextToken:
+          type: string
+          description: Pagination token for the next page of groups.
+      required:
+      - groups
+      additionalProperties: false
+      description: Rule discovery information containing all rule groups.
     Error:
       type: object
       properties:

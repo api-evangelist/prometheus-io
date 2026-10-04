@@ -29,30 +29,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    alertmanagerConfig:
-      type: object
-      properties:
-        original:
-          type: string
-      required:
-      - original
-    clusterStatus:
-      type: object
-      properties:
-        name:
-          type: string
-        status:
-          type: string
-          enum:
-          - ready
-          - settling
-          - disabled
-        peers:
-          type: array
-          items:
-            $ref: '#/components/schemas/peerStatus'
-      required:
-      - status
     alertmanagerStatus:
       type: object
       properties:
@@ -70,16 +46,23 @@ components:
       - versionInfo
       - config
       - uptime
-    peerStatus:
+    clusterStatus:
       type: object
       properties:
         name:
           type: string
-        address:
+        status:
           type: string
+          enum:
+          - ready
+          - settling
+          - disabled
+        peers:
+          type: array
+          items:
+            $ref: '#/components/schemas/peerStatus'
       required:
-      - name
-      - address
+      - status
     versionInfo:
       type: object
       properties:
@@ -102,3 +85,20 @@ components:
       - buildUser
       - buildDate
       - goVersion
+    peerStatus:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+      - name
+      - address
+    alertmanagerConfig:
+      type: object
+      properties:
+        original:
+          type: string
+      required:
+      - original

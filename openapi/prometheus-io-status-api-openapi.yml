@@ -399,7 +399,7 @@ paths:
                     status: error
 components:
   schemas:
-    StatusWALReplayOutputBody:
+    StatusTSDBBlocksOutputBody:
       type: object
       properties:
         status:
@@ -410,7 +410,7 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/StatusWALReplayData'
+          $ref: '#/components/schemas/StatusTSDBBlocksData'
         warnings:
           type: array
           items:
@@ -425,7 +425,183 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for status WAL replay endpoint.
+      description: Response body for status TSDB blocks endpoint.
+    StatusSelfMetricsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          description: Response data (structure varies by endpoint).
+          example:
+            result: ok
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Generic response body.
+    StatusTSDBOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/TSDBStatus'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status TSDB endpoint.
+    TSDBStat:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: integer
+          format: int64
+      required:
+      - name
+      - value
+      additionalProperties: false
+      description: TSDB statistic.
+    BlockDesc:
+      type: object
+      properties:
+        ulid:
+          type: string
+        minTime:
+          type: integer
+          format: int64
+        maxTime:
+          type: integer
+          format: int64
+      required:
+      - ulid
+      - minTime
+      - maxTime
+      additionalProperties: false
+      description: Block descriptor.
+    StatusConfigOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/StatusConfigData'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status config endpoint.
+    StatusConfigData:
+      type: object
+      properties:
+        yaml:
+          type: string
+          description: Prometheus configuration in YAML format.
+      required:
+      - yaml
+      additionalProperties: false
+      description: Prometheus configuration.
+    PrometheusVersion:
+      type: object
+      properties:
+        version:
+          type: string
+        revision:
+          type: string
+        branch:
+          type: string
+        buildUser:
+          type: string
+        buildDate:
+          type: string
+        goVersion:
+          type: string
+      required:
+      - version
+      - revision
+      - branch
+      - buildUser
+      - buildDate
+      - goVersion
+      additionalProperties: false
+      description: Prometheus version information.
+    StatusFlagsOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: object
+          additionalProperties:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status flags endpoint.
     Error:
       type: object
       properties:
@@ -477,53 +653,6 @@ components:
       - data
       additionalProperties: false
       description: Response body for status build info endpoint.
-    PrometheusVersion:
-      type: object
-      properties:
-        version:
-          type: string
-        revision:
-          type: string
-        branch:
-          type: string
-        buildUser:
-          type: string
-        buildDate:
-          type: string
-        goVersion:
-          type: string
-      required:
-      - version
-      - revision
-      - branch
-      - buildUser
-      - buildDate
-      - goVersion
-      additionalProperties: false
-      description: Prometheus version information.
-    BlockStats:
-      type: object
-      properties:
-        numSamples:
-          type: integer
-          format: int64
-        numSeries:
-          type: integer
-          format: int64
-        numChunks:
-          type: integer
-          format: int64
-        numTombstones:
-          type: integer
-          format: int64
-        numFloatSamples:
-          type: integer
-          format: int64
-        numHistogramSamples:
-          type: integer
-          format: int64
-      additionalProperties: false
-      description: Block statistics.
     HeadStats:
       type: object
       properties:
@@ -550,144 +679,6 @@ components:
       - maxTime
       additionalProperties: false
       description: TSDB head statistics.
-    BlockMetaCompaction:
-      type: object
-      properties:
-        level:
-          type: integer
-          format: int64
-        sources:
-          type: array
-          items:
-            type: string
-        parents:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDesc'
-        failed:
-          type: boolean
-        deletable:
-          type: boolean
-        hints:
-          type: array
-          items:
-            type: string
-      required:
-      - level
-      additionalProperties: false
-      description: Block compaction metadata.
-    StatusFlagsOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          type: object
-          additionalProperties:
-            type: string
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for status flags endpoint.
-    BlockMeta:
-      type: object
-      properties:
-        ulid:
-          type: string
-        minTime:
-          type: integer
-          format: int64
-        maxTime:
-          type: integer
-          format: int64
-        stats:
-          $ref: '#/components/schemas/BlockStats'
-        compaction:
-          $ref: '#/components/schemas/BlockMetaCompaction'
-        version:
-          type: integer
-          format: int64
-      required:
-      - ulid
-      - minTime
-      - maxTime
-      - compaction
-      - version
-      additionalProperties: false
-      description: Block metadata.
-    StatusConfigData:
-      type: object
-      properties:
-        yaml:
-          type: string
-          description: Prometheus configuration in YAML format.
-      required:
-      - yaml
-      additionalProperties: false
-      description: Prometheus configuration.
-    StatusWALReplayData:
-      type: object
-      properties:
-        min:
-          type: integer
-          format: int64
-        max:
-          type: integer
-          format: int64
-        current:
-          type: integer
-          format: int64
-      required:
-      - min
-      - max
-      - current
-      additionalProperties: false
-      description: WAL replay status.
-    StatusSelfMetricsOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          description: Response data (structure varies by endpoint).
-          example:
-            result: ok
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Generic response body.
     TSDBStatus:
       type: object
       properties:
@@ -717,44 +708,6 @@ components:
       - seriesCountByLabelValuePair
       additionalProperties: false
       description: TSDB status information.
-    StatusRuntimeInfoOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/RuntimeInfo'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for status runtime info endpoint.
-    StatusTSDBBlocksData:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockMeta'
-      required:
-      - blocks
-      additionalProperties: false
-      description: TSDB blocks information.
     RuntimeInfo:
       type: object
       properties:
@@ -807,7 +760,67 @@ components:
       - storageRetention
       additionalProperties: false
       description: Prometheus runtime information.
-    StatusTSDBBlocksOutputBody:
+    BlockMetaCompaction:
+      type: object
+      properties:
+        level:
+          type: integer
+          format: int64
+        sources:
+          type: array
+          items:
+            type: string
+        parents:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDesc'
+        failed:
+          type: boolean
+        deletable:
+          type: boolean
+        hints:
+          type: array
+          items:
+            type: string
+      required:
+      - level
+      additionalProperties: false
+      description: Block compaction metadata.
+    BlockStats:
+      type: object
+      properties:
+        numSamples:
+          type: integer
+          format: int64
+        numSeries:
+          type: integer
+          format: int64
+        numChunks:
+          type: integer
+          format: int64
+        numTombstones:
+          type: integer
+          format: int64
+        numFloatSamples:
+          type: integer
+          format: int64
+        numHistogramSamples:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: Block statistics.
+    StatusTSDBBlocksData:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockMeta'
+      required:
+      - blocks
+      additionalProperties: false
+      description: TSDB blocks information.
+    StatusWALReplayOutputBody:
       type: object
       properties:
         status:
@@ -818,7 +831,7 @@ components:
           description: Response status.
           example: success
         data:
-          $ref: '#/components/schemas/StatusTSDBBlocksData'
+          $ref: '#/components/schemas/StatusWALReplayData'
         warnings:
           type: array
           items:
@@ -833,8 +846,35 @@ components:
       - status
       - data
       additionalProperties: false
-      description: Response body for status TSDB blocks endpoint.
-    BlockDesc:
+      description: Response body for status WAL replay endpoint.
+    StatusRuntimeInfoOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          $ref: '#/components/schemas/RuntimeInfo'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for status runtime info endpoint.
+    BlockMeta:
       type: object
       properties:
         ulid:
@@ -845,76 +885,36 @@ components:
         maxTime:
           type: integer
           format: int64
+        stats:
+          $ref: '#/components/schemas/BlockStats'
+        compaction:
+          $ref: '#/components/schemas/BlockMetaCompaction'
+        version:
+          type: integer
+          format: int64
       required:
       - ulid
       - minTime
       - maxTime
+      - compaction
+      - version
       additionalProperties: false
-      description: Block descriptor.
-    StatusConfigOutputBody:
+      description: Block metadata.
+    StatusWALReplayData:
       type: object
       properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/StatusConfigData'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for status config endpoint.
-    StatusTSDBOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          $ref: '#/components/schemas/TSDBStatus'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for status TSDB endpoint.
-    TSDBStat:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
+        min:
+          type: integer
+          format: int64
+        max:
+          type: integer
+          format: int64
+        current:
           type: integer
           format: int64
       required:
-      - name
-      - value
+      - min
+      - max
+      - current
       additionalProperties: false
-      description: TSDB statistic.
+      description: WAL replay status.

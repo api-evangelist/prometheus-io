@@ -124,33 +124,25 @@ paths:
       summary: Delete silence
       x-summary-source: derived
 components:
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: string
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: string
   schemas:
-    gettableSilence:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          status:
-            $ref: '#/components/schemas/silenceStatus'
-          updatedAt:
-            type: string
-            format: date-time
-        required:
-        - id
-        - status
-        - updatedAt
-        - annotations
-      - $ref: '#/components/schemas/silence'
     matchers:
       type: array
       items:
         $ref: '#/components/schemas/matcher'
       minItems: 1
-    gettableSilences:
-      type: array
-      items:
-        $ref: '#/components/schemas/gettableSilence'
     postableSilence:
       allOf:
       - type: object
@@ -162,22 +154,6 @@ components:
       type: object
       additionalProperties:
         type: string
-    matcher:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        isRegex:
-          type: boolean
-        isEqual:
-          type: boolean
-          default: true
-      required:
-      - name
-      - value
-      - isRegex
     silence:
       type: object
       properties:
@@ -212,16 +188,40 @@ components:
           - pending
       required:
       - state
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
+    gettableSilences:
+      type: array
+      items:
+        $ref: '#/components/schemas/gettableSilence'
+    matcher:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        isRegex:
+          type: boolean
+        isEqual:
+          type: boolean
+          default: true
+      required:
+      - name
+      - value
+      - isRegex
+    gettableSilence:
+      allOf:
+      - type: object
+        properties:
+          id:
             type: string
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
+          status:
+            $ref: '#/components/schemas/silenceStatus'
+          updatedAt:
             type: string
+            format: date-time
+        required:
+        - id
+        - status
+        - updatedAt
+        - annotations
+      - $ref: '#/components/schemas/silence'

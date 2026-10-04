@@ -49,46 +49,6 @@ paths:
                     status: error
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        errorType:
-          type: string
-          description: Type of error that occurred.
-          example: bad_data
-        error:
-          type: string
-          description: Human-readable error message.
-          example: invalid parameter
-      required:
-      - status
-      - errorType
-      - error
-      additionalProperties: false
-      description: Error response.
-    Notification:
-      type: object
-      properties:
-        text:
-          type: string
-        date:
-          type: string
-          format: date-time
-        active:
-          type: boolean
-      required:
-      - text
-      - date
-      - active
-      additionalProperties: false
-      description: Server notification.
     NotificationsOutputBody:
       type: object
       properties:
@@ -122,3 +82,43 @@ components:
       - data
       additionalProperties: false
       description: Response body with an array of notifications.
+    Notification:
+      type: object
+      properties:
+        text:
+          type: string
+        date:
+          type: string
+          format: date-time
+        active:
+          type: boolean
+      required:
+      - text
+      - date
+      - active
+      additionalProperties: false
+      description: Server notification.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        errorType:
+          type: string
+          description: Type of error that occurred.
+          example: bad_data
+        error:
+          type: string
+          description: Human-readable error message.
+          example: invalid parameter
+      required:
+      - status
+      - errorType
+      - error
+      additionalProperties: false
+      description: Error response.
