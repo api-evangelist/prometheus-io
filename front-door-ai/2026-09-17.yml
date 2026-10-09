@@ -7,14 +7,17 @@ front_door_ai:
   probed_at: '2026-09-17'
   host: www.prometheus.io
   final_host: prometheus.io
-  ownership: inherited
+  ownership: own
   owner: prometheus-io
   shares_host_with: null
-  inherited_from: prometheus.io
+  inherited_from: null
+  alias_of: prometheus.io
   verdict: silent
-  score: null
+  score: 0
+  band: 1
+  band_label: silent
   host_score: 0
-  density: null
+  density: 0.0
   words: 399
   tiers:
     agentic: 0
