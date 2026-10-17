@@ -95,80 +95,11 @@ paths:
       summary: Post alerts
       x-summary-source: derived
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            type: string
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: string
-  parameters:
-    receiverMatchers:
-      name: receiver_matchers
-      in: query
-      description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
   schemas:
-    labelSet:
-      type: object
-      additionalProperties:
-        type: string
-    alertStatus:
-      type: object
-      properties:
-        state:
-          type: string
-          enum:
-          - unprocessed
-          - active
-          - suppressed
-        silencedBy:
-          type: array
-          items:
-            type: string
-        inhibitedBy:
-          type: array
-          items:
-            type: string
-        mutedBy:
-          type: array
-          items:
-            type: string
-      required:
-      - state
-      - silencedBy
-      - inhibitedBy
-      - mutedBy
-    alert:
-      type: object
-      properties:
-        labels:
-          $ref: '#/components/schemas/labelSet'
-        generatorURL:
-          type: string
-          format: uri
-      required:
-      - labels
     gettableAlerts:
       type: array
       items:
         $ref: '#/components/schemas/gettableAlert'
-    postableAlerts:
-      type: array
-      items:
-        $ref: '#/components/schemas/postableAlert'
     gettableAlert:
       allOf:
       - type: object
@@ -201,6 +132,47 @@ components:
         - annotations
         - status
       - $ref: '#/components/schemas/alert'
+    alertStatus:
+      type: object
+      properties:
+        state:
+          type: string
+          enum:
+          - unprocessed
+          - active
+          - suppressed
+        silencedBy:
+          type: array
+          items:
+            type: string
+        inhibitedBy:
+          type: array
+          items:
+            type: string
+        mutedBy:
+          type: array
+          items:
+            type: string
+      required:
+      - state
+      - silencedBy
+      - inhibitedBy
+      - mutedBy
+    postableAlerts:
+      type: array
+      items:
+        $ref: '#/components/schemas/postableAlert'
+    labelSet:
+      type: object
+      additionalProperties:
+        type: string
+    receiverReference:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
     postableAlert:
       allOf:
       - type: object
@@ -214,10 +186,38 @@ components:
           annotations:
             $ref: '#/components/schemas/labelSet'
       - $ref: '#/components/schemas/alert'
-    receiverReference:
+    alert:
       type: object
       properties:
-        name:
+        labels:
+          $ref: '#/components/schemas/labelSet'
+        generatorURL:
           type: string
+          format: uri
       required:
-      - name
+      - labels
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: string
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: string
+  parameters:
+    receiverMatchers:
+      name: receiver_matchers
+      in: query
+      description: A matcher expression to filter by receiver labels. For example `owner="my-team"`. Can be repeated to apply multiple matchers.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string

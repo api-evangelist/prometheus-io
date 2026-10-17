@@ -341,6 +341,55 @@ paths:
                     status: error
 components:
   schemas:
+    Metadata:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Metric type (counter, gauge, histogram, summary, or untyped).
+        unit:
+          type: string
+          description: Unit of the metric.
+        help:
+          type: string
+          description: Help text describing the metric.
+      required:
+      - type
+      - unit
+      - help
+      additionalProperties: false
+      description: Metric metadata.
+    MetadataOutputBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Response status.
+          example: success
+        data:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Metadata'
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Only set if there were warnings while executing the request. There will still be data in the data field.
+        infos:
+          type: array
+          items:
+            type: string
+          description: Only set if there were info-level annotations while executing the request.
+      required:
+      - status
+      - data
+      additionalProperties: false
+      description: Response body for metadata endpoint.
     SearchMetricNamesPostInputBody:
       type: object
       properties:
@@ -417,55 +466,6 @@ components:
           description: 'Form field: Include metric metadata in each result.'
       additionalProperties: false
       description: POST request body for metric name search.
-    MetadataOutputBody:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          description: Response status.
-          example: success
-        data:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/Metadata'
-        warnings:
-          type: array
-          items:
-            type: string
-          description: Only set if there were warnings while executing the request. There will still be data in the data field.
-        infos:
-          type: array
-          items:
-            type: string
-          description: Only set if there were info-level annotations while executing the request.
-      required:
-      - status
-      - data
-      additionalProperties: false
-      description: Response body for metadata endpoint.
-    Metadata:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Metric type (counter, gauge, histogram, summary, or untyped).
-        unit:
-          type: string
-          description: Unit of the metric.
-        help:
-          type: string
-          description: Help text describing the metric.
-      required:
-      - type
-      - unit
-      - help
-      additionalProperties: false
-      description: Metric metadata.
     Error:
       type: object
       properties:

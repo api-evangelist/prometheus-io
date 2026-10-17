@@ -124,36 +124,7 @@ paths:
       summary: Delete silence
       x-summary-source: derived
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            type: string
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: string
   schemas:
-    matchers:
-      type: array
-      items:
-        $ref: '#/components/schemas/matcher'
-      minItems: 1
-    postableSilence:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-      - $ref: '#/components/schemas/silence'
-    labelSet:
-      type: object
-      additionalProperties:
-        type: string
     silence:
       type: object
       properties:
@@ -177,17 +148,6 @@ components:
       - endsAt
       - createdBy
       - comment
-    silenceStatus:
-      type: object
-      properties:
-        state:
-          type: string
-          enum:
-          - expired
-          - active
-          - pending
-      required:
-      - state
     gettableSilences:
       type: array
       items:
@@ -208,6 +168,29 @@ components:
       - name
       - value
       - isRegex
+    postableSilence:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+      - $ref: '#/components/schemas/silence'
+    silenceStatus:
+      type: object
+      properties:
+        state:
+          type: string
+          enum:
+          - expired
+          - active
+          - pending
+      required:
+      - state
+    matchers:
+      type: array
+      items:
+        $ref: '#/components/schemas/matcher'
+      minItems: 1
     gettableSilence:
       allOf:
       - type: object
@@ -225,3 +208,20 @@ components:
         - updatedAt
         - annotations
       - $ref: '#/components/schemas/silence'
+    labelSet:
+      type: object
+      additionalProperties:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: string
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: string

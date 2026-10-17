@@ -257,6 +257,10 @@ components:
       - data
       additionalProperties: false
       description: Response body with an array of label sets.
+    Labels:
+      type: object
+      additionalProperties: true
+      description: Label set represented as a key-value map.
     Error:
       type: object
       properties:
@@ -281,7 +285,3 @@ components:
       - error
       additionalProperties: false
       description: Error response.
-    Labels:
-      type: object
-      additionalProperties: true
-      description: Label set represented as a key-value map.
