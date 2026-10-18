@@ -103,5 +103,5 @@
     - silver
     - unknown
     builder: 'community (Meltano Hub variant maintainers: meshcloud, miroapp, signal-ai)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
