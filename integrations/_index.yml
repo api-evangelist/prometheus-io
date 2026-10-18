@@ -72,3 +72,36 @@
     detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
+- slug: prometheus-io-meltano
+  label: Meltano
+  partner: meltano
+  partner_name: Meltano
+  type: marketplace
+  marketplace: meltano-hub
+  channel: elt-connector
+  evidence: https://hub.meltano.com/extractors/tap-prometheus--meshcloud
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Meltano Hub (github.com/meltano/hub _data/meltano extractors + loaders)
+    spec_file: null
+    role: elt-connector:meltano-hub
+    registered_name: Prometheus
+    matched_domain: prometheus.io
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    plugins:
+    - tap-prometheus--meshcloud
+    - tap-prometheus--miroapp
+    - tap-prometheus--signal-ai
+    maintenance_status:
+    - active
+    - unknown
+    quality:
+    - silver
+    - unknown
+    builder: 'community (Meltano Hub variant maintainers: meshcloud, miroapp, signal-ai)'
+  status: pending-partner-spec
+  arazzo: null
