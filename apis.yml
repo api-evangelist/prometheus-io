@@ -97,6 +97,11 @@ apis:
   tags:
   - Exposition
   - OpenMetrics
+  - Web Scraping
+  - Metrics Format
+  tags_raw:
+  - Exposition
+  - OpenMetrics
   - Scraping
   - Metrics Format
   humanURL: https://prometheus.io/docs/instrumenting/exposition_formats/
