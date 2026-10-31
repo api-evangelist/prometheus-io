@@ -1,4 +1,4 @@
-# Prometheus (prometheus-io)
+# Prometheus
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,197 +66,177 @@
 
 Prometheus is a Cloud Native Computing Foundation graduated open source systems monitoring and alerting toolkit. A Prometheus server scrapes metrics over HTTP from instrumented targets, stores them in an embedded time series database, and lets operators query, alert, and aggregate them with the PromQL query language. The project pairs the Prometheus server with Alertmanager for alert routing and silencing, official client libraries for Go, Java, Python, Ruby, and Rust, and a large ecosystem of exporters (node, blackbox, snmp, statsd, jmx, mysqld, cloudwatch, consul, graphite, memcached, pushgateway, etc.) for pulling metrics out of existing systems. Prometheus also drives the OpenMetrics exposition format and an experimental Remote Write 2.0 protocol for shipping samples to long-term storage backends.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/prometheus-io/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/prometheus-io/refs/heads/main/apis.yml)
+**Areas:** Prometheus · Monitoring · Metrics · Observability · Time Series · Alerting · Cloud-Native · CNCF · Open Source · PromQL · Telemetry
 
-## Scope
+## Prometheus on APIs.io
 
-- **Access:** Self-Hosted
+Everything profiled for Prometheus is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/prometheus-io/](https://apis.io/providers/prometheus-io/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (21)
 
-- Monitoring
-- Metrics
-- Observability
-- Time Series
-- Alerting
-- Cloud Native
-- CNCF
-- Open Source
-- PromQL
-- Telemetry
+- [Prometheus Remote Write](https://apis.io/apis/prometheus-io/prometheus-remote-write/) — Remote Write is Prometheus' push protocol for shipping scraped samples to long-term storage and analysis backends (Cortex, Thanos, Mimir, VictoriaMetrics,…
+- [Prometheus Exposition Format / OpenMetrics](https://apis.io/apis/prometheus-io/prometheus-exposition-format/) — The text-based exposition format that every instrumented target exposes (typically on /metrics) and that the Prometheus server scrapes over HTTP. The format…
+- [Prometheus OTLP Metrics Receiver](https://apis.io/apis/prometheus-io/prometheus-otlp-receiver/) — Optional OpenTelemetry Protocol metrics receiver exposed on /api/v1/otlp/v1/metrics when the Prometheus server is started with --web.enable-otlp-receiver.…
+- [Prometheus Admin API](https://apis.io/apis/prometheus-io/prometheus-io-admin-api/) — Administrative operations for TSDB management.
+- [Prometheus Alert API](https://apis.io/apis/prometheus-io/prometheus-io-alert-api/) — Everything related to Alertmanager alerts
+- [Prometheus Alertgroup API](https://apis.io/apis/prometheus-io/prometheus-io-alertgroup-api/) — The alertgroup API from Prometheus — 1 operation(s) for alertgroup.
+- [Prometheus Alerts API](https://apis.io/apis/prometheus-io/prometheus-io-alerts-api/) — Query active alerts and alertmanager discovery.
+- [Prometheus Features API](https://apis.io/apis/prometheus-io/prometheus-io-features-api/) — Query enabled features.
+- [Prometheus General API](https://apis.io/apis/prometheus-io/prometheus-io-general-api/) — General Alertmanager operations
+- [Prometheus Labels API](https://apis.io/apis/prometheus-io/prometheus-io-labels-api/) — Query label names and values.
+- [Prometheus Metadata API](https://apis.io/apis/prometheus-io/prometheus-io-metadata-api/) — Retrieve metric metadata such as type and unit.
+- [Prometheus Notifications API](https://apis.io/apis/prometheus-io/prometheus-io-notifications-api/) — Server notifications and events.
+- [Prometheus Otlp API](https://apis.io/apis/prometheus-io/prometheus-io-otlp-api/) — OpenTelemetry Protocol metrics ingestion.
+- [Prometheus Query API](https://apis.io/apis/prometheus-io/prometheus-io-query-api/) — Query and evaluate PromQL expressions.
+- [Prometheus Receiver API](https://apis.io/apis/prometheus-io/prometheus-io-receiver-api/) — Everything related to Alertmanager receivers
+- [Prometheus Remote API](https://apis.io/apis/prometheus-io/prometheus-io-remote-api/) — Remote read and write endpoints.
+- [Prometheus Rules API](https://apis.io/apis/prometheus-io/prometheus-io-rules-api/) — Query recording and alerting rules.
+- [Prometheus Series API](https://apis.io/apis/prometheus-io/prometheus-io-series-api/) — Query and manage time series.
+- [Prometheus Silence API](https://apis.io/apis/prometheus-io/prometheus-io-silence-api/) — Everything related to Alertmanager silences
+- [Prometheus Status API](https://apis.io/apis/prometheus-io/prometheus-io-status-api/) — Retrieve server status and configuration.
+- [Prometheus Targets API](https://apis.io/apis/prometheus-io/prometheus-io-targets-api/) — Retrieve target and scrape pool information.
 
-## Timestamps
+### Published properties
 
-- **Created:** Sun May 24 2026 20:00:00 GMT-0400 (Eastern Daylight Time)
-- **Modified:** Sun May 24 2026 20:00:00 GMT-0400 (Eastern Daylight Time)
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Prometheus Server HTTP API
+GraphQL schemas.
 
-The HTTP API exposed by every Prometheus server under /api/v1. Lets clients evaluate instant and range PromQL queries, list and search series, labels and metric metadata, inspect targets, scrape pools, rules, active alerts, alertmanagers, status, TSDB stats, WAL replay, build/runtime info, server-side notifications, and the live feature set. Also includes admin endpoints behind --web.enable-admin-api for snapshots, series deletion, and tombstone clean-up, plus optional remote read/write and OTLP metrics receivers. Stable v1 with non-breaking additions; experimental endpoints (parse_query, query_exemplars, targets/relabel_steps, status/tsdb/blocks, notifications) are clearly marked.
+- [Moved to /providers/prometheus-io/](https://apis.io/graphqls/prometheus-io/prometheus-io-graphql/)
 
-- **Human URL:** [https://prometheus.io/docs/prometheus/latest/querying/api/](https://prometheus.io/docs/prometheus/latest/querying/api/)
-- **Base URL:** `http://localhost:9090/api/v1`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Metrics
-- PromQL
-- Query
-- Monitoring
+- [Prometheus Io Agentic Access](https://apis.io/agentic-access/prometheus-io/prometheus-io-agentic-access/)
 
-#### Properties
+#### JSON Schema (2)
 
-- [Documentation](https://prometheus.io/docs/prometheus/latest/querying/api/)
-- [Documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/)
-- [Documentation](https://prometheus.io/docs/prometheus/latest/querying/operators/)
-- [Documentation](https://prometheus.io/docs/prometheus/latest/querying/functions/)
-- [OpenAPI](openapi/prometheus-server-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/prometheus-server-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-server-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/prometheus-query-result-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/prometheus-target-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/prometheus-io-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Example](examples/prometheus-query-example.json)
-- [Example](examples/prometheus-query-range-example.json)
-- [Example](examples/prometheus-targets-example.json)
+The data models the API reads and writes.
 
-### Prometheus Alertmanager API v2
+- [Prometheus Query Result](https://apis.io/schemas/prometheus-io/prometheus-query-result/)
+- [Prometheus Scrape Target](https://apis.io/schemas/prometheus-io/prometheus-target/)
 
-Alertmanager's HTTP API v2 — the canonical interface for posting alerts, listing and grouping firing/inhibited/silenced alerts, managing silences, listing configured receivers, and inspecting cluster status. Spec is generated with go-swagger from api/v2/openapi.yaml in the alertmanager repo and consumed by the Alertmanager UI and external integrations.
+#### JSON-LD (1)
 
-- **Human URL:** [https://github.com/prometheus/alertmanager](https://github.com/prometheus/alertmanager)
-- **Base URL:** `http://localhost:9093/api/v2`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Prometheus Io Context](https://apis.io/jsonld/prometheus-io/prometheus-io-context/)
 
-- Alerts
-- Silences
-- Notifications
-- Receivers
-- Cluster
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://github.com/prometheus/alertmanager/blob/main/api/v2/openapi.yaml)
-- [Documentation](https://prometheus.io/docs/alerting/latest/alertmanager/)
-- [OpenAPI](openapi/prometheus-alertmanager-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/prometheus-alertmanager-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-alertmanager-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Prometheus Vocabulary](https://apis.io/vocabularies/prometheus-io/prometheus-io-vocabulary/)
 
-### Prometheus Remote Write
+#### Examples (3)
 
-Remote Write is Prometheus' push protocol for shipping scraped samples to long-term storage and analysis backends (Cortex, Thanos, Mimir, VictoriaMetrics, InfluxDB, Datadog, etc.). Snappy-compressed protocol-buffer payloads POSTed over HTTP. Version 1.0 is stable and widely implemented; version 2.0 (experimental specification) adds native histograms, metadata-per-series, created timestamps, and tighter validation.
+Example requests and responses.
 
-- **Human URL:** [https://prometheus.io/docs/specs/prw/remote_write_spec_2_0/](https://prometheus.io/docs/specs/prw/remote_write_spec_2_0/)
+- [Prometheus Query Example](https://apis.io/examples/prometheus-io/prometheus-query-example/)
+- [Prometheus Query Range Example](https://apis.io/examples/prometheus-io/prometheus-query-range-example/)
+- [Prometheus Targets Example](https://apis.io/examples/prometheus-io/prometheus-targets-example/)
 
-#### Tags
+#### Collections (20)
 
-- Remote Write
-- Ingest
-- Protocol Buffers
-- Streaming
+Postman and Open Collection request collections.
 
-#### Properties
+- [Alertmanager API](https://apis.io/collections/prometheus-io/open-prometheus-alertmanager-api/)
+- [Alertmanager admin API](https://apis.io/collections/prometheus-io/open-prometheus-io-admin-api/)
+- [Alertmanager admin alert API](https://apis.io/collections/prometheus-io/open-prometheus-io-alert-api/)
+- [Alertmanager admin alertgroup API](https://apis.io/collections/prometheus-io/open-prometheus-io-alertgroup-api/)
+- [Alertmanager admin alerts API](https://apis.io/collections/prometheus-io/open-prometheus-io-alerts-api/)
+- [Alertmanager admin features API](https://apis.io/collections/prometheus-io/open-prometheus-io-features-api/)
+- [Alertmanager admin general API](https://apis.io/collections/prometheus-io/open-prometheus-io-general-api/)
+- [Alertmanager admin labels API](https://apis.io/collections/prometheus-io/open-prometheus-io-labels-api/)
+- [Alertmanager admin metadata API](https://apis.io/collections/prometheus-io/open-prometheus-io-metadata-api/)
+- [Alertmanager admin notifications API](https://apis.io/collections/prometheus-io/open-prometheus-io-notifications-api/)
+- [Alertmanager admin otlp API](https://apis.io/collections/prometheus-io/open-prometheus-io-otlp-api/)
+- [Alertmanager admin query API](https://apis.io/collections/prometheus-io/open-prometheus-io-query-api/)
+- [Alertmanager admin receiver API](https://apis.io/collections/prometheus-io/open-prometheus-io-receiver-api/)
+- [Alertmanager admin remote API](https://apis.io/collections/prometheus-io/open-prometheus-io-remote-api/)
+- [Alertmanager admin rules API](https://apis.io/collections/prometheus-io/open-prometheus-io-rules-api/)
+- [Alertmanager admin series API](https://apis.io/collections/prometheus-io/open-prometheus-io-series-api/)
+- [Alertmanager admin silence API](https://apis.io/collections/prometheus-io/open-prometheus-io-silence-api/)
+- [Alertmanager admin status API](https://apis.io/collections/prometheus-io/open-prometheus-io-status-api/)
+- [Alertmanager admin targets API](https://apis.io/collections/prometheus-io/open-prometheus-io-targets-api/)
+- [Prometheus API](https://apis.io/collections/prometheus-io/open-prometheus-server-api/)
 
-- [Documentation](https://prometheus.io/docs/specs/prw/remote_write_spec/)
-- [Documentation](https://prometheus.io/docs/specs/prw/remote_write_spec_2_0/)
-- [Proto Buf](https://github.com/prometheus/prometheus/blob/main/prompb/remote.proto)
-- [Postman Collection](collections/prometheus-alertmanager-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-alertmanager-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/prometheus-server-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-server-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (2)
 
-### Prometheus Exposition Format / OpenMetrics
+Spectral rulesets for the provider's contracts.
 
-The text-based exposition format that every instrumented target exposes (typically on /metrics) and that the Prometheus server scrapes over HTTP. The format evolved into OpenMetrics, a CNCF Sandbox specification that is the standardized successor; both are scrape-compatible with Prometheus. Defines counters, gauges, histograms, summaries, and (in OpenMetrics) info, stateset, gaugehistogram, and exemplars.
+- [Prometheus — jsonschema rules](https://apis.io/rules/prometheus-io/prometheus-io-jsonschema-spectral-rules/)
+- [Prometheus API Rules](https://apis.io/rules/prometheus-io/prometheus-io-rules/)
 
-- **Human URL:** [https://prometheus.io/docs/instrumenting/exposition_formats/](https://prometheus.io/docs/instrumenting/exposition_formats/)
+#### Security (1)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Exposition
-- OpenMetrics
-- Scraping
-- Metrics Format
+- [Prometheus Io Domain Security](https://apis.io/security/prometheus-io/prometheus-io-domain-security/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://prometheus.io/docs/instrumenting/exposition_formats/)
-- [Documentation](https://openmetrics.io/)
-- [Source Code](https://github.com/prometheus/OpenMetrics)
-- [Postman Collection](collections/prometheus-alertmanager-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-alertmanager-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/prometheus-server-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-server-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Prometheus OTLP Metrics Receiver
-
-Optional OpenTelemetry Protocol metrics receiver exposed on /api/v1/otlp/v1/metrics when the Prometheus server is started with --web.enable-otlp-receiver. Accepts OTLP/HTTP protobuf payloads from OpenTelemetry Collectors and SDKs; delta-to-cumulative conversion is available behind --enable-feature=otlp-deltatocumulative.
-
-- **Human URL:** [https://prometheus.io/docs/prometheus/latest/feature_flags/](https://prometheus.io/docs/prometheus/latest/feature_flags/)
-
-#### Tags
-
-- OTLP
-- OpenTelemetry
-- Receiver
-- Ingest
-
-#### Properties
-
-- [Documentation](https://prometheus.io/docs/guides/opentelemetry/)
-- [Source Code](https://github.com/open-telemetry/opentelemetry-proto)
-- [Postman Collection](collections/prometheus-alertmanager-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-alertmanager-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/prometheus-server-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/prometheus-server-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Portal](https://prometheus.io/)
+- [Website](https://www.prometheus.io/)
 - [Documentation](https://prometheus.io/docs/introduction/overview/)
-- [Documentation](https://prometheus.io/docs/prometheus/latest/querying/api/)
-- [Source Code](https://github.com/prometheus)
-- [Source Code](https://github.com/prometheus/prometheus)
 - [Changelog](https://github.com/prometheus/prometheus/releases)
-- [Download](https://prometheus.io/download/)
-- [Forum](https://prometheus.io/community/)
-- [Documentation](https://prometheus.io/docs/introduction/glossary/)
 - [Blog](https://prometheus.io/blog/)
-- [Terms of Service](https://github.com/cncf/foundation/blob/main/charter.md)
-- [Documentation](https://www.cncf.io/projects/prometheus/)
-- [Terms of Service](https://github.com/prometheus/governance)
-- [License](https://github.com/prometheus/prometheus/blob/main/LICENSE)
 - [Security](https://github.com/prometheus/prometheus/security/policy)
-- [Changelog](https://github.com/prometheus/prometheus/blob/main/CHANGELOG.md)
-- [SDK](https://github.com/prometheus/client_golang)
-- [SDK](https://github.com/prometheus/client_python)
-- [SDK](https://github.com/prometheus/client_java)
-- [SDK](https://github.com/prometheus/client_ruby)
-- [SDK](https://github.com/prometheus/client_rust)
-- [SDK](https://github.com/siimon/prom-client)
-- [SDK](https://github.com/jupp0r/prometheus-cpp)
-- [Tools](https://github.com/prometheus/alertmanager)
-- [Tools](https://github.com/prometheus/node_exporter)
-- [Tools](https://github.com/prometheus/blackbox_exporter)
-- [Tools](https://github.com/prometheus/snmp_exporter)
-- [Tools](https://github.com/prometheus/statsd_exporter)
-- [Tools](https://github.com/prometheus/jmx_exporter)
-- [Tools](https://github.com/prometheus/mysqld_exporter)
-- [Tools](https://github.com/prometheus/cloudwatch_exporter)
-- [Tools](https://github.com/prometheus/pushgateway)
-- [Tools](https://github.com/prometheus/promlens)
-- [Tools](https://github.com/prometheus/prom2json)
-- [Documentation](https://github.com/prometheus/OpenMetrics)
-- [Documentation](https://github.com/prometheus/proposals)
-- [Documentation](https://prometheus.io/docs/prometheus/latest/installation/)
-- [Container Image](https://hub.docker.com/r/prom/prometheus)
-- [LinkedIn](https://www.linkedin.com/company/cloud-native-computing-foundation/)
-- [Twitter](https://twitter.com/PrometheusIO)
+- [Terms of service](https://github.com/cncf/foundation/blob/main/charter.md)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
+**Kin Score 35.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 56.3 |
+| Contract governance | 13.6 |
+| Operational transparency | 31.6 |
+| Developer ergonomics | 42.9 |
+| Access clarity | 10.5 |
+
+**Agent readiness 19.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 14.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/prometheus-io/](https://apis.io/providers/prometheus-io/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Prometheus: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/prometheus-io/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
